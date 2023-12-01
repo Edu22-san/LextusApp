@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "./Logo-lextus.png";
-import User from "../../assets/img/user.png";
+import User from "./user.png";
 import "./menuStyle.css"; 
 
 const Menu = () => {
