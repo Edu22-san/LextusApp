@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Logo from "../../assets/img/logo-lextus.png";
+import Logo from "./Logo-lextus.png";
 import User from "../../assets/img/user.png";
 import "./menuStyle.css"; 
 

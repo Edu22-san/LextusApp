@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./cardLogin.css";
-import Logo from "../../assets/img/logo.png";
+import Logo from "./logo.png";
 
 const CardLogin = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
