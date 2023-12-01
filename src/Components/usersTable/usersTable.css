@@ -1,0 +1,45 @@
+.fila-espacio{
+    height: 10px;
+}
+
+.icon-verde {
+    color: #2fef98;
+    background: #d7f4f5;
+    padding: 8px;
+    border-radius: 50%;
+}
+
+.icon-buscar {
+    color: #fe2a0d;
+    background: #fbddd8;
+    padding: 8px;
+    border-radius: 50%;
+}
+.table-enc{
+    background: #7e839b;
+}
+
+.dropdown {
+    width: 20%;
+    position: relative;
+  }
+  
+  .dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    padding: 8px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    color: black;
+}
+
+.container-options {
+    display: flex;
+    flex-direction: row;
+}
