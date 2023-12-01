@@ -47,3 +47,30 @@
 span.container-icon.absolute.right-4.top-1\/2.transform.-translate-y-1\/2.cursor-pointer {
     left: 283px;
 }
+
+th {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-left: 20px;
+    padding-right: 4px;
+}
+
+td {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 20px;
+    padding-right: 4px;
+}
+  tbody.p-datatable-tbody>tr {
+    background: white;
+    color: blue;
+}
+
+thead.p-datatable-thead {
+    background: gray;
+}
+
+  table.p-datatable-table {
+    border-spacing: 0px 20px !important;
+    border-collapse: initial;
+}
