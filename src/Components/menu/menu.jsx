@@ -154,8 +154,8 @@ const Menu = () => {
       <nav class="bg-gray-50 dark:bg-gray-700 container-menu2-sub">
         <div class="max-w-screen-xl px-4 py-3 mx-auto">
           <div class="flex items-center justify-center">
-            <ul class="flex flex-row  mt-0 space-x-8 rtl:space-x-reverse text-sm">
-              <li className="relative margin-rv">
+            <ul class="flex flex-row  mt-0 space-x-2 lg:space-x-8 md:space-x-8 rtl:space-x-reverse text-sm">
+              <li className="relative">
                 <a href="#"
                   className={`text-gray-800 font-bold text-decoration-none  ${isAboutUsDropdownOpen && 'text-blue-500'}`}
                   aria-current="page"
@@ -176,7 +176,7 @@ const Menu = () => {
                   </div>
                 )}
               </li>
-              <li className="relative margin-rv">
+              <li className="relative">
                 <a
                   href="#"
                   className={`text-gray-800 font-bold text-decoration-none ${isServicesDropdownOpen && 'text-blue-500'}`}
@@ -196,12 +196,12 @@ const Menu = () => {
                   </div>
                 )}
               </li>
-              <li className="margin-rv">
+              <li>
                 <a href="#" class="text-gray-800 font-bold hover:underline">
                   Bloc
                 </a>
               </li>
-              <li className="margin-rv">
+              <li>
                 <a href="#" class="text-gray-800 font-bold hover:underline">
                   Contact Us
                 </a>
