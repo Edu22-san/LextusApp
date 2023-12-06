@@ -108,7 +108,7 @@ const Userstable = () => {
               value={searchText}
               onChange={onSearch}
             />
-            <span className="container-icon absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer left-[325px] lg:left-[283px] md:left-[283px]">
+            <span className="container-icon absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer lg:left-[283px] md:left-[283px]">
               <i
                 className="fa-solid fa-magnifying-glass icon-style"
                 style={{ color: "#b2b2b2", cursor: "pointer" }}
