@@ -73,7 +73,7 @@ const Userstable = () => {
 
   return (
     <>
-      <div className="w-full flex flex-row items-end justify-between mb-[2.5rem]">
+      <div className="w-full flex flex-row items-end justify-between mb-[2.5rem] lg:mb-[2.5rem] md:mb-[2.5rem]">
         <div className="colum1">
           <h1 className="text-5xl font-semibold text-white">Customer</h1>
           <p className="text-white text-sm font-thin">
@@ -85,12 +85,12 @@ const Userstable = () => {
         </button>
       </div>
       <div className="w-full mb-[2rem]">
-        <div className="flex flex-row items-baseline">
-          <p className="text-white text-sm font-thin mr-12"> All customers</p>
-          <p className="text-white text-sm font-thin mr-12"> Last 30 days</p>
-          <p className="text-white text-sm font-thin mr-12">Last 6 months</p>
+        <div className="flex flex-col sm:flex-row items-center md:items-baseline">
+          <p className="text-white text-sm font-thin lg:mr-12 md:mr-12 mt-1"> All customers</p>
+          <p className="text-white text-sm font-thin lg:mr-12 md:mr-12 mt-1"> Last 30 days</p>
+          <p className="text-white text-sm font-thin lg:mr-12 md:mr-12 mt-1">Last 6 months</p>
           <select
-            className="bg-transparent text-white outline-none"
+            className="bg-transparent text-white outline-none mt-1"
             name=""
             id=""
           >
@@ -100,15 +100,15 @@ const Userstable = () => {
           </select>
         </div>
         <div className="flex items-center">
-          <div className="relative w-1/2  mt-2">
+          <div className="relative w-full lg:w-1/2 md:w-1/2  mt-2">
             <input
               type="search"
-              className="h-12 w-[20rem] pl-4 rounded-full focus:outline-none boxshadow"
+              className="h-12 w-full lg:w-[20rem] md:w-[20rem] pl-4 rounded-full focus:outline-none boxshadow"
               placeholder="Search..."
               value={searchText}
               onChange={onSearch}
             />
-            <span className="container-icon absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer ">
+            <span className="container-icon absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer left-[340px] lg:left-[283px] md:left-[283px]">
               <i
                 className="fa-solid fa-magnifying-glass icon-style"
                 style={{ color: "#b2b2b2", cursor: "pointer" }}
@@ -138,7 +138,7 @@ const Userstable = () => {
           <Column
             field="matter"
             header="Matter"
-            className="row-spacing" // Agrega la clase row-spacing a esta columna
+            className="row-spacing" 
           />
           <Column field="lastUpdate" header="Last Update" className="row-spacing" />
           <Column field="dacProvided" header="% Dac Provided" className="row-spacing" />

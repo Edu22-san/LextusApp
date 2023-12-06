@@ -44,9 +44,7 @@
     flex-direction: row;
 }
 
-span.container-icon.absolute.right-4.top-1\/2.transform.-translate-y-1\/2.cursor-pointer {
-    left: 283px;
-}
+
 
 th {
     padding-top: 16px;

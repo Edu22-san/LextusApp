@@ -13,14 +13,14 @@ const CardLogin = () => {
   return (
     <>
       <div className="container-card-login mx-auto">
-        <h1 className="text-white font-bold text-4xl">Welcome to Law Portal</h1>
-        <img src={Logo} alt="" className="mt-4" />
+        <h1 className="text-white font-bold text-2xl md:text-4xl lg:text-4xl">Welcome to Law Portal</h1>
+        <img src={Logo} alt="" className="mt-4 w-full md:w-[25rem] lg:w-[25rem]" />
         <input
           type="text"
           placeholder="Usuario"
-          className="w-1/2 h-12 pl-4 rounded-full mt-4 focus:outline-none boxshadow"
+          className="w-full  md:w-1/2 lg:w-1/2 h-12 pl-4 rounded-full mt-8 focus:outline-none boxshadow"
         />
-        <div className="relative w-1/2 text-center mt-8">
+        <div className="relative w-full md:w-1/2 lg:w-1/2 text-center mt-8">
           <input
             type={passwordVisible ? "text" : "password"}
             placeholder="Password"
@@ -43,7 +43,7 @@ const CardLogin = () => {
             )}
           </span>
         </div>
-        <div className="w-1/2 mt-8 flex items-center justify-between ">
+        <div className="w-1/2 mt-8 flex flex-col sm:flex-row items-center justify-between ">
           <div className="flex items-center space-x-2">
             <input
               type="checkbox"

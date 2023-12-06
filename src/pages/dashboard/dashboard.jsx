@@ -6,26 +6,26 @@ const Dashboard = () => {
   return (
     <>
       <div className="min-w-full flex flex-col items-center justify-center mt-[4rem]">
-        <div className="w-[40%] flex flex-col items-center justify-center">
-          <h1 className="text-white text-8xl font-bold">Lorem ipsum</h1>
-          <p className="text-center text-white text-2xl font-light pt-2">
+        <div className="md:w-[40%] lg:w-[40%] w-[90%] flex flex-col items-center justify-center">
+          <h1 className="text-white text-5xl lg:text-8xl md:text-8xl font-bold">Lorem ipsum</h1>
+          <p className="text-center text-white text-xl md:text-2xl lg:text-2xl font-light pt-2">
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 items-center justify-center rounded-xl p-1 w-[70%] mt-[2rem] gap-4">
-          <Link to="/user/tabscontenido" className="py-2.5 text-white text-2xl font-medium leading-5 bg-transparent flex flex-col justify-center items-center boxshadow-rv w-full">
+        <div className="grid grid-cols-1 md:grid-cols-3 items-center justify-center rounded-xl p-1 w-[90%] lg:w-[70%] md:w-[70%] mt-[2rem] gap-4">
+          <Link to="/user/tabscontenido" className="py-2.5 text-white text-xl md:text-2xl lg:text-2xl font-medium leading-5 bg-transparent flex flex-col justify-center items-center boxshadow-rv w-full">
             View Users
           </Link>
-          <Link to="" className="py-2.5 text-white text-2xl font-medium leading-5 bg-transparent flex flex-col justify-center items-center boxshadow-rv w-full">
+          <Link to="" className="py-2.5 text-white text-xl md:text-2xl lg:text-2xl font-medium leading-5 bg-transparent flex flex-col justify-center items-center boxshadow-rv w-full">
             View Document Catalogs
           </Link>
-          <Link to="" className="py-2.5 text-white text-2xl font-medium leading-5 bg-transparent flex flex-col justify-center items-center boxshadow-rv w-full" >
+          <Link to="" className="py-2.5 text-white text-xl md:text-2xl lg:text-2xl font-medium leading-5 bg-transparent flex flex-col justify-center items-center boxshadow-rv w-full" >
             View Payment Plans
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 items-center justify-center rounded-xl p-1 w-[85%] mt-[3rem] gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 items-center justify-center rounded-xl p-1 w-[90%] lg:w-[85%] md:w-[85%] mt-[3rem] gap-4">
 
           <div className="p-5 color-txt-rv text-base font-medium leading-5 bg-white flex flex-col justify-start items-center boxshadow-rv2 w-full h-[33vh]">
             <div className="w-full flex flex-row items-center justify-between pb-1 border-b-2 border-solid border-gray-300">
