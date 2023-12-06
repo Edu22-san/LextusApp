@@ -37,18 +37,31 @@ const Menu = () => {
     if (isServicesDropdownOpen) {
       setIsServicesDropdownOpen(false);
     }
+    if (isUserDropdownOpen) {
+      setIsUserDropdownOpen(false);
+    }
   };
-
+  
   const handleServicesDropdownToggle = () => {
     setIsServicesDropdownOpen(!isServicesDropdownOpen);
     if (isAboutUsDropdownOpen) {
       setIsAboutUsDropdownOpen(false);
     }
+    if (isUserDropdownOpen) {
+      setIsUserDropdownOpen(false);
+    }
   };
-
+  
   const handleUserDropdownToggle = () => {
     setIsUserDropdownOpen(!isUserDropdownOpen);
+    if (isAboutUsDropdownOpen) {
+      setIsAboutUsDropdownOpen(false);
+    }
+    if (isServicesDropdownOpen) {
+      setIsServicesDropdownOpen(false);
+    }
   };
+  
   return (
     <>
       <div className="container-menu">
@@ -154,7 +167,7 @@ const Menu = () => {
       <nav class="bg-gray-50 dark:bg-gray-700 container-menu2-sub">
         <div class="max-w-screen-xl px-4 py-3 mx-auto">
           <div class="flex items-center justify-center">
-            <ul class="flex flex-row  mt-0 space-x-2 lg:space-x-8 md:space-x-8 rtl:space-x-reverse text-sm">
+            <ul class="w-full flex items-center justify-around rtl:space-x-reverse text-sm">
               <li className="relative">
                 <a href="#"
                   className={`text-gray-800 font-bold text-decoration-none  ${isAboutUsDropdownOpen && 'text-blue-500'}`}

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import "./usersTable.css";
 
 const Userstable = () => {
@@ -80,9 +80,9 @@ const Userstable = () => {
             565 registered customers
           </p>
         </div>
-        <button className="border-2 border-solid border-white rounded-2xl text-white pt-2 pb-2 pl-15 pr-15 w-[9rem]">
+        <Link to='newcustomer' className="border-2 border-solid border-white rounded-2xl text-white text-center pt-2 pb-2 pl-15 pr-15 w-[9rem]">
           Add new
-        </button>
+        </Link>
       </div>
       <div className="w-full mb-[2rem]">
         <div className="flex flex-col sm:flex-row items-center md:items-baseline">
