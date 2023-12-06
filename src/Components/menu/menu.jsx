@@ -142,9 +142,9 @@ const Menu = () => {
                    <a href="#" className="text-gray-900 dark:text-white font-semibold hover:underline block">
                      Perfil
                    </a>
-                   <a href="#" className="text-gray-900 dark:text-white font-semibold hover:underline block">
+                   <Link to="/" className="text-gray-900 dark:text-white font-semibold hover:underline block">
                      Logout
-                   </a>
+                     </Link>
                  </div>
                )}
             </li>
@@ -198,7 +198,7 @@ const Menu = () => {
               </li>
               <li>
                 <a href="#" class="text-gray-800 font-bold hover:underline">
-                  Bloc
+                  Blog
                 </a>
               </li>
               <li>
