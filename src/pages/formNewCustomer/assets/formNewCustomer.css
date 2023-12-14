@@ -1,0 +1,180 @@
+.card-completess {
+    width: 100%;
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.column1-image {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+}
+.icon-user-rv{
+    font-size: 50px;
+    color: #264ff9;
+}
+.border-image {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 4px solid #264ff9;
+    width: 11rem;
+    height: 11rem;
+    border-radius: 50%;
+}
+.colum2-inputs {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.fila-1 {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.fila-2 {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+span.container-input-texto {
+    position: absolute;
+    right: 1rem;
+    top: 1%;
+    transform: translateY(-50%);
+    cursor: pointer;
+
+}
+
+.p-dropdown-items-wrapper>ul.p-dropdown-items {
+    padding: 21px;
+    background: white;
+    border-radius: 0px 0px 10px 10px;
+}
+li.p-dropdown-item {
+    padding: 5px;
+}
+li.p-dropdown-item:hover {
+    background: #264ff9;
+    border-radius: 10px;
+    color: white;
+}
+
+
+.container-fila2 {
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.column1-datos-usuarios {
+    background: white;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-radius: 12px;
+}
+.column2-document {
+    width: 70%;
+    background: white;
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+span.container-input-file {
+   text-align: center;
+    cursor: pointer;
+    max-width: 25rem;
+    width: 100%;
+}
+.icon-file {
+    font-size: 100px;
+    color: #264ff9;
+}
+.conten-name-file-select {
+    margin-top: 12px;
+    border-radius: 12px;
+    padding: 1rem;
+    width: 100%;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+@media (max-width: 768px) {
+    .card-completess {
+        width: 100%;
+        background: white;
+        border-radius: 15px;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .column1-image {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    .colum2-inputs {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .fila-1 {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .fila-2 {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 0;
+    }
+    .container-fila2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .column1-datos-usuarios {
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+    .column2-document {
+        width: 100%;
+    }
+    
+  }
+  
+  @media (min-width: 769px) {
+
+  }
+
+  span.p-dropdown-label.p-inputtext {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+svg.p-icon.p-dropdown-clear-icon.p-clickable {
+    display: none;
+}

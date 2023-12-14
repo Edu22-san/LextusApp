@@ -7,7 +7,8 @@ export default {
         "purple-primary": "#264ff9",
         "blue-bg": "#264FF9",
         "blue-txt":"#264ff9",
-        "selected": "#ff45c9",
+        "selected": "#ff45c9",    
+        "blue-color-opacity": "#d9dbf7",
       },
       fontSize: {
         xs: "9px",
