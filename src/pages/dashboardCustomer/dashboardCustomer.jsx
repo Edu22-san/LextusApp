@@ -103,7 +103,7 @@ const DashboardCustomer = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 items-center justify-center rounded-xl p-1 w-[90%] lg:w-[75%] md:w-[75%] mt-[3rem] gap-12">
-          <div className=" w-full  flex flex-col justify-between h-[70vh]">
+          <div className=" w-full  flex flex-col justify-between h-[60vh] md:h-[70vh] lg:h-[70vh]">
             <div className="p-5 color-txt-rv text-base font-medium leading-5 bg-white flex flex-col justify-start items-center boxshadow-rv2 w-full h-auto lg:h-[33vh] md:h-[33vh]">
               <div className="w-full flex flex-row items-center justify-between pb-1 border-b-2 border-solid border-gray-300">
                 <div className="flex flex-row items-center">
