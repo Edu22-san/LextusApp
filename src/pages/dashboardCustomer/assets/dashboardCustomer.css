@@ -1,0 +1,63 @@
+.item-tab-slider {
+    height: 10vh;
+    padding-left: 20px;
+    padding-right: 20px;
+    /* padding-top: 5px; */
+    /* padding-bottom: 30px; */
+    display: flex !important;
+    align-items: center;
+}
+.rv-box-shadow-tabs {
+    height: 8vh;
+    border-radius: 17px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.rv-box-shadow-tabs:hover{
+    background: white;
+    color: blue;
+    transition: background 0.3s, color 0.3s;
+}
+.slick-prev:before, .slick-next:before {
+    display: none;
+
+}
+
+i.fa-solid.fa-chevron-left, i.fa-solid.fa-chevron-right {
+    color: white;
+    font-size: 25px;
+}
+.slick-arrow.slick-next,
+.slick-arrow.slick-prev,
+i.fa-solid.fa-chevron-left,
+i.fa-solid.fa-chevron-right {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center;
+    border: 2px solid white;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* Estilos al hacer hover */
+.slick-arrow.slick-next:hover,
+.slick-arrow.slick-prev:hover,
+i.fa-solid.fa-chevron-left:hover,
+i.fa-solid.fa-chevron-right:hover {
+    background: white;
+    color: #264FF9; 
+}
+
+.slick-arrow.slick-prev {
+    left: -40px;
+}
+
+.slick-arrow.slick-next {
+    right: -40px;
+}

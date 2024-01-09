@@ -13,6 +13,10 @@ const RouterUser = () => {
       <Routes>
         <Route path="/dashboard" index element={<Dashboard/>} />
         <Route path="/tabscontenido" index element={<TabsContenido/>} />
+         {/*<Route
+          path="/tabscontenido/:key" // Utilizamos un parámetro de ruta ':key' para la clave
+          element={<TabsContenido />}
+        />*/}
         <Route path="/tabscontenido/newcustomer" index element={<FormNewCustomer/>} />
         <Route path="/menu" index element={<Menu />} />
       </Routes>
