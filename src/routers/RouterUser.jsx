@@ -1,5 +1,6 @@
 import React from "react";
 import Dashboard from "../pages/dashboard/dashboard";
+import  DashboardCustomer from "../pages/dashboardCustomer/dashboardCustomer";
 import TabsContenido from "../pages/tabsContenido/tabsContenido";
 import Menu from "../Components/menu/menu";
 import Footer from "../Components/footer/footer";
@@ -12,6 +13,7 @@ const RouterUser = () => {
     <Menu/>
       <Routes>
         <Route path="/dashboard" index element={<Dashboard/>} />
+        <Route path="/dashboard-customer" index element={< DashboardCustomer/>} />
         <Route path="/tabscontenido" index element={<TabsContenido/>} />
          {/*<Route
           path="/tabscontenido/:key" // Utilizamos un parámetro de ruta ':key' para la clave
