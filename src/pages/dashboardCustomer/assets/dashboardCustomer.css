@@ -55,9 +55,19 @@ i.fa-solid.fa-chevron-right:hover {
 }
 
 .slick-arrow.slick-prev {
-    left: -40px;
+    left: -70px;
 }
 
 .slick-arrow.slick-next {
-    right: -40px;
+    right: -70px;
 }
+
+@media only screen and (max-width: 768px) {
+    .slick-arrow.slick-prev {
+        left: -40px;
+    }
+    
+    .slick-arrow.slick-next {
+        right: -40px;
+    }
+  }

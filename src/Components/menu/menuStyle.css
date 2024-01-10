@@ -145,6 +145,7 @@ select#mySelect {
   outline: none;
   font-weight: 300;
   font-size: 18px;
+  text-decoration: none;
 }
 img.logo-menu {
   width: 16rem;

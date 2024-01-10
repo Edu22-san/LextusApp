@@ -34,7 +34,10 @@ const DashboardCustomer = () => {
     "Evidence",
     "Application filled",
     "Notices of 1997",
-    "View Users",
+    "Biometrics Appoinment notice",
+    "Approved or denied",
+    "Waitlist EAD application posible",
+    "U-Visa granted",
   ];
   const handleTabClick = (index) => {
     setActiveTab(index);
@@ -48,7 +51,7 @@ const DashboardCustomer = () => {
             Lorem ipsum
           </h1>
           <p className="text-center text-white text-xl md:text-2xl lg:text-2xl font-light pt-2">
-            This is dashboard customer
+          This is the client's dashboard
           </p>
         </div>
 
@@ -102,8 +105,8 @@ const DashboardCustomer = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 items-center justify-center rounded-xl p-1 w-[90%] lg:w-[75%] md:w-[75%] mt-[3rem] gap-12">
-          <div className=" w-full  flex flex-col justify-between h-[60vh] md:h-[70vh] lg:h-[70vh]">
+        <div className="grid grid-cols-1 md:grid-cols-2 items-center justify-center rounded-xl p-1 w-[90%] lg:w-[75%] md:w-[75%] mt-[3rem] gap-8 md:gap-12 lg:gap-12">
+          <div className=" w-full  flex flex-col justify-between h-auto md:h-[70vh] lg:h-[70vh]">
             <div className="p-5 color-txt-rv text-base font-medium leading-5 bg-white flex flex-col justify-start items-center boxshadow-rv2 w-full h-auto lg:h-[33vh] md:h-[33vh]">
               <div className="w-full flex flex-row items-center justify-between pb-1 border-b-2 border-solid border-gray-300">
                 <div className="flex flex-row items-center">
@@ -127,7 +130,7 @@ const DashboardCustomer = () => {
               </div>
             </div>
 
-            <div className="p-5 color-txt-rv text-base font-medium leading-5 bg-white flex flex-col justify-start items-center boxshadow-rv2 w-full h-auto lg:h-[33vh] md:h-[33vh]">
+            <div className="p-5 color-txt-rv text-base font-medium leading-5 bg-white flex flex-col justify-start items-center boxshadow-rv2 w-full h-auto lg:h-[33vh] md:h-[33vh] mt-[2rem] md:mt-[0] lg:mt-[0]">
               <div className="w-full flex flex-row items-center justify-between pb-1 border-b-2 border-solid border-gray-300">
                 <div className="flex flex-row items-center">
                   <i class="fa-solid fa-file-signature text-gray-300 mr-1"></i>
@@ -161,7 +164,7 @@ const DashboardCustomer = () => {
             <div className="w-full">
               <div className="w-full flex flex-row items-center justify-between pb-1 border-b-2 border-solid border-gray-300">
                 <div className="flex flex-row items-center">
-                  <i class="fa-regular fa-folder-open text-gray-300 mr-1"></i>
+                  <i class="fa-solid fa-check text-gray-300 mr-1"></i>
                   <p className="text-blue-500 text-lg md:text-xl lg:text-xl  font-bold ">
                     Visa-U Checklist
                   </p>
