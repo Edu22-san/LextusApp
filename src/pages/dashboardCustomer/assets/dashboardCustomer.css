@@ -64,10 +64,32 @@ i.fa-solid.fa-chevron-right:hover {
 
 @media only screen and (max-width: 768px) {
     .slick-arrow.slick-prev {
-        left: -40px;
+        left: -35px;
     }
     
     .slick-arrow.slick-next {
-        right: -40px;
+        right: -35px;
+    }
+
+    i.fa-solid.fa-chevron-left, i.fa-solid.fa-chevron-right {
+        color: white;
+        font-size: 20px;
+    }
+    .slick-arrow.slick-next,
+    .slick-arrow.slick-prev,
+    i.fa-solid.fa-chevron-left,
+    i.fa-solid.fa-chevron-right {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center;
+        border: 1px solid white;
+        transition: background 0.3s, color 0.3s;
+    }
+    .rv-box-shadow-tabs {
+        height: 6vh;
+
     }
   }
