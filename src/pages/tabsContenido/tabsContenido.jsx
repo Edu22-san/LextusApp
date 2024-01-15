@@ -18,7 +18,6 @@ const TabsContenido = () => {
   const isViewDocumentCatalogsActive = activeTab === "viewDocumentCatalogs";
   const isViewPaymentPlansActive = activeTab === "viewPaymentPlans";
   
-  console.log("Is View Payment Plans Active:", isViewPaymentPlansActive);
 
   useEffect(() => {
     localStorage.setItem("activeTab", key || "viewUsers");
