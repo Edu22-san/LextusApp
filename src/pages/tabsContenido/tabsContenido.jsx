@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Tab } from "@headlessui/react";
 import "./assets/tabsStyle.css";
 import Userstable from "../../Components/usersTable/usersTable";
+import CardsDocumentsCatalogs from "../../Components/cardsDocumentsCatalogs/cardsDocumentsCatalogs";
 import { useParams } from "react-router-dom";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -96,11 +97,11 @@ const TabsContenido = () => {
               </Tab.Panel>
               <Tab.Panel
                 className={classNames(
-                  "rounded-xl bg-white p-3",
-                  "ring-white/60 ring-offset-2 ring-offset-blue-400 h-[40vh] focus:outline-none focus:ring-2"
+                  "rounded-xl  p-3",
+                  "ring-white/60 ring-offset-2 ring-offset-blue-400 w-full "
                 )}
               >
-                <p>Documents</p>
+                <CardsDocumentsCatalogs/>
               </Tab.Panel>
               <Tab.Panel
                 className={classNames(

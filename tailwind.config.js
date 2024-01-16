@@ -6,6 +6,8 @@ export default {
       colors: {
         "purple-primary": "#264ff9",
         "blue-bg": "#264FF9",
+        "bg-verde": "#86BE0F",
+        "bg-rojo": "#F92626",
         "blue-txt":"#264ff9",
         "selected": "#ff45c9",    
         "blue-color-opacity": "#d9dbf7",

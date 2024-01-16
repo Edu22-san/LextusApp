@@ -1,36 +1,22 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./assets/dashboardCustomer.css";
-import Slider from "react-slick";
-import { useMediaQuery } from "react-responsive";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./assets/dashboardCustomer.css";
 
 const DashboardCustomer = () => {
-  const [activeTab, setActiveTab] = useState(-1);
-  const [showDefaultContent, setShowDefaultContent] = useState(false);
-  const isMobile = useMediaQuery({ maxWidth: 767 });
-
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: isMobile ? 1 : 3,
-    slidesToScroll: 1,
-    prevArrow: (
-      <div className="custom-arrow">
-        <i class="fa-solid fa-chevron-left"></i>
-      </div>
-    ),
-    nextArrow: (
-      <div className="custom-arrow">
-        <i class="fa-solid fa-chevron-right"></i>
-      </div>
-    ),
+  const documentStates = {
+    Evidence: "pending",
+    "Application filled": "delivered",
+    "Notices of 1997": "delivered",
+    "Biometrics Appoinment notice": undefined,
+    "Approved or denied": undefined,
+    "Waitlist EAD application posible": undefined,
+    "U-Visa granted": undefined,
   };
 
-  const tabs = [
+  const documents = [
     "Evidence",
     "Application filled",
     "Notices of 1997",
@@ -39,10 +25,6 @@ const DashboardCustomer = () => {
     "Waitlist EAD application posible",
     "U-Visa granted",
   ];
-  const handleTabClick = (index) => {
-    setActiveTab(index);
-  };
-
   return (
     <>
       <div className="min-w-full flex flex-col items-center justify-center mt-[4rem]">
@@ -51,58 +33,35 @@ const DashboardCustomer = () => {
             Lorem ipsum
           </h1>
           <p className="text-center text-white text-xl md:text-2xl lg:text-2xl font-light pt-2">
-          This is the client's dashboard
+            This is the client's dashboard
           </p>
         </div>
 
-        <div className="w-[80%]">
-          <Slider {...settings}>
-            {tabs.map((tab, index) => (
-              <div className="item-tab-slider ">
-                <div
-                  onClick={() => handleTabClick(index)}
-                  className={`rv-box-shadow-tabs w-full cursor-pointer font-medium leading-5  text-[15px]  md:text-[20px] lg:text-[20px] ${
-                    activeTab === index
-                      ? "bg-white text-blue-700 shadow"
-                      : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
-                  }`}
-                >
-                  {tab}
-                </div>
-              </div>
-            ))}
-          </Slider>
-
-          <div className="mt-5 w-full">
+        <div className="w-[90%] grid grid-cols-1 md:grid-cols-7 items-center justify-center  gap-4 mt-[1rem]">
+          {documents.map((document, index) => (
             <div
-              className={`rounded-xl p-3 ${
-                activeTab === 0 ? "" : "hidden"
-              } ring-white/60 ring-offset-2 ring-offset-blue-400`}
+              key={index}
+              className={`rv-box-shadow-tabs h-[8vh] w-auto font-medium leading-5 ${
+                documentStates[document] === "pending"
+                  ? "bg-bg-rojo text-white"
+                  : documentStates[document] === "delivered"
+                  ? "bg-bg-verde text-white"
+                  : "bg-white text-blue-txt"
+              }`}
             >
-              <p>Content for View Users</p>
+              <p className="w-full pl-[7px] pr-[7px] font-semibold text-[15px]  md:text-[18px] lg:text-[18px] ">
+                {document}
+              </p>
             </div>
-            <div
-              className={`rounded-xl p-3 ${
-                activeTab === 1 ? "" : "hidden"
-              } ring-white/60 ring-offset-2 ring-offset-blue-400`}
-            >
-              <p>Content for View Document Catalogs</p>
-            </div>
-            <div
-              className={`rounded-xl p-3 ${
-                activeTab === 2 ? "" : "hidden"
-              } ring-white/60 ring-offset-2 ring-offset-blue-400`}
-            >
-              <p>Content for View Plans</p>
-            </div>
-            <div
-              className={`rounded-xl p-3 ${
-                activeTab === 3 ? "" : "hidden"
-              } ring-white/60 ring-offset-2 ring-offset-blue-400`}
-            >
-              <p>Content for Tab 4</p>
-            </div>
-          </div>
+          ))}
+        </div>
+        <div className="w-[90%] mt-[1rem] flex flex-row justify-center md:justify-end lg:justify-end">
+          <p className="flex flex-row items-center justify-center text-white text-[20px]">
+            <span className="w-[20px] h-[20px] bg-bg-verde mr-[10px] rounded-[3px]"></span>Entregado
+          </p>
+          <p className="flex flex-row items-center justify-center text-white text-[20px] ml-[2rem] ">
+            <span className="w-[20px] h-[20px] bg-bg-rojo mr-[10px] rounded-[3px]"></span>Pendiente
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 items-center justify-center rounded-xl p-1 w-[90%] lg:w-[75%] md:w-[75%] mt-[3rem] gap-8 md:gap-12 lg:gap-12">
