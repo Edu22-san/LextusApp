@@ -7,26 +7,24 @@ import { useParams } from "react-router-dom";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
+const tabs = [
+  { key: "viewUsers", label: "View Users" },
+  { key: "viewDocumentCatalogs", label: "View Document Catalogs" },
+  { key: "viewPaymentPlans", label: "View Payment Plans" },
+];
 
 const TabsContenido = () => {
-  const { key } = useParams(); 
+  const { key } = useParams();
   const activeTabRef = useRef();
-
   const activeTab = localStorage.getItem("activeTab") || key || "viewUsers";
-
-
-  const isViewUsersActive = activeTab === "viewUsers";
-  const isViewDocumentCatalogsActive = activeTab === "viewDocumentCatalogs";
-  const isViewPaymentPlansActive = activeTab === "viewPaymentPlans";
-  
 
   useEffect(() => {
     localStorage.setItem("activeTab", key || "viewUsers");
-    // Cuando cambie la clave, haz clic en la pestaña correspondiente
     if (activeTabRef.current) {
       activeTabRef.current.click();
     }
   }, [key]);
+
   const handleTabClick = (tabKey) => {
     localStorage.setItem("activeTab", tabKey);
   };
@@ -37,54 +35,25 @@ const TabsContenido = () => {
         <div className="w-full lg:w-[80%] md:w-[80%] flex flex-col items-center justify-center">
           <Tab.Group>
             <Tab.List className="grid grid-cols-1 md:grid-cols-3 items-center justify-center rounded-xl p-1 w-[90%] lg:w-[80%] md:w-[80%] mt-[2rem] md:mt-[10rem] lg:mt-[10rem] gap-4">
-              <Tab
-                ref={isViewUsersActive ? activeTabRef : null} // Asigna el ref solo a la pestaña activa inicialmente
-                className={({ selected }) =>
-                  classNames(
-                    "w-full  py-2.5 text-[15px]  md:text-[20px] lg:text-[20px] font-medium leading-5 boxshadow-rv",
-                    "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
-                    selected
-                      ? "bg-white text-blue-700 shadow active-tab"
-                      : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
-                  )
-                }
-                selected={isViewUsersActive}
-                onClick={() => handleTabClick("viewUsers")}
-              >
-                View Users
-              </Tab>
-              <Tab
-                ref={isViewDocumentCatalogsActive ? activeTabRef : null}
-                className={({ selected }) =>
-                  classNames(
-                    "w-full py-2.5 text-[15px]  md:text-[20px] lg:text-[20px] font-medium leading-5 boxshadow-rv",
-                    "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
-                    selected
-                      ? "bg-white text-blue-700 shadow"
-                      : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
-                  )
-                }
-                selected={isViewDocumentCatalogsActive}
-                onClick={() => handleTabClick("viewDocumentCatalogs")}
-              >
-                View Document Catalogs
-              </Tab>
-              <Tab
-                ref={isViewPaymentPlansActive ? activeTabRef : null}
-                className={({ selected }) =>
-                  classNames(
-                    "w-full  py-2.5 text-[15px]  md:text-[20px] lg:text-[20px] font-medium leading-5 boxshadow-rv",
-                    "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
-                    selected
-                      ? "bg-white text-blue-700 shadow active-tab"
-                      : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
-                  )
-                }
-                selected={isViewPaymentPlansActive}
-                onClick={() => handleTabClick("viewPaymentPlans")}
-              >
-                View Payment Plans
-              </Tab>
+              {tabs.map((tab) => (
+                <Tab
+                  key={tab.key}
+                  ref={activeTab === tab.key ? activeTabRef : null}
+                  className={({ selected }) =>
+                    classNames(
+                      "w-full py-2.5 text-[15px]  md:text-[20px] lg:text-[20px] font-medium leading-5 boxshadow-rv",
+                      "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
+                      selected
+                        ? "bg-white text-blue-700 shadow active-tab"
+                        : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
+                    )
+                  }
+                  selected={activeTab === tab.key}
+                  onClick={() => handleTabClick(tab.key)}
+                >
+                  {tab.label}
+                </Tab>
+              ))}
             </Tab.List>
             <Tab.Panels className="mt-5 w-full">
               <Tab.Panel
@@ -101,7 +70,7 @@ const TabsContenido = () => {
                   "ring-white/60 ring-offset-2 ring-offset-blue-400 w-full "
                 )}
               >
-                <CardsDocumentsCatalogs/>
+                <CardsDocumentsCatalogs />
               </Tab.Panel>
               <Tab.Panel
                 className={classNames(
