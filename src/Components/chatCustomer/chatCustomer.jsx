@@ -37,7 +37,7 @@ const ChatCustomer = () => {
 
   return (
     <>
-      <div className="color-txt-rv flex flex-col justify-between h-auto md:h-[70vh] lg:h-[70vh] boxshadow-rv2 bg-white">
+      <div className="color-txt-rv flex flex-col justify-between h-[70vh]  boxshadow-rv2 bg-white">
         <div className="w-full flex flex-row items-center justify-start pb-1 border-b-2 border-solid border-gray-300 h-[3.5rem] pl-[5px]">
             <i class="fa-solid fa-comments text-gray-300 mr-[12px]"></i>
             <p className="text-blue-500 text-lg md:text-xl lg:text-xl  font-medium ">

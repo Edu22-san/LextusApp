@@ -44,7 +44,7 @@ const TabsCustomers = () => {
         {tabs.map((tab, index) => (
           <div
             onClick={() => handleTabClick(index)}
-            className={`rv-box-shadow-tabs w-full h-[8vh] cursor-pointer font-medium leading-5  text-[15px]  md:text-[20px] lg:text-[20px] ${
+            className={`rv-box-shadow-tabs w-full h-[8vh] cursor-pointer font-medium leading-5  text-xl md:text-2xl lg:text-2xl ${
               activeTab === index
                 ? "bg-white text-blue-700 shadow"
                 : "text-blue-100 hover:bg-white/[0.12] hover:text-white"

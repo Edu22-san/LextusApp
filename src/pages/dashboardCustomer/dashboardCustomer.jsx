@@ -4,6 +4,7 @@ import "./assets/dashboardCustomer.css";
 import ChatCustomer from "../../Components/chatCustomer/chatCustomer";
 import TabsCustomers from "../../Components/tabsCustomers/tabsCustomers";
 import CardsDColumOne from "../../Components/cardsDashboardCustomers/cardColumOne";
+import CardColumTwo from "../../Components/cardsDashboardCustomers/cardColumTwo";
 
 const DashboardCustomer = () => {
   return (
@@ -22,62 +23,7 @@ const DashboardCustomer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 items-center justify-center rounded-xl p-1 w-[90%] lg:w-[75%] md:w-[75%] mt-[3rem] gap-8 md:gap-10 lg:gap-10">
           <CardsDColumOne />
 
-          <div className="p-5 color-txt-rv text-base font-medium leading-5 bg-white flex flex-col items-center justify-evenly boxshadow-rv2 w-full h-auto lg:h-h-[70vh] md:h-[70vh]">
-            <div className="w-full">
-              <div className="w-full flex flex-row items-center justify-between pb-1 border-b-2 border-solid border-gray-300">
-                <div className="flex flex-row items-center">
-                  <i class="fa-solid fa-check text-gray-300 mr-1"></i>
-                  <p className="text-blue-500 text-lg md:text-xl lg:text-xl  font-bold ">
-                    Visa-U Checklist
-                  </p>
-                </div>
-                <Link className="bg-gray-300 py-1 px-4 rounded-lg text-gray-700">
-                  {" "}
-                  Details
-                </Link>
-              </div>
-              <div className="w-full flex flex-col items-center py-3">
-                <ul className="list-decimal">
-                  <li className="text-blue-txt text-lg md:text-xl lg:text-xl">
-                    Document/days/accepted
-                  </li>
-                  <li className="text-blue-txt text-lg md:text-xl lg:text-xl">
-                    Document/days/accepted
-                  </li>
-                  <li className="text-blue-txt text-lg md:text-xl lg:text-xl">
-                    Document/days/upload
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="w-full">
-              <div className="w-full flex flex-row items-center justify-between pb-1 border-b-2 border-solid border-gray-300">
-                <div className="flex flex-row items-center">
-                  <i class="fa-regular fa-folder-open text-gray-300 mr-1"></i>
-                  <p className="text-blue-500 text-lg md:text-xl lg:text-xl  font-bold ">
-                    Visa-u Checklist Sibling
-                  </p>
-                </div>
-                <Link className="bg-gray-300 py-1 px-4 rounded-lg text-gray-700">
-                  {" "}
-                  Details
-                </Link>
-              </div>
-              <div className="w-full flex flex-col items-center py-3">
-                <ul className="list-decimal">
-                  <li className="text-blue-txt text-lg md:text-xl lg:text-xl">
-                    Document/days/accepted
-                  </li>
-                  <li className="text-blue-txt text-lg md:text-xl lg:text-xl">
-                    Document/days/accepted
-                  </li>
-                  <li className="text-blue-txt text-lg md:text-xl lg:text-xl">
-                    Document/days/upload
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+          <CardColumTwo/>
           <div className="w-full">
             <ChatCustomer />
           </div>

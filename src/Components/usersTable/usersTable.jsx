@@ -1,14 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./usersTable.css";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import { useMediaQuery, useTheme } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import { Toast } from "primereact/toast";
+import ChatCustomer from "../../Components/chatCustomer/chatCustomer";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 
 const Userstable = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [filteredData, setFilteredData] = useState([]);
+
+  const [openChecklist, setOpenChecklist] = useState(false);
+  const handleOpenChecklist = () => setOpenChecklist(true);
+  const handleCloseChecklist = () => setOpenChecklist(false);
+  const toast = useRef(null);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 3; // Número de filas por página
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handleChangePage = (event, newPage) => {
+    setCurrentPage(newPage);
+  };
 
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
@@ -59,17 +83,28 @@ const Userstable = () => {
       );
     });
 
-    setFilteredData(filteredItems);
+    setFilteredData(filteredItems.length > 0 ? filteredItems : data);
+    setSearchResults(filteredItems);
   };
 
-  const emptyRow = {
-    name: null,
-    matter: null,
-    lastUpdate: null,
-    dacProvided: null,
-    checklist: null,
-    Options: null,
+  const styleModalAdmin = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: isMobile ? "90%" : "50%",
+    maxHeight: "70vh",
+
+    border: "none",
+    boxShadow: 24,
+    borderRadius: "12px",
   };
+  console.log("filteredData length:", filteredData.length);
+  console.log("data length:", data.length);
+  console.log(
+    "Total pages:",
+    Math.ceil((searchText ? filteredData.length : data.length) / rowsPerPage)
+  );
 
   return (
     <>
@@ -80,15 +115,26 @@ const Userstable = () => {
             565 registered customers
           </p>
         </div>
-        <Link to='newcustomer' className="border-2 border-solid border-white rounded-2xl text-white text-center pt-2 pb-2 pl-15 pr-15 w-[9rem]">
+        <Link
+          to="newcustomer"
+          className="border-2 border-solid border-white rounded-2xl text-white text-center pt-2 pb-2 pl-15 pr-15 w-[9rem]"
+        >
           Add new
         </Link>
       </div>
       <div className="w-full mb-[2rem]">
         <div className="flex flex-col sm:flex-row items-center md:items-baseline">
-          <p className="text-white text-sm font-thin lg:mr-12 md:mr-12 mt-1"> All customers</p>
-          <p className="text-white text-sm font-thin lg:mr-12 md:mr-12 mt-1"> Last 30 days</p>
-          <p className="text-white text-sm font-thin lg:mr-12 md:mr-12 mt-1">Last 6 months</p>
+          <p className="text-white text-sm font-thin lg:mr-12 md:mr-12 mt-1">
+            {" "}
+            All customers
+          </p>
+          <p className="text-white text-sm font-thin lg:mr-12 md:mr-12 mt-1">
+            {" "}
+            Last 30 days
+          </p>
+          <p className="text-white text-sm font-thin lg:mr-12 md:mr-12 mt-1">
+            Last 6 months
+          </p>
           <select
             className="bg-transparent text-white outline-none mt-1"
             name=""
@@ -118,51 +164,91 @@ const Userstable = () => {
         </div>
       </div>
 
-
       <div className="relative overflow-x-auto">
-      <DataTable
-          value={searchText ? filteredData : data}
-          className="w-full text-sm text-left rtl:text-right text-white rv-table"
-          rowClassName="row-spacing"
-        >
-          <Column
-            field="name"
-            header="Name"
-            className="b-rv"
-            style={{
-              borderTopLeftRadius: "22px",
-              borderBottomLeftRadius: "22px",
-              marginBottom: "10px",
-            }}
-          />
-          <Column
-            field="matter"
-            header="Matter"
-            className="row-spacing" 
-          />
-          <Column field="lastUpdate" header="Last Update" className="row-spacing" />
-          <Column field="dacProvided" header="% Dac Provided" className="row-spacing" />
-          <Column field="checklist" header="CheckList" className="row-spacing" />
-          <Column
-            field="Options"
-            header="Options"
-            body={(rowData) => (
-              <div className="container-options">
-                <div className="dropdown mr-4">
-                  <i className="fa-solid fa-chevron-down icon-verde cursor-pointer"></i>
+        <Stack spacing={2}>
+          <DataTable
+            value={searchText ? filteredData : data}
+            className="w-full text-sm text-left rtl:text-right text-white rv-table"
+            rowClassName="row-spacing"
+            paginator
+            first={(currentPage - 1) * rowsPerPage}
+            rows={rowsPerPage}
+            totalRecords={searchText ? filteredData.length : data.length}
+            onPage={(e) => setCurrentPage(e.page + 1)}
+          >
+            <Column
+              field="name"
+              header="Name"
+              className="b-rv"
+              style={{
+                borderTopLeftRadius: "22px",
+                borderBottomLeftRadius: "22px",
+                marginBottom: "10px",
+              }}
+            />
+            <Column field="matter" header="Matter" className="row-spacing" />
+            <Column
+              field="lastUpdate"
+              header="Last Update"
+              className="row-spacing"
+            />
+            <Column
+              field="dacProvided"
+              header="% Dac Provided"
+              className="row-spacing"
+            />
+            <Column
+              field="checklist"
+              header="CheckList"
+              className="row-spacing"
+            />
+            <Column
+              field="Options"
+              header="Options"
+              body={(rowData) => (
+                <div className="container-options">
+                  <div className="dropdown mr-[5px]">
+                    <i className="fa-solid fa-chevron-down icon-verde cursor-pointer"></i>
+                  </div>
+                  <div className="dropdown mr-[5px]">
+                    <i
+                      className="fa-regular fa-comments icon-azul cursor-pointer"
+                      onClick={handleOpenChecklist}
+                    ></i>
+                    <span className="noticacion-red"></span>
+                  </div>
+                  <i className="fa-solid fa-magnifying-glass icon-buscar cursor-pointer"></i>
                 </div>
-                <i className="fa-solid fa-magnifying-glass icon-buscar cursor-pointer"></i>
-              </div>
+              )}
+              className="b-rv2 row-spacing"
+              style={{
+                borderTopRightRadius: "22px",
+                borderBottomRightRadius: "22px",
+                marginBottom: "10px",
+              }}
+            />
+          </DataTable>
+          <Pagination
+            count={Math.ceil(
+              (searchText ? filteredData.length : data.length) / rowsPerPage
             )}
-            className="b-rv2 row-spacing" // Agrega la clase row-spacing a esta columna
-            style={{
-              borderTopRightRadius: "22px",
-              borderBottomRightRadius: "22px",
-              marginBottom: "10px",
-            }}
+            color="secondary"
+            page={currentPage}
+            onChange={handleChangePage}
           />
-        </DataTable>
+        </Stack>
 
+        <Modal open={openChecklist} aria-labelledby="modal-modal-title">
+          <Box sx={styleModalAdmin}>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              <ChatCustomer />
+              <i
+                onClick={handleCloseChecklist}
+                className="fa-solid fa-circle-xmark cursor-pointer text-2xl text-bg-rojo close-modal-admin-chat"
+              ></i>
+            </Typography>
+          </Box>
+        </Modal>
       </div>
     </>
   );

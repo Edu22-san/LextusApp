@@ -72,3 +72,73 @@ thead.p-datatable-thead {
     border-spacing: 0px 20px !important;
     border-collapse: initial;
 }
+
+span.noticacion-red {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    position: absolute;
+    background: red;
+    left: 57%;
+}
+
+.icon-azul {
+    color: #264ff9;
+    background: #d7f4f5;
+    padding: 8px;
+    border-radius: 50%;
+}
+
+.close-modal-admin-chat {
+    position: absolute;
+    left: 92%;
+    top: 6%;
+}
+.p-paginator-bottom.p-paginator.p-component {
+    display: none;
+}
+/* Ajuste específico para el elemento activo del paginador */
+button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.MuiPaginationItem-text.MuiPaginationItem-circular.MuiPaginationItem-textSecondary.Mui-selected.MuiPaginationItem-page {
+    width: 40px !important;
+    font-size: 0px;
+    height: 10px !important;
+    background-color: white;
+}
+
+/* Estilos generales para los elementos del paginador */
+button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.MuiPaginationItem-text.MuiPaginationItem-circular.MuiPaginationItem-textSecondary {
+    background-color: #ffffff82;
+    width: 40px !important;
+    font-size: 0px;
+    height: 10px !important;
+}
+
+button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.MuiPaginationItem-text.MuiPaginationItem-circular.MuiPaginationItem-textSecondary.MuiPaginationItem-previousNext.css-19micn4-MuiButtonBase-root-MuiPaginationItem-root {
+    width: 10px;
+    height: 40px !important;
+    border-radius: 50%;
+    font-size: 53px;
+    background-color: white;
+}
+ul.MuiPagination-ul.css-wjh20t-MuiPagination-ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 600px) {
+    .container-options {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    span.noticacion-red {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        position: absolute;
+        background: red;
+        left: 95%;
+        top: -3%;
+    }
+  }
