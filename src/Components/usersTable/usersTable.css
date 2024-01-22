@@ -120,6 +120,13 @@ button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.Mu
     font-size: 53px;
     background-color: white;
 }
+button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.MuiPaginationItem-text.MuiPaginationItem-circular.MuiPaginationItem-textSecondary.MuiPaginationItem-previousNext.css-1kz0k3h {
+    width: 10px;
+    height: 40px !important;
+    border-radius: 50%;
+    font-size: 53px;
+    background-color: white;
+}
 ul.MuiPagination-ul.css-wjh20t-MuiPagination-ul {
     display: flex;
     flex-direction: row;
