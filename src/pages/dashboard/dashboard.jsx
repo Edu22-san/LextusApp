@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./assets/dashboard.css";
 import TabsContenido from "../tabsContenido/tabsContenido";
+import CardActualUsers from "../../Components/cardsDashboardAdmin/cardActualUsers";
+import CardDaysDocuments from "../../Components/cardsDashboardAdmin/cardDaysDocuments";
+import CardBillingInformation from "../../Components/cardsDashboardAdmin/cardBillingInformation";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -48,80 +51,11 @@ const Dashboard = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 items-center justify-center rounded-xl p-1 w-[90%] lg:w-[85%] md:w-[85%] mt-[3rem] gap-4">
-          <div className="p-5 color-txt-rv text-base font-medium leading-5 bg-white flex flex-col justify-start items-center boxshadow-rv2 w-full h-auto lg:h-[33vh] md:h-[33vh]">
-            <div className="w-full flex flex-row items-center justify-between pb-1 border-b-2 border-solid border-gray-300">
-              <div className="flex flex-row items-center">
-                <i class="fa-solid fa-users text-gray-300 mr-1"></i>
-                <p className="text-blue-500 text-lg md:text-xl lg:text-xl  font-bold ">
-                  Actual users
-                </p>
-              </div>
-              <Link className="bg-gray-300 py-1 px-4 rounded-lg text-gray-700">
-                {" "}
-                Details
-              </Link>
-            </div>
-            <div className="w-full flex flex-col items-center py-4">
-              <h2 className="text-5xl md:text-6xl lg:text-8xl text-purple-primary font-bold">
-                565
-              </h2>
-              <p className="text-gray-500 text-lg md:text-xl lg:text-xl">
-                Users
-              </p>
-            </div>
-          </div>
+          <CardActualUsers/>
 
-          <div className="p-5 color-txt-rv text-base font-medium leading-5 bg-white flex flex-col justify-start items-center boxshadow-rv2 w-full h-auto lg:h-[33vh] md:h-[33vh]">
-            <div className="w-full flex flex-row items-center justify-between pb-1 border-b-2 border-solid border-gray-300">
-              <div className="flex flex-row items-center">
-                <i class="fa-regular fa-folder-open text-gray-300 mr-1"></i>
-                <p className="text-blue-500 text-lg md:text-xl lg:text-xl  font-bold ">
-                  60 days documents
-                </p>
-              </div>
-              <Link className="bg-gray-300 py-1 px-4 rounded-lg text-gray-700">
-                {" "}
-                Details
-              </Link>
-            </div>
-            <div className="w-full flex flex-col items-center py-4">
-              <h2 className="text-5xl md:text-6xl lg:text-8xl text-purple-primary font-bold">
-                2.5k
-              </h2>
-              <p className="text-gray-500 text-lg md:text-xl lg:text-xl">
-                Documents
-              </p>
-            </div>
-          </div>
+          <CardDaysDocuments/>
 
-          <div className="p-5 color-txt-rv text-base font-medium leading-5 bg-white flex flex-col justify-start items-center boxshadow-rv2 w-full h-auto lg:h-[33vh] md:h-[33vh]">
-            <div className="w-full flex flex-row items-center justify-between pb-1 border-b-2 border-solid border-gray-300">
-              <div className="flex flex-row items-center">
-                <i class="fa-regular fa-folder-open text-gray-300 mr-1"></i>
-                <p className="text-blue-500 text-lg md:text-xl lg:text-xl  font-bold ">
-                  Billing information
-                </p>
-              </div>
-              <Link className="bg-gray-300 py-1 px-4 rounded-lg text-gray-700">
-                {" "}
-                Details
-              </Link>
-            </div>
-            <div className="w-full flex flex-col items-center py-3">
-              <p className="text-gray-500 text-lg md:text-xl lg:text-xl">
-                Monthly Billing
-              </p>
-              <h2 className="text-5xl md:text-5xl lg:text-4xl text-purple-primary font-bold">
-                $6,658.00
-              </h2>
-              <p className="text-gray-500 text-lg md:text-xl lg:text-xl">
-                Actual due
-              </p>
-              <h2 className="text-5xl md:text-5xl lg:text-4xl text-purple-primary font-bold">
-                $10,895.00
-              </h2>
-            </div>
-          </div>
+          <CardBillingInformation/>
         </div>
       </div>
     </>

@@ -119,6 +119,7 @@ const CardsDColumOne = () => {
                               {document.label}
                             </label>
                             <FileUpload
+                              chooseLabel="Upload document"
                               mode="basic"
                               name={`demo_${document.id}`}
                               url="/api/upload"
@@ -150,7 +151,6 @@ const CardsDColumOne = () => {
             </p>
           </div>
         </div>
-
 
         <div className="p-5 color-txt-rv text-base font-medium leading-5 bg-white flex flex-col justify-start items-center boxshadow-rv2 w-full h-auto lg:h-[33vh] md:h-[33vh] mt-[2rem] md:mt-[0] lg:mt-[0]">
           <div className="w-full flex flex-row items-center justify-between pb-1 border-b-2 border-solid border-gray-300">

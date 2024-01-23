@@ -3,7 +3,6 @@ import { Tab } from "@headlessui/react";
 import "./assets/formNewCustomer.css";
 import { Dropdown } from "primereact/dropdown";
 function classNames(...classes) {
-
   return classes.filter(Boolean).join(" ");
 }
 
@@ -12,12 +11,15 @@ const FormNewCustomer = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [selectedMatter, setSelectedMatter] = useState(null);
-  const matters = [{ name: "Visa U" }, 
-                   { name: "Inmigrant Visa"},
-                   { name: "parole" }
-                  ];
+  const matters = [
+    { name: "Visa U" },
+    { name: "Inmigrant Visa" },
+    { name: "parole" },
+  ];
   const [selectedFile, setSelectedFile] = useState(null);
   const fileInputRef = useRef();
+  const [selectedImage, setSelectedImage] = useState(null);
+  const imageInputRef = useRef();
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -27,16 +29,57 @@ const FormNewCustomer = () => {
   const handleIconClick = () => {
     fileInputRef.current.click();
   };
+
+  const handleImageChange = (e) => {
+    const imageFile = e.target.files[0];
+    setSelectedImage(imageFile);
+  };
+
+  const handleImageClick = () => {
+    imageInputRef.current.click();
+  };
   return (
     <>
       <div className="min-w-full p-[2rem] md:p-[4rem] lg:p-[4rem]">
-        <h1 className="text-white text-3xl md:text-5xl lg:text-5xl font-semibold">Add new customer</h1>
-        <p className="text-white mb-[2rem]">Register your customer</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 items-center justify-center rounded-xl p-1 w-full  gap-8 md:gap-10 mb-[2rem]">
+          <div>
+            <h1 className="text-white text-3xl md:text-5xl lg:text-5xl font-semibold">
+              Add new customer
+            </h1>
+            <p className="text-white ">Register your customer</p>
+          </div>
+          <div className="flex flex-row justify-center  md:justify-end lg:justify-end">
+            <button className="w-[12rem] h-[7vh] border-[3px] border-white rounded-2xl text-white text-lg font-bold transition-colors hover:bg-white hover:text-blue-txt">
+              Register
+            </button>
+          </div>
+        </div>
         <div className="card-completess">
           <div className="column1-image">
-            <div className="border-image">
-              <i class="fa-solid fa-user icon-user-rv"></i>
-            </div>
+            <label
+              htmlFor="imageInput"
+              className="flex flex-col justify-center items-center border-4 border-blue-500 w-44 h-44 rounded-full cursor-pointer"
+            >
+              {selectedImage ? (
+                <img
+                  src={URL.createObjectURL(selectedImage)}
+                  alt="Selected Preview"
+                  className="w-full h-full object-cover rounded-full"
+                />
+              ) : (
+                <>
+                  <i className="fa-solid fa-user icon-user-rv"></i>
+                </>
+              )}
+            </label>
+            <input
+              type="file"
+              id="imageInput"
+              ref={imageInputRef}
+              onChange={handleImageChange}
+              className="hidden"
+              accept="image/*"
+            />
           </div>
           <div className="colum2-inputs">
             <div className="fila-1">
@@ -106,7 +149,15 @@ const FormNewCustomer = () => {
           <div className="column1-datos-usuarios">
             <h1 className="text-blue-color-opacity text-2xl">Preview</h1>
             <div className="border-image">
-              <i class="fa-solid fa-user icon-user-rv"></i>
+              {selectedImage ? (
+                <img
+                  src={URL.createObjectURL(selectedImage)}
+                  alt="Selected Preview"
+                  className="w-full h-full object-cover rounded-full"
+                />
+              ) : (
+                <i className="fa-solid fa-user icon-user-rv"></i>
+              )}
             </div>
             <h3 className="text-blue-txt">
               {firstName} {lastName}
@@ -134,7 +185,9 @@ const FormNewCustomer = () => {
                 onClick={handleIconClick}
               >
                 <i className="fa-regular fa-file-circle-plus icon-file "></i>
-                <h2 className="text-xl md:text-3xl lg:text-3xl font-normal">Drop you document here</h2>
+                <h2 className="text-xl md:text-3xl lg:text-3xl font-normal">
+                  Drop you document here
+                </h2>
                 <p>Suppots: PDF, Word, JPG</p>
               </span>
             </div>
@@ -145,99 +198,98 @@ const FormNewCustomer = () => {
         </div>
 
         <div className="container-fila2">
-        <div className="w-full flex flex-col md:flex-row md:justify-between lg:flex-row lg:justify-between">
-          <Tab.Group>
-            <Tab.List className="rounded-xl p-1 w-full h-[30vh] md:h-auto lg:h-auto lg:w-[25%] md:w-[25%] flex flex-col justify-between">
-              <Tab
-                className={({ selected }) =>
-                  classNames(
-                    "w-full  py-2.5 text-base font-medium leading-5 border-2 border-solid border-white rounded-[12px] h-auto md:h-[7vh] lg:h-[7vh]",
-                    "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
-                    selected
-                      ? "bg-white text-blue-700 shadow"
-                      : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
-                  )
-                }
-              >
-                Asign CheckList
-              </Tab>
-              <Tab
-                className={({ selected }) =>
-                  classNames(
-                    "w-full py-2.5 text-base font-medium leading-5 border-2 border-solid border-white rounded-[12px] h-auto md:h-[7vh] lg:h-[7vh]",
-                    "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
-                    selected
-                      ? "bg-white text-blue-700 shadow"
-                      : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
-                  )
-                }
-              >
-                Asigh Payment Plans
-              </Tab>
-              <Tab
-                className={({ selected }) =>
-                  classNames(
-                    "w-full py-2.5 text-base font-medium leading-5 border-2 border-solid border-white rounded-[12px] h-auto md:h-[7vh] lg:h-[7vh]",
-                    "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
-                    selected
-                      ? "bg-white text-blue-700 shadow"
-                      : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
-                  )
-                }
-              >
-                View Payment
-              </Tab>
-              <Tab
-                className={({ selected }) =>
-                  classNames(
-                    "w-full py-2.5 text-base font-medium leading-5 border-2 border-solid border-white rounded-[12px] h-auto md:h-[7vh] lg:h-[7vh]",
-                    "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
-                    selected
-                      ? "bg-white text-blue-700 shadow"
-                      : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
-                  )
-                }
-              >
-                Send Password
-              </Tab>
-            </Tab.List>
-            <Tab.Panels className="w-full mt-[2rem] md:mt-[0] lg:mt-[0] md:w-[70%] lg:w-[70%]">
-              <Tab.Panel
-                className={classNames(
-                  "rounded-xl bg-white p-3",
-                  "ring-white/60 ring-offset-2 ring-offset-blue-400 h-[40vh] focus:outline-none focus:ring-2"
-                )}
-              >
-                    <p>Asign CheckList</p>
-              </Tab.Panel>
-              <Tab.Panel
-                className={classNames(
-                  "rounded-xl bg-white p-3",
-                  "ring-white/60 ring-offset-2 ring-offset-blue-400 h-[40vh] focus:outline-none focus:ring-2"
-                )}
-              >
-                <p>Asigh Payment Plans</p>
-              </Tab.Panel>
-              <Tab.Panel
-                className={classNames(
-                  "rounded-xl bg-white p-3",
-                  "ring-white/60 ring-offset-2 ring-offset-blue-400 h-[40vh] focus:outline-none focus:ring-2"
-                )}
-              >
-                <p>View Payment</p>
-              </Tab.Panel>
-              <Tab.Panel
-                className={classNames(
-                  "rounded-xl bg-white p-3",
-                  "ring-white/60 ring-offset-2 ring-offset-blue-400 h-[40vh] focus:outline-none focus:ring-2"
-                )}
-              >
-                <p>Send Password</p>
-              </Tab.Panel>
-            </Tab.Panels>
-          </Tab.Group>
-        </div>
-
+          <div className="w-full flex flex-col md:flex-row md:justify-between lg:flex-row lg:justify-between">
+            <Tab.Group>
+              <Tab.List className="rounded-xl p-1 w-full h-[30vh] md:h-auto lg:h-auto lg:w-[25%] md:w-[25%] flex flex-col justify-between">
+                <Tab
+                  className={({ selected }) =>
+                    classNames(
+                      "w-full  py-2.5 text-base font-medium leading-5 border-2 border-solid border-white rounded-[12px] h-auto md:h-[7vh] lg:h-[7vh]",
+                      "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
+                      selected
+                        ? "bg-white text-blue-700 shadow"
+                        : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
+                    )
+                  }
+                >
+                  Asign CheckList
+                </Tab>
+                <Tab
+                  className={({ selected }) =>
+                    classNames(
+                      "w-full py-2.5 text-base font-medium leading-5 border-2 border-solid border-white rounded-[12px] h-auto md:h-[7vh] lg:h-[7vh]",
+                      "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
+                      selected
+                        ? "bg-white text-blue-700 shadow"
+                        : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
+                    )
+                  }
+                >
+                  Asigh Payment Plans
+                </Tab>
+                <Tab
+                  className={({ selected }) =>
+                    classNames(
+                      "w-full py-2.5 text-base font-medium leading-5 border-2 border-solid border-white rounded-[12px] h-auto md:h-[7vh] lg:h-[7vh]",
+                      "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
+                      selected
+                        ? "bg-white text-blue-700 shadow"
+                        : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
+                    )
+                  }
+                >
+                  View Payment
+                </Tab>
+                <Tab
+                  className={({ selected }) =>
+                    classNames(
+                      "w-full py-2.5 text-base font-medium leading-5 border-2 border-solid border-white rounded-[12px] h-auto md:h-[7vh] lg:h-[7vh]",
+                      "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
+                      selected
+                        ? "bg-white text-blue-700 shadow"
+                        : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
+                    )
+                  }
+                >
+                  Send Password
+                </Tab>
+              </Tab.List>
+              <Tab.Panels className="w-full mt-[2rem] md:mt-[0] lg:mt-[0] md:w-[70%] lg:w-[70%]">
+                <Tab.Panel
+                  className={classNames(
+                    "rounded-xl bg-white p-3",
+                    "ring-white/60 ring-offset-2 ring-offset-blue-400 h-[40vh] focus:outline-none focus:ring-2"
+                  )}
+                >
+                  <p>Asign CheckList</p>
+                </Tab.Panel>
+                <Tab.Panel
+                  className={classNames(
+                    "rounded-xl bg-white p-3",
+                    "ring-white/60 ring-offset-2 ring-offset-blue-400 h-[40vh] focus:outline-none focus:ring-2"
+                  )}
+                >
+                  <p>Asigh Payment Plans</p>
+                </Tab.Panel>
+                <Tab.Panel
+                  className={classNames(
+                    "rounded-xl bg-white p-3",
+                    "ring-white/60 ring-offset-2 ring-offset-blue-400 h-[40vh] focus:outline-none focus:ring-2"
+                  )}
+                >
+                  <p>View Payment</p>
+                </Tab.Panel>
+                <Tab.Panel
+                  className={classNames(
+                    "rounded-xl bg-white p-3",
+                    "ring-white/60 ring-offset-2 ring-offset-blue-400 h-[40vh] focus:outline-none focus:ring-2"
+                  )}
+                >
+                  <p>Send Password</p>
+                </Tab.Panel>
+              </Tab.Panels>
+            </Tab.Group>
+          </div>
         </div>
       </div>
     </>
