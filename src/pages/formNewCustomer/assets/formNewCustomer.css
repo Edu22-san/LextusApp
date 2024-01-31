@@ -44,7 +44,8 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+   /* justify-content: space-between;*/
+    justify-content: flex-end;
     margin-top: 2rem;
 }
 
@@ -81,7 +82,7 @@ li.p-dropdown-item:hover {
 }
 .column1-datos-usuarios {
     background: white;
-    width: 25%;
+    width: 28%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -91,7 +92,8 @@ li.p-dropdown-item:hover {
     border-radius: 12px;
 }
 .column2-document {
-    width: 70%;
+    
+    width: 100%;
     background: white;
     border-radius: 12px;
     padding: 12px;
@@ -148,7 +150,7 @@ span.container-input-file {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-top: 0;
+        margin-top: 1rem;
     }
     .container-fila2 {
         display: flex;
@@ -178,3 +180,26 @@ span.container-input-file {
 svg.p-icon.p-dropdown-clear-icon.p-clickable {
     display: none;
 }
+
+/*APARTEADOS DEL SCROLLBAR*/
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #264ff9;
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #264ff9;
+  }

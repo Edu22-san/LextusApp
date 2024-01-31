@@ -20,7 +20,7 @@ const Dashboard = () => {
   const linksData = [
     { label: "View Users", key: "viewUsers" },
     { label: "View Document Catalogs", key: "viewDocumentCatalogs" },
-    { label: "View Payment Plans", key: "viewPaymentPlans" },
+    //{ label: "View Payment Plans", key: "viewPaymentPlans" },
   ];
 
   return (
@@ -35,7 +35,7 @@ const Dashboard = () => {
             industry.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 items-center justify-center rounded-xl p-1 w-[90%] lg:w-[70%] md:w-[70%] mt-[2rem] gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-2 items-center justify-center rounded-xl p-1 w-[90%] lg:w-[70%] md:w-[70%] mt-[2rem] gap-4">
           {linksData.map((link) => (
             <Link
               key={link.key}

@@ -1,43 +1,50 @@
 import React, { useState, useRef } from "react";
 import { Tab } from "@headlessui/react";
 import "./assets/formNewCustomer.css";
-import { Dropdown } from "primereact/dropdown";
+import { Dropdown } from "primereact/dropdown"; // por si acaso
+import IconChecklist from "../../assets/img/icon-checklist.png";
+import { Checkbox } from "primereact/checkbox";
+import { FileUpload } from "primereact/fileupload";
+import { RadioGroup } from "@headlessui/react";
+import { CheckIcon } from "@heroicons/react/20/solid";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
+const checklistPlan = [
+  { name: "Visa U" },
+  { name: "Visa U sons" },
+  { name: "Visa U wife" },
+  { name: "Parole" },
+];
+
 const FormNewCustomer = () => {
   const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [selectedMatter, setSelectedMatter] = useState(null);
-  const matters = [
-    { name: "Visa U" },
-    { name: "Inmigrant Visa" },
-    { name: "parole" },
-  ];
-  const [selectedFile, setSelectedFile] = useState(null);
-  const fileInputRef = useRef();
   const [selectedImage, setSelectedImage] = useState(null);
-  const imageInputRef = useRef();
+  const [selected, setSelected] = useState(checklistPlan[-1]);
+  const tabs = ["Asign Checklist", "Asign Payment plan", "Send Password"];
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setSelectedFile(file);
+  const onUpload = (documentId) => {
+    toast.current.show({
+      severity: "info",
+      summary: "Success",
+      detail: `File Uploaded for documentId: ${documentId}`,
+    });
   };
+  const handleViewButtonClick = (documentId) => {
+    // Lógica para manejar el clic en el botón de vista
+    // Implementar una modal, abrir una nueva página.
+    console.log(`View button clicked for documentId: ${documentId}`);
+  };
+  const documentsListData = [
+    { label: "Document name | pending | 01/01/2024", id: 1 },
+    { label: "Document name | Complete | 01/01/2024", id: 2 },
+    { label: "Document name | pending | 01/01/2024", id: 3 },
+    { label: "Document name | pending | 01/01/2024", id: 4 },
+    { label: "Document name | pending | 01/01/2024", id: 5 },
+    { label: "Document name | pending | 01/01/2024", id: 6 },
+  ];
 
-  const handleIconClick = () => {
-    fileInputRef.current.click();
-  };
-
-  const handleImageChange = (e) => {
-    const imageFile = e.target.files[0];
-    setSelectedImage(imageFile);
-  };
-
-  const handleImageClick = () => {
-    imageInputRef.current.click();
-  };
   return (
     <>
       <div className="min-w-full p-[2rem] md:p-[4rem] lg:p-[4rem]">
@@ -58,89 +65,31 @@ const FormNewCustomer = () => {
           <div className="column1-image">
             <label
               htmlFor="imageInput"
-              className="flex flex-col justify-center items-center border-4 border-blue-500 w-44 h-44 rounded-full cursor-pointer"
+              className="flex flex-col justify-center items-center border-4 border-blue-500 w-44 h-44 rounded-full"
             >
-              {selectedImage ? (
-                <img
-                  src={URL.createObjectURL(selectedImage)}
-                  alt="Selected Preview"
-                  className="w-full h-full object-cover rounded-full"
-                />
-              ) : (
-                <>
-                  <i className="fa-solid fa-user icon-user-rv"></i>
-                </>
-              )}
+              <i className="fa-solid fa-user icon-user-rv"></i>
             </label>
-            <input
-              type="file"
-              id="imageInput"
-              ref={imageInputRef}
-              onChange={handleImageChange}
-              className="hidden"
-              accept="image/*"
-            />
           </div>
           <div className="colum2-inputs">
             <div className="fila-1">
-              <div className="relative w-full md:w-[48%] lg:w-[48%] mb-[12px] md:mb-[0] lg:mb-[0]">
+              <div className="relative w-full md:w-full lg:w-full mb-[12px] md:mb-[0] lg:mb-[0]">
                 <input
                   type="text"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   className="h-12 md:h-14 lg:h-14 w-full lg:w-full md:w-full pl-4 rounded-full focus:outline-none border-2 border-blue-txt text-blue-txt"
                 />
-                <span className="container-input-texto absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer lg:left-[28px] md:left-[28px]">
+                <span className="container-input-texto absolute right-4 top-1/2 transform -translate-y-1/2 lg:left-[28px] md:left-[28px]">
                   <p className="bg-white inline-block pl-[5px] pr-[5px] text-blue-txt">
-                    First Name
-                  </p>
-                </span>
-              </div>
-              <div className="relative w-full md:w-[48%] lg:w-[48%] mb-[12px] md:mb-[0] lg:mb-[0]">
-                <input
-                  type="text"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  className="h-12 md:h-14 lg:h-14 w-full lg:w-full md:w-full pl-4 rounded-full focus:outline-none border-2 border-blue-txt text-blue-txt"
-                />
-                <span className="container-input-texto absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer lg:left-[28px] md:left-[28px]">
-                  <p className="bg-white inline-block pl-[5px] pr-[5px] text-blue-txt">
-                    Last Name
+                    Name customer
                   </p>
                 </span>
               </div>
             </div>
-
             <div className="fila-2">
-              <div className="relative w-full md:w-[48%] lg:w-[48%] mb-[12px] md:mb-[0] lg:mb-[0]">
-                <Dropdown
-                  value={selectedMatter}
-                  onChange={(e) => setSelectedMatter(e.value)}
-                  options={matters}
-                  optionLabel="name"
-                  showClear
-                  className="h-12 md:h-14 lg:h-14 w-full lg:w-full md:w-full pl-4 rounded-full focus:outline-none border-2 border-blue-txt text-blue-txt dropdown-custom-rv"
-                />
-                <span className="container-input-texto absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer lg:left-[28px] md:left-[28px]">
-                  <p className="bg-white inline-block pl-[5px] pr-[5px] text-blue-txt">
-                    Matter
-                  </p>
-                </span>
-              </div>
-
-              <div className="relative w-full md:w-[48%] lg:w-[48%]">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="h-12 md:h-14 lg:h-14 w-full lg:w-full md:w-full pl-4 rounded-full focus:outline-none border-2 border-blue-txt text-blue-txt"
-                />
-                <span className="container-input-texto absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer lg:left-[28px] md:left-[28px]">
-                  <p className="bg-white inline-block pl-[5px] pr-[5px] text-blue-txt">
-                    Email address
-                  </p>
-                </span>
-              </div>
+              <button className="w-[12rem] h-[5vh] md:h-[6vh] lg:h-[7vh] rounded-full bg-blue-bg text-white text-lg font-bold">
+                Search
+              </button>
             </div>
           </div>
         </div>
@@ -159,122 +108,132 @@ const FormNewCustomer = () => {
                 <i className="fa-solid fa-user icon-user-rv"></i>
               )}
             </div>
-            <h3 className="text-blue-txt">
-              {firstName} {lastName}
-            </h3>
-            <p className="text-gray">{email}</p>
-            <p className="text-blue-txt">{selectedMatter?.name}</p>
+            <h3 className="text-blue-txt">Name</h3>
+            <p className="text-blue-txt">customer@gmail.com</p>
+            <p className="text-blue-txt">Visa U</p>
           </div>
-
-          <div className="column2-document">
-            <div className="w-full flex flex-row items-center justify-between border-b-2 border-solid border-gray-400 mb-4">
-              <div className="flex flex-row items-center justify-start ">
-                <i class="fa-regular fa-folder-open pr-[5px] text-gray-400 text-3xl"></i>
-                <p className="text-xl font-bold text-blue-txt">Document List</p>
-              </div>
-            </div>
-            <div className="relative w-full h-full flex justify-center items-center border-2 border-solid border-dashed rounded-12 pt-[12px] pb-[12px]">
-              <input
-                type="file"
-                ref={fileInputRef}
-                onChange={handleFileChange}
-                className="w-full h-full opacity-0 absolute inset-0 cursor-pointer"
-              />
-              <span
-                className="container-input-file cursor-pointer"
-                onClick={handleIconClick}
-              >
-                <i className="fa-regular fa-file-circle-plus icon-file "></i>
-                <h2 className="text-xl md:text-3xl lg:text-3xl font-normal">
-                  Drop you document here
-                </h2>
-                <p>Suppots: PDF, Word, JPG</p>
-              </span>
-            </div>
-            <div className="conten-name-file-select">
-              {selectedFile && <p>Selected File: {selectedFile.name}</p>}
-            </div>
-          </div>
-        </div>
-
-        <div className="container-fila2">
-          <div className="w-full flex flex-col md:flex-row md:justify-between lg:flex-row lg:justify-between">
+          <div className="w-full md:w-full lg:w-[70%] flex flex-col items-center">
             <Tab.Group>
-              <Tab.List className="rounded-xl p-1 w-full h-[30vh] md:h-auto lg:h-auto lg:w-[25%] md:w-[25%] flex flex-col justify-between">
-                <Tab
-                  className={({ selected }) =>
-                    classNames(
-                      "w-full  py-2.5 text-base font-medium leading-5 border-2 border-solid border-white rounded-[12px] h-auto md:h-[7vh] lg:h-[7vh]",
-                      "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
-                      selected
-                        ? "bg-white text-blue-700 shadow"
-                        : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
-                    )
-                  }
-                >
-                  Asign CheckList
-                </Tab>
-                <Tab
-                  className={({ selected }) =>
-                    classNames(
-                      "w-full py-2.5 text-base font-medium leading-5 border-2 border-solid border-white rounded-[12px] h-auto md:h-[7vh] lg:h-[7vh]",
-                      "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
-                      selected
-                        ? "bg-white text-blue-700 shadow"
-                        : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
-                    )
-                  }
-                >
-                  Asigh Payment Plans
-                </Tab>
-                <Tab
-                  className={({ selected }) =>
-                    classNames(
-                      "w-full py-2.5 text-base font-medium leading-5 border-2 border-solid border-white rounded-[12px] h-auto md:h-[7vh] lg:h-[7vh]",
-                      "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
-                      selected
-                        ? "bg-white text-blue-700 shadow"
-                        : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
-                    )
-                  }
-                >
-                  View Payment
-                </Tab>
-                <Tab
-                  className={({ selected }) =>
-                    classNames(
-                      "w-full py-2.5 text-base font-medium leading-5 border-2 border-solid border-white rounded-[12px] h-auto md:h-[7vh] lg:h-[7vh]",
-                      "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
-                      selected
-                        ? "bg-white text-blue-700 shadow"
-                        : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
-                    )
-                  }
-                >
-                  Send Password
-                </Tab>
+              <Tab.List className="rounded-xl p-1 w-full h-auto md:h-auto lg:h-auto  grid grid-cols-3 gap-2 md:gap-4 lg:gap-4 mb-[1rem]">
+                {tabs.map((tab, index) => (
+                  <Tab
+                    className={({ selected }) =>
+                      classNames(
+                        "w-full  py-2.5 text-[18px]  md:text-xl lg:text-xl font-medium leading-5 border-2 border-solid border-white rounded-[12px] h-auto md:h-[7vh] lg:h-[7vh]",
+                        "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
+                        selected
+                          ? "bg-white text-blue-700 shadow"
+                          : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
+                      )
+                    }
+                  >
+                    {tab}
+                  </Tab>
+                ))}
               </Tab.List>
-              <Tab.Panels className="w-full mt-[2rem] md:mt-[0] lg:mt-[0] md:w-[70%] lg:w-[70%]">
+
+              <Tab.Panels className="w-full mt-[2rem] md:mt-[0] lg:mt-[0]  h-[70vh] md:h-[50vh] lg:h-[50vh]">
                 <Tab.Panel
                   className={classNames(
                     "rounded-xl bg-white p-3",
-                    "ring-white/60 ring-offset-2 ring-offset-blue-400 h-[40vh] focus:outline-none focus:ring-2"
+                    "ring-white/60 ring-offset-2 ring-offset-blue-400 h-full"
                   )}
                 >
-                  <p>Asign CheckList</p>
+                  <div className="w-full flex flex-row items-center justify-between border-b-2 border-solid border-gray-400 mb-4 h-[15%]">
+                    <div className="flex flex-row items-center justify-start ">
+                      <img
+                        src={IconChecklist}
+                        alt=""
+                        className="mr-1 w-[20px]"
+                      />
+                      <p className="text-xl font-bold text-blue-txt">
+                        New Relative
+                      </p>
+                    </div>
+                    <button className="bg-gray-300 text-black rounded-md px-5 py-1 text-base md:text-[15px] font-normal font-manrope">
+                      Save
+                    </button>
+                  </div>
+                  <div className="flex flex-col h-[80%]">
+                    <div className="w-full md:w-[60%]  lg:w-[60%] h-[40%] border-[2px] border-solid border-gray-300 rounded-[14px] p-[7px]">
+                      <div className="w-full h-full overflow-y-auto">
+                        <RadioGroup
+                          value={selected}
+                          onChange={setSelected}
+                          className="pr-[1rem]"
+                        >
+                          <div className="space-y-2">
+                            {checklistPlan.map((plan) => (
+                              <RadioGroup.Option
+                                key={plan.name}
+                                value={plan}
+                                className={({ active, checked }) =>
+                                  `${
+                                    active
+                                      ? "ring-2 ring-white/60 ring-offset-2 ring-offset-sky-300"
+                                      : ""
+                                  }
+                                  ${
+                                    checked
+                                      ? "bg-sky-900/75 text-white"
+                                      : "bg-white border-[2px] border-solid border-gray-300"
+                                  }
+                                    relative flex cursor-pointer rounded-lg px-5 py-2 shadow-md focus:outline-none`
+                                }
+                              >
+                                {({ active, checked }) => (
+                                  <>
+                                    <div className="flex w-full items-center justify-between">
+                                      <div className="flex items-center">
+                                        <div className="text-sm">
+                                          <RadioGroup.Label
+                                            as="p"
+                                            className={`font-medium  ${
+                                              checked
+                                                ? "text-white"
+                                                : "text-gray-900"
+                                            }`}
+                                          >
+                                            {plan.name}
+                                          </RadioGroup.Label>
+                                        </div>
+                                      </div>
+                                      {checked && (
+                                        <div className="shrink-0 text-white">
+                                          <CheckIcon className="h-6 w-6" />
+                                          {console.log(
+                                            "Radio button seleccionado:",
+                                            plan.name
+                                          )}
+                                        </div>
+                                      )}
+                                    </div>
+                                  </>
+                                )}
+                              </RadioGroup.Option>
+                            ))}
+                          </div>
+                        </RadioGroup>
+                      </div>
+                    </div>
+                    <div className=" h-[60%] p-[5px] ">
+                      Or Ad hoc Checklist
+                      <div className="container-casc">
+                        <input
+                          type="text"
+                          id="document_name"
+                          class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-blue-txt "
+                          placeholder="Document name"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </Tab.Panel>
                 <Tab.Panel
                   className={classNames(
                     "rounded-xl bg-white p-3",
-                    "ring-white/60 ring-offset-2 ring-offset-blue-400 h-[40vh] focus:outline-none focus:ring-2"
-                  )}
-                >
-                  <p>Asigh Payment Plans</p>
-                </Tab.Panel>
-                <Tab.Panel
-                  className={classNames(
-                    "rounded-xl bg-white p-3",
-                    "ring-white/60 ring-offset-2 ring-offset-blue-400 h-[40vh] focus:outline-none focus:ring-2"
+                    "ring-white/60 ring-offset-2 ring-offset-blue-400 h-full focus:outline-none focus:ring-2"
                   )}
                 >
                   <p>View Payment</p>
@@ -282,13 +241,157 @@ const FormNewCustomer = () => {
                 <Tab.Panel
                   className={classNames(
                     "rounded-xl bg-white p-3",
-                    "ring-white/60 ring-offset-2 ring-offset-blue-400 h-[40vh] focus:outline-none focus:ring-2"
+                    "ring-white/60 ring-offset-2 ring-offset-blue-400 h-full focus:outline-none focus:ring-2"
                   )}
                 >
                   <p>Send Password</p>
                 </Tab.Panel>
               </Tab.Panels>
             </Tab.Group>
+          </div>
+        </div>
+
+        <div className="container-fila2">
+          <div className="column2-document">
+            <div className="w-full flex flex-row items-center justify-between border-b-2 border-solid border-gray-400 mb-[1px]">
+              <div className="flex flex-row items-center justify-start ">
+                <img src={IconChecklist} alt="" className="mr-1 w-[20px]" />
+                <p className="text-xl font-bold text-blue-txt">
+                  View CheckList
+                </p>
+              </div>
+            </div>
+            <div className="w-full h-full flex flex-col items-start rounded-12 pt-[12px] pb-[12px]">
+              <div className="flex flex-row items-center justify-start ">
+                <i class="fa-regular fa-folder-open pr-[5px] text-gray-400 text-3xl"></i>
+                <p className="text-xl font-bold text-white">Document List</p>
+              </div>
+              <div className="w-full grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="bg-bg-celeste p-[12px] rounded-2xl h-[40vh] shadow-lg ">
+                  <p className="text-xl font-bold text-white text-center border-b-2 border-solid border-white mb-[1rem]">
+                    Checklist: Visa U
+                    <span className="text-[13px]  md:text-[15px] lg:text-[15px]">
+                      (Principal)
+                    </span>
+                  </p>
+                  <ul className="list-decimal w-full pr-[5px] h-[30vh] overflow-y-auto">
+                    {documentsListData.map((document) => (
+                      <li
+                        key={document.id}
+                        className="mb-[12px] ml-[17px] text-white"
+                      >
+                        <div className="flex flex-row justify-between items-center">
+                          <label className="text-white text-[15px]  md:text-[17px] lg:text-[17px]">
+                            {document.label}
+                          </label>
+                          {document.label.includes("Complete") ? (
+                            <button
+                              onClick={() => handleViewButtonClick(document.id)}
+                              className="bg-blue-bg rounded-lg p-[6px] text-[14px] text-white max-w-[60%]"
+                            >
+                              View
+                            </button>
+                          ) : (
+                            <FileUpload
+                              chooseLabel="Upload"
+                              mode="basic"
+                              name={`demo_${document.id}`}
+                              url="/api/upload"
+                              accept=".pdf,.doc,.docx,.txt"
+                              maxFileSize={1000000}
+                              onUpload={() => onUpload(document.id)}
+                              className="bg-blue-bg rounded-lg p-[6px] text-[14px] text-white max-w-[60%]"
+                            />
+                          )}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="bg-bg-celeste p-[12px] rounded-2xl h-[40vh] shadow-lg ">
+                  <p className="text-xl font-bold text-white text-center border-b-2 border-solid border-white mb-[1rem]">
+                    Checklist: Visa U
+                    <span className="text-[13px]  md:text-[15px] lg:text-[15px]">
+                      (Principal)
+                    </span>
+                  </p>
+                  <ul className="list-decimal w-full pr-[5px] h-[30vh] overflow-y-auto">
+                    {documentsListData.map((document) => (
+                      <li
+                        key={document.id}
+                        className="mb-[12px] ml-[17px] text-white"
+                      >
+                        <div className="flex flex-row justify-between items-center">
+                          <label className="text-white text-[15px]  md:text-[17px] lg:text-[17px]">
+                            {document.label}
+                          </label>
+                          {document.label.includes("Complete") ? (
+                            <button
+                              onClick={() => handleViewButtonClick(document.id)}
+                              className="bg-blue-bg rounded-lg p-[6px] text-[14px] text-white max-w-[60%]"
+                            >
+                              View
+                            </button>
+                          ) : (
+                            <FileUpload
+                              chooseLabel="Upload"
+                              mode="basic"
+                              name={`demo_${document.id}`}
+                              url="/api/upload"
+                              accept=".pdf,.doc,.docx,.txt"
+                              maxFileSize={1000000}
+                              onUpload={() => onUpload(document.id)}
+                              className="bg-blue-bg rounded-lg p-[6px] text-[14px] text-white max-w-[60%]"
+                            />
+                          )}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="bg-bg-celeste p-[12px] rounded-2xl h-[40vh] shadow-lg ">
+                  <p className="text-xl font-bold text-white text-center border-b-2 border-solid border-white mb-[1rem]">
+                    Checklist: Visa U
+                    <span className="text-[13px]  md:text-[15px] lg:text-[15px]">
+                      (Principal)
+                    </span>
+                  </p>
+                  <ul className="list-decimal w-full pr-[5px] h-[30vh] overflow-y-auto">
+                    {documentsListData.map((document) => (
+                      <li
+                        key={document.id}
+                        className="mb-[12px] ml-[17px] text-white"
+                      >
+                        <div className="flex flex-row justify-between items-center">
+                          <label className="text-white text-[15px]  md:text-[17px] lg:text-[17px]">
+                            {document.label}
+                          </label>
+                          {document.label.includes("Complete") ? (
+                            <button
+                              onClick={() => handleViewButtonClick(document.id)}
+                              className="bg-blue-bg rounded-lg p-[6px] text-[14px] text-white max-w-[60%]"
+                            >
+                              View
+                            </button>
+                          ) : (
+                            <FileUpload
+                              chooseLabel="Upload"
+                              mode="basic"
+                              name={`demo_${document.id}`}
+                              url="/api/upload"
+                              accept=".pdf,.doc,.docx,.txt"
+                              maxFileSize={1000000}
+                              onUpload={() => onUpload(document.id)}
+                              className="bg-blue-bg rounded-lg p-[6px] text-[14px] text-white max-w-[60%]"
+                            />
+                          )}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

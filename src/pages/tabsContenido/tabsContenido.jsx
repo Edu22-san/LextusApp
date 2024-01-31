@@ -10,7 +10,7 @@ function classNames(...classes) {
 const tabs = [
   { key: "viewUsers", label: "View Users" },
   { key: "viewDocumentCatalogs", label: "View Document Catalogs" },
-  { key: "viewPaymentPlans", label: "View Payment Plans" },
+  //{ key: "viewPaymentPlans", label: "View Payment Plans" },
 ];
 
 const TabsContenido = () => {
@@ -34,7 +34,7 @@ const TabsContenido = () => {
       <div className="min-w-full flex flex-col justify-start items-center min-h-[90vh]">
         <div className="w-full lg:w-[80%] md:w-[80%] flex flex-col items-center justify-center">
           <Tab.Group>
-            <Tab.List className="grid grid-cols-1 md:grid-cols-3 items-center justify-center rounded-xl p-1 w-[90%] lg:w-[80%] md:w-[80%] mt-[2rem] md:mt-[10rem] lg:mt-[10rem] gap-4">
+            <Tab.List className="grid grid-cols-2 md:grid-cols-2 items-center justify-center rounded-xl p-1 w-[90%] lg:w-[80%] md:w-[80%] mt-[2rem] md:mt-[10rem] lg:mt-[10rem] gap-4">
               {tabs.map((tab) => (
                 <Tab
                   key={tab.key}
