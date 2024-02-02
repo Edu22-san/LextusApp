@@ -112,7 +112,7 @@ const FormNewCustomer = () => {
               </div>
             </div>
             <div className="fila-2">
-              <button className="w-[12rem] h-[5vh] md:h-[6vh] lg:h-[7vh] rounded-full bg-blue-bg text-white text-lg font-bold">
+              <button className="btn-rv-search-customer">
                 Search
               </button>
             </div>
@@ -133,9 +133,15 @@ const FormNewCustomer = () => {
                 <i className="fa-solid fa-user icon-user-rv"></i>
               )}
             </div>
-            <h3 className="text-blue-txt">Name</h3>
-            <p className="text-blue-txt">customer@gmail.com</p>
-            <p className="text-blue-txt">Visa U</p>
+            <h3 className="text-blue-txt text-[18px]  md:text-xl lg:text-xl">
+              Name
+            </h3>
+            <p className="text-blue-txt text-[18px]  md:text-xl lg:text-xl">
+              customer@gmail.com
+            </p>
+            <p className="text-blue-txt text-[18px]  md:text-xl lg:text-xl">
+              Visa U
+            </p>
           </div>
           <div className="w-full md:w-full lg:w-[70%] flex flex-col items-center">
             <Tab.Group>
@@ -175,7 +181,7 @@ const FormNewCustomer = () => {
                       Save
                     </button>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 h-[80%]">
+                  <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-0 md:gap-4 lg:gap-4 h-[80%]">
                     <div className="p-4 col-span-1 h-[20vh] md:h-[43vh] lg:h-[43vh] row-span-1 border-[2px] border-solid border-gray-300 rounded-[14px] p-[7px] overflow-y-auto">
                       <p className="text-blue-txt text-[18px] mb-[5px]">
                         Select Matter:
@@ -333,11 +339,16 @@ const FormNewCustomer = () => {
                 </Tab.Panel>
                 <Tab.Panel
                   className={classNames(
-                    "rounded-xl bg-white p-3",
+                    "rounded-xl bg-white p-3 flex flex-col items-center justify-center",
                     "ring-white/60 ring-offset-2 ring-offset-blue-400 h-full focus:outline-none focus:ring-2"
                   )}
                 >
-                  <p>Send Password</p>
+                  <p className="text-[18px]  md:text-xl lg:text-xl text-blue-txt font-bold text-center">
+                    You will send restore password email to customer@gmail.com
+                  </p>
+                  <button className="buttom-rv-customers">
+                    SEND<i class="fa-solid fa-angle-right text-white pl-[8px]"></i>
+                  </button>
                 </Tab.Panel>
               </Tab.Panels>
             </Tab.Group>
