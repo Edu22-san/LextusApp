@@ -25,13 +25,18 @@ const checklistPaymentPlan = [
   { name: "Payment Plan 4" },
   { name: "Payment Plan 5" },
   { name: "Payment Plan 6" },
+  { name: "Payment Plan 7" },
+  { name: "Payment Plan 8" },
+  { name: "Payment Plan 9" },
 ];
 
 const FormNewCustomer = () => {
   const [firstName, setFirstName] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [selected, setSelected] = useState(checklistPlan[-1]);
-  const [selectedPaymentPlan, setSelectedPaymentPlan] = useState(checklistPaymentPlan[-1]);
+  const [selectedPaymentPlan, setSelectedPaymentPlan] = useState(
+    checklistPaymentPlan[-1]
+  );
 
   const tabs = ["Asign Checklist", "Payment plan", "Send Password"];
 
@@ -65,7 +70,6 @@ const FormNewCustomer = () => {
     { label: "Document name ", id: 6 },
   ];
 
- 
   return (
     <>
       <div className="min-w-full p-[2rem] md:p-[4rem] lg:p-[4rem]">
@@ -162,7 +166,7 @@ const FormNewCustomer = () => {
                 >
                   <div className="w-full flex flex-row items-center justify-between border-b-2 border-solid border-gray-400 mb-4 h-[15%]">
                     <div className="flex flex-row items-center justify-start ">
-                      <img src={IconChecklist} className="mr-1 w-[30px]"/>
+                      <img src={IconChecklist} className="mr-1 w-[30px]" />
                       <p className="text-xl font-bold text-blue-txt">
                         New Relative
                       </p>
@@ -241,7 +245,10 @@ const FormNewCustomer = () => {
                               <label className="text-[15px]  md:text-[17px] lg:text-[17px]">
                                 {document.label}
                               </label>
-                             <input type="date" className="inputselectcustoms"/>
+                              <input
+                                type="date"
+                                className="inputselectcustoms"
+                              />
                             </div>
                           </li>
                         ))}
@@ -255,18 +262,19 @@ const FormNewCustomer = () => {
                     "ring-white/60 ring-offset-2 ring-offset-blue-400 h-full focus:outline-none focus:ring-2"
                   )}
                 >
-                  <div className="p-4 col-span-1 h-[70vh] md:h-[60vh] lg:h-[60vh] row-span-1 border-[2px] border-solid border-gray-300 rounded-[14px] p-3 overflow-y-auto">
-                  <div className="w-full flex flex-row items-center justify-between border-b-2 border-solid border-gray-400 mb-4 h-[15%]">
-                    <div className="flex flex-row items-center justify-start ">
-                      <img src={IconChecklist} className="mr-1 w-[30px]"/>
-                      <p className="text-xl font-bold text-blue-txt">
-                        Select Payment Plan:
-                      </p>
+                  <div className="p-4 col-span-1 h-[70vh] md:h-[60vh] lg:h-[60vh] row-span-1 border-[2px] border-solid border-gray-300 rounded-[14px] p-3">
+                    <div className="w-full flex flex-row items-center justify-between border-b-2 border-solid border-gray-400 mb-4 h-[15%]">
+                      <div className="flex flex-row items-center justify-start ">
+                        <img src={IconChecklist} className="mr-1 w-[30px]" />
+                        <p className="text-xl font-bold text-blue-txt">
+                          Select Payment Plan:
+                        </p>
+                      </div>
+                      <button className="bg-gray-300 text-black rounded-md px-5 py-1 text-base md:text-[15px] font-normal font-manrope">
+                        Save
+                      </button>
                     </div>
-                    <button className="bg-gray-300 text-black rounded-md px-5 py-1 text-base md:text-[15px] font-normal font-manrope">
-                      Save
-                    </button>
-                  </div>
+                    <div className="h-[80%] overflow-y-auto pr-[12px]">
                       <RadioGroup
                         value={selectedPaymentPlan}
                         onChange={setSelectedPaymentPlan}
@@ -321,6 +329,7 @@ const FormNewCustomer = () => {
                         </div>
                       </RadioGroup>
                     </div>
+                  </div>
                 </Tab.Panel>
                 <Tab.Panel
                   className={classNames(
