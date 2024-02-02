@@ -119,6 +119,14 @@ span.container-input-file {
     width: 100%;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
+
+input.inputselectcustoms {
+    color: #497792;
+    border: 2px solid #497792;
+    border-radius: 10px;
+    height: 5vh;
+    width: auto;
+}
 @media (max-width: 768px) {
     .card-completess {
         width: 100%;
