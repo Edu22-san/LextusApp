@@ -132,7 +132,9 @@ ul.MuiPagination-ul.css-wjh20t-MuiPagination-ul {
     flex-direction: row;
     justify-content: center;
 }
-
+.aaaa {
+    z-index: 100 !important;
+}
 @media only screen and (max-width: 600px) {
     .container-options {
         display: flex;

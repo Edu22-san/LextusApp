@@ -72,14 +72,7 @@ const TabsContenido = () => {
               >
                 <CardsDocumentsCatalogs />
               </Tab.Panel>
-              <Tab.Panel
-                className={classNames(
-                  "rounded-xl bg-white p-3",
-                  "ring-white/60 ring-offset-2 ring-offset-blue-400 h-[40vh] focus:outline-none focus:ring-2"
-                )}
-              >
-                <p>Plans</p>
-              </Tab.Panel>
+              
             </Tab.Panels>
           </Tab.Group>
         </div>

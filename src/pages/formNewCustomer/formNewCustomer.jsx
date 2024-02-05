@@ -80,11 +80,7 @@ const FormNewCustomer = () => {
             </h1>
             <p className="text-white ">Register your customer</p>
           </div>
-          <div className="flex flex-row justify-center  md:justify-end lg:justify-end">
-            <button className="w-[12rem] h-[7vh] border-[3px] border-white rounded-2xl text-white text-lg font-bold transition-colors hover:bg-white hover:text-blue-txt">
-              Register
-            </button>
-          </div>
+          
         </div>
         <div className="card-completess">
           <div className="column1-image">
@@ -150,7 +146,7 @@ const FormNewCustomer = () => {
                   <Tab
                     className={({ selected }) =>
                       classNames(
-                        "w-full  py-2.5 text-[18px]  md:text-xl lg:text-xl font-medium leading-5 border-2 border-solid border-white rounded-[12px] h-auto md:h-[7vh] lg:h-[7vh]",
+                        "w-full  py-2.5 text-[15px]  md:text-xl lg:text-xl font-medium leading-5 border-2 border-solid border-white rounded-[12px] h-auto md:h-[7vh] lg:h-[7vh]",
                         "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
                         selected
                           ? "bg-white text-blue-700 shadow"
@@ -182,7 +178,7 @@ const FormNewCustomer = () => {
                     </button>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-0 md:gap-4 lg:gap-4 h-[80%]">
-                    <div className="p-4 col-span-1 h-[20vh] md:h-[43vh] lg:h-[43vh] row-span-1 border-[2px] border-solid border-gray-300 rounded-[14px] p-[7px] overflow-y-auto">
+                    <div className="p-4 col-span-1 h-[20vh] md:h-[43vh] lg:h-[43vh] row-span-1 border-[2px] border-solid border-gray-300 rounded-[8px] p-[7px] overflow-y-auto">
                       <p className="text-blue-txt text-[18px] mb-[5px]">
                         Select Matter:
                       </p>
@@ -205,9 +201,9 @@ const FormNewCustomer = () => {
                                   ${
                                     checked
                                       ? "bg-sky-900/75 text-white"
-                                      : "bg-white border-[2px] border-solid border-gray-300 w-full"
+                                      : "bg-white w-full"
                                   }
-                                    relative flex cursor-pointer rounded-lg px-5 py-2 shadow-md focus:outline-none`
+                                    relative flex cursor-pointer rounded-lg px-5 py-2 rv-boxshadow3 focus:outline-none`
                               }
                             >
                               {({ active, checked }) => (
@@ -240,7 +236,7 @@ const FormNewCustomer = () => {
                         </div>
                       </RadioGroup>
                     </div>
-                    <div className=" p-4 col-span-2 row-span-1 h-[30vh] md:h-[43vh] lg:h-[43vh] p-[5px] border-[2px] border-solid border-gray-300 rounded-[14px] overflow-y-auto">
+                    <div className=" p-4 col-span-2 row-span-1 h-[30vh] md:h-[43vh] lg:h-[43vh] p-[5px] border-[2px] border-solid border-gray-300 rounded-[8px] overflow-y-auto">
                       <p className="text-blue-txt text-[18px] mb-[5px]">
                         Or Ad hoc Checklist:
                       </p>

@@ -248,15 +248,23 @@ svg.p-icon.p-dropdown-clear-icon.p-clickable {
   ::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px grey;
     border-radius: 10px;
+    background-color: white;
+
+
   }
   
   /* Handle */
   ::-webkit-scrollbar-thumb {
     background: #264ff9;
     border-radius: 10px;
+    border: 2px solid gray ;
   }
   
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: #264ff9;
   }
+
+  .rv-boxshadow3 {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}

@@ -35,7 +35,7 @@ const Dashboard = () => {
             industry.
           </p>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-2 items-center justify-center rounded-xl p-1 w-[90%] lg:w-[70%] md:w-[70%] mt-[2rem] gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-2 text-center items-center justify-center rounded-xl p-1 w-[90%] lg:w-[70%] md:w-[70%] mt-[2rem] gap-4">
           {linksData.map((link) => (
             <Link
               key={link.key}
