@@ -51,7 +51,7 @@ const CardDaysDocuments = () => {
       <div className="p-5 color-txt-rv text-base font-medium leading-5 bg-white flex flex-col justify-start items-center boxshadow-rv2 w-full h-auto lg:h-[33vh] md:h-[33vh]">
         <div className="w-full flex flex-row items-center justify-between pb-1 border-b-2 border-solid border-gray-300">
           <div className="flex flex-row items-center">
-            <i class="fa-regular fa-folder-open text-gray-300 mr-1"></i>
+            <i className="fa-regular fa-folder-open text-gray-300 mr-1"></i>
             <p className="text-blue-500 text-lg md:text-xl lg:text-xl  font-bold ">
               60 days documents
             </p>

@@ -27,7 +27,7 @@ const Dashboard = () => {
     <>
       <div className="min-w-full flex flex-col items-center justify-center min-h-[90vh]">
         <div className="md:w-[40%] lg:w-[40%] w-[90%] flex flex-col items-center justify-center mt-[4rem]">
-          <h1 className="text-white text-5xl lg:text-8xl md:text-8xl font-bold">
+          <h1 className="text-white text-5xl lg:text-8xl md:text-8xl font-bold text-center">
             Lorem ipsum
           </h1>
           <p className="text-center text-white text-xl md:text-2xl lg:text-2xl font-light pt-2">

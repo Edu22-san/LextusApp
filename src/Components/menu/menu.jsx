@@ -70,7 +70,7 @@ const Menu = () => {
             <li className="menu-item">
               <div className="menu-item">
                 <p className="txt-menu">About Us</p>
-                <i class="fa-solid fa-chevron-down text-white ml-1"></i>
+                <i className="fa-solid fa-chevron-down text-white ml-1"></i>
               </div>
               <ul className="submenu-2">
                 <li className="submenu-item">
@@ -84,7 +84,7 @@ const Menu = () => {
             <li className="menu-item">
               <div className="menu-item">
                 <p className="txt-menu">Services</p>
-                <i class="fa-solid fa-chevron-down text-white ml-1"></i>
+                <i className="fa-solid fa-chevron-down text-white ml-1"></i>
               </div>
               <ul className="submenu">
                 <li className="submenu-item">
@@ -122,7 +122,7 @@ const Menu = () => {
           <li className="menu-item user">
             <div className="menu-item">
               <img src={User} alt="" className="logo-user" />
-              <i class="fa-solid fa-chevron-down text-white ml-1"></i>
+              <i className="fa-solid fa-chevron-down text-white ml-1"></i>
             </div>
             <ul className="submenu-user">
               <li className="submenu-item ">
@@ -138,13 +138,13 @@ const Menu = () => {
         </div>
       </div>
 
-      <nav class="bg-white container-menu2">
-        <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
+      <nav className="bg-white container-menu2">
+        <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
         <Link to="/user/dashboard" className="flex items-center space-x-3 rtl:space-x-reverse">
-        <img src={Logo} class="h-8" alt="Flowbite Logo" />
+        <img src={Logo} className="h-8" alt="Flowbite Logo" />
         </Link>
           
-          <div class="flex items-center space-x-6 rtl:space-x-reverse">
+          <div className="flex items-center space-x-6 rtl:space-x-reverse">
             <li className="menu-item user">
               <p className="text-gray-900 dark:text-white text-16">ES</p>
               <div className="menu-item"  onClick={handleUserDropdownToggle }>
@@ -165,10 +165,10 @@ const Menu = () => {
           </div>
         </div>
       </nav>
-      <nav class="bg-gray-50 dark:bg-gray-700 container-menu2-sub">
-        <div class="max-w-screen-xl px-4 py-3 mx-auto">
-          <div class="flex items-center justify-center">
-            <ul class="w-full flex items-center justify-around rtl:space-x-reverse text-sm">
+      <nav className="bg-gray-50 dark:bg-gray-700 container-menu2-sub">
+        <div className="max-w-screen-xl px-4 py-3 mx-auto">
+          <div className="flex items-center justify-center">
+            <ul className="w-full flex items-center justify-around rtl:space-x-reverse text-sm">
               <li className="relative">
                 <a href="#"
                   className={`text-gray-800 font-bold text-decoration-none  ${isAboutUsDropdownOpen && 'text-blue-500'}`}
@@ -176,7 +176,7 @@ const Menu = () => {
                   onClick={handleAboutUsDropdownToggle}
                 >
                   About us
-                  <i class="fa-solid fa-chevron-down text-gray-800 ml-1"></i>
+                  <i className="fa-solid fa-chevron-down text-gray-800 ml-1"></i>
                 </a>
                 
                 {isAboutUsDropdownOpen && (
@@ -197,7 +197,7 @@ const Menu = () => {
                   onClick={handleServicesDropdownToggle}
                 >
                   Services
-                  <i class="fa-solid fa-chevron-down text-gray-800 ml-1"></i>
+                  <i className="fa-solid fa-chevron-down text-gray-800 ml-1"></i>
                 </a>
                 {isServicesDropdownOpen && (
                   <div className="absolute top-full left-0 bg-white  shadow-lg mt-1 p-2 rounded-[10px]" style={{ width: '9rem' }}>
@@ -211,12 +211,12 @@ const Menu = () => {
                 )}
               </li>
               <li>
-                <a href="#" class="text-gray-800 font-bold hover:underline">
+                <a href="#" className="text-gray-800 font-bold hover:underline">
                   Blog
                 </a>
               </li>
               <li>
-                <a href="#" class="text-gray-800 font-bold hover:underline">
+                <a href="#" className="text-gray-800 font-bold hover:underline">
                   Contact Us
                 </a>
               </li>

@@ -72,7 +72,7 @@ const TabsCustomers = () => {
                     : "bg-white text-blue-txt"
                 }`}
               >
-                <p className="w-full pl-[7px] pr-[7px] font-semibold text-[15px]  md:text-[18px] lg:text-[18px] ">
+                <p className="w-full pl-[7px] pr-[7px] font-semibold text-[15px]  md:text-[15px] lg:text-[15px] ">
                   {document}
                 </p>
               </div>

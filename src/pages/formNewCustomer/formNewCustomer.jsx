@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect  } from "react";
 import { Tab } from "@headlessui/react";
 import "./assets/formNewCustomer.css";
 import { Dropdown } from "primereact/dropdown"; // por si acaso
@@ -7,6 +7,7 @@ import { Checkbox } from "primereact/checkbox";
 import { FileUpload } from "primereact/fileupload";
 import { RadioGroup } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/20/solid";
+import Api from "../../services/api";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -14,20 +15,12 @@ function classNames(...classes) {
 const checklistPlan = [
   { name: "Visa U" },
   { name: "Visa U sons" },
-  { name: "Visa U wife" },
-  { name: "Parole" },
 ];
 
 const checklistPaymentPlan = [
   { name: "Payment Plan 1" },
   { name: "Payment Plan 2" },
-  { name: "Payment Plan 3" },
-  { name: "Payment Plan 4" },
-  { name: "Payment Plan 5" },
-  { name: "Payment Plan 6" },
-  { name: "Payment Plan 7" },
-  { name: "Payment Plan 8" },
-  { name: "Payment Plan 9" },
+
 ];
 
 const FormNewCustomer = () => {
@@ -48,27 +41,59 @@ const FormNewCustomer = () => {
     });
   };
   const handleViewButtonClick = (documentId) => {
-    // Lógica para manejar el clic en el botón de vista
-    // Implementar una modal, abrir una nueva página.
+
     console.log(`View button clicked for documentId: ${documentId}`);
   };
   const documentsListData = [
     { label: "Document name | pending | 01/01/2024", id: 1 },
-    { label: "Document name | Complete | 01/01/2024", id: 2 },
-    { label: "Document name | pending | 01/01/2024", id: 3 },
-    { label: "Document name | pending | 01/01/2024", id: 4 },
-    { label: "Document name | pending | 01/01/2024", id: 5 },
-    { label: "Document name | pending | 01/01/2024", id: 6 },
+
+
   ];
 
   const documentsChecklistData = [
     { label: "Document name ", id: 1 },
-    { label: "Document name ", id: 2 },
-    { label: "Document name ", id: 3 },
-    { label: "Document name ", id: 4 },
-    { label: "Document name ", id: 5 },
-    { label: "Document name ", id: 6 },
+
+
   ];
+
+  const [datitos, setDatitos] = useState([]); 
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
+  const [message, setMessage] = useState(""); 
+
+// Función para obtener los datos
+const fetchData = async () => {
+  try {
+    const response = await Api.get("/customers");
+    console.log('API Response:', response);
+    setDatitos(response.data.data || []);  // Almacena los datos obtenidos
+    console.log(response);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
+
+// Llama a fetchData cuando el componente se monta
+useEffect(() => {
+  fetchData();
+}, []);
+
+const handleSearch = () => {
+  if (!Array.isArray(datitos)) {
+    console.error("datitos is not an array:", datitos);
+    return;
+  }
+
+  const customer = datitos.find(c => c.full_name.toLowerCase() === firstName.toLowerCase());
+  if (customer) {
+    setSelectedCustomer(customer);
+    setMessage(""); // Limpiar mensaje si se encuentra el cliente
+  } else {
+    setSelectedCustomer(null);
+    setMessage("No se encontró el usuario"); // Establecer mensaje si no se encuentra el cliente
+  }
+};
+
+
 
   return (
     <>
@@ -84,10 +109,7 @@ const FormNewCustomer = () => {
         </div>
         <div className="card-completess">
           <div className="column1-image">
-            <label
-              htmlFor="imageInput"
-              className="flex flex-col justify-center items-center border-4 border-blue-500 w-44 h-44 rounded-full"
-            >
+            <label htmlFor="imageInput" className="flex flex-col justify-center items-center border-4 border-blue-500 w-44 h-44 rounded-full">
               <i className="fa-solid fa-user icon-user-rv"></i>
             </label>
           </div>
@@ -106,9 +128,11 @@ const FormNewCustomer = () => {
                   </p>
                 </span>
               </div>
+              
             </div>
+             {message && <p className="text-red-500">{message}</p>} {/* Mostrar mensaje si hay */}
             <div className="fila-2">
-              <button className="btn-rv-search-customer">
+            <button className="btn-rv-search-customer" onClick={handleSearch}>
                 Search
               </button>
             </div>
@@ -129,11 +153,12 @@ const FormNewCustomer = () => {
                 <i className="fa-solid fa-user icon-user-rv"></i>
               )}
             </div>
+            
             <h3 className="text-blue-txt text-[18px]  md:text-xl lg:text-xl">
-              Name
+           {selectedCustomer ? selectedCustomer.full_name : 'Full Name'}
             </h3>
             <p className="text-blue-txt text-[18px]  md:text-xl lg:text-xl">
-              customer@gmail.com
+            {selectedCustomer ? selectedCustomer.email : 'Email'}
             </p>
             <p className="text-blue-txt text-[18px]  md:text-xl lg:text-xl">
               Visa U
@@ -343,7 +368,7 @@ const FormNewCustomer = () => {
                     You will send restore password email to customer@gmail.com
                   </p>
                   <button className="buttom-rv-customers">
-                    SEND<i class="fa-solid fa-angle-right text-white pl-[8px]"></i>
+                    SEND<i className="fa-solid fa-angle-right text-white pl-[8px]"></i>
                   </button>
                 </Tab.Panel>
               </Tab.Panels>
@@ -363,7 +388,7 @@ const FormNewCustomer = () => {
             </div>
             <div className="w-full h-full flex flex-col items-start rounded-12 pt-[12px] pb-[12px]">
               <div className="flex flex-row items-center justify-start ">
-                <i class="fa-regular fa-folder-open pr-[5px] text-gray-400 text-3xl"></i>
+                <i className="fa-regular fa-folder-open pr-[5px] text-gray-400 text-3xl"></i>
                 <p className="text-xl font-bold text-gray-400">Document List</p>
               </div>
               <div className="w-full grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-4">

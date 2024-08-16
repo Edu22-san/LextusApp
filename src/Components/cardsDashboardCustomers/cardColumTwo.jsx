@@ -64,7 +64,7 @@ const CardColumTwo = () => {
         <div className="w-full">
           <div className="w-full flex flex-row items-center justify-between pb-1 border-b-2 border-solid border-gray-300">
             <div className="flex flex-row items-center">
-              <i class="fa-solid fa-check text-gray-300 mr-1"></i>
+              <i className="fa-solid fa-check text-gray-300 mr-1"></i>
               <p className="text-blue-500 text-lg md:text-xl lg:text-xl  font-bold ">
                 Visa-U Checklist
               </p>
@@ -131,7 +131,7 @@ const CardColumTwo = () => {
         <div className="w-full">
           <div className="w-full flex flex-row items-center justify-between pb-1 border-b-2 border-solid border-gray-300">
             <div className="flex flex-row items-center">
-              <i class="fa-regular fa-folder-open text-gray-300 mr-1"></i>
+              <i className="fa-regular fa-folder-open text-gray-300 mr-1"></i>
               <p className="text-blue-500 text-lg md:text-xl lg:text-xl  font-bold ">
                 Visa-u Checklist Sibling
               </p>
