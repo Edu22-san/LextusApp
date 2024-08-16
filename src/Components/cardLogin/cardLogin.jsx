@@ -47,15 +47,22 @@ const CardLogin = () => {
     }
   
     Api.post("/auth/login", { email, password })
-      .then((response) => {
-        setSession(response.data);
+    .then((response) => {
+      setSession(response.data);
 
-        toast.success("Login successful!");
-  
-        setTimeout(() => {
-          navigate("user/dashboard-customer");
-        }, 1000);
-      })
+      toast.success("Login successful!");
+
+      // Redirect based on role
+      const role = response.data.id_rol;
+      if (role === "2") {
+        navigate("user/dashboard-customer");
+      } else if (role === "1") {
+        navigate("user/dashboard");
+      } else {
+        // Handle other roles or default action
+        navigate("user/dashboard");
+      }
+    })
       .catch((error) => {
         if (error.response && error.response.status === 401) {
           setLoginError("Incorrect username or password.");
