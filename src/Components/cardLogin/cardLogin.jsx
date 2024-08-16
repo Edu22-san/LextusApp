@@ -52,9 +52,17 @@ const CardLogin = () => {
 
       toast.success("Login successful!");
 
-      setTimeout(() => {
-        navigate("user/dashboard-customer");
-      }, 1000);
+       // Redirect based on role
+       const role = response.data.id_rol;
+       if (role === "1") {
+        navigate("user/dashboard");
+       } else if (role === "2") {
+         
+         navigate("user/dashboard-customer");
+       } else {
+         // Handle other roles or default action
+         navigate("user/dashboard");
+       }
     })
       .catch((error) => {
         if (error.response && error.response.status === 401) {
