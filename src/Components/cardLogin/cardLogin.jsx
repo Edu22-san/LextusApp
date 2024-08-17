@@ -6,6 +6,7 @@ import Api from "../../services/api";
 import { setSession } from "../../services/AuthContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const CardLogin = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -21,9 +22,9 @@ const CardLogin = () => {
     setEmailError("");
     setPasswordError("");
     setLoginError("");
-  
+
     let hasError = false;
-  
+
     // Validate email
     if (!email) {
       setEmailError("Email is required.");
@@ -34,36 +35,36 @@ const CardLogin = () => {
       toast.error("Email format is invalid.");
       hasError = true;
     }
-  
+
     // Validate password
     if (!password) {
       setPasswordError("Password is required.");
       toast.error("Password is required.");
       hasError = true;
     }
-  
+
     if (hasError) {
       return;
     }
-  
-    Api.post("/auth/login", { email, password })
-    .then((response) => {
-      setSession(response.data);
 
-      toast.success("Login successful!");
+    axios.post("https://demo.web-informatica.info/lextusservices/api/auth/login", { email, password })
+      .then((response) => {
+        setSession(response.data);
 
-       // Redirect based on role
-       const role = response.data.id_rol;
-       if (role === "1") {
-        navigate("user/dashboard");
-       } else if (role === "2") {
-         
-         navigate("user/dashboard-customer");
-       } else {
-         // Handle other roles or default action
-         navigate("user/dashboard");
-       }
-    })
+        toast.success("Login successful!");
+
+        // Redirect based on role
+        const role = response.data.id_rol;
+        if (role === "1") {
+          navigate("user/dashboard");
+        } else if (role === "2") {
+
+          navigate("user/dashboard-customer");
+        } else {
+          // Handle other roles or default action
+          navigate("user/dashboard");
+        }
+      })
       .catch((error) => {
         if (error.response && error.response.status === 401) {
           setLoginError("Incorrect username or password.");
@@ -84,7 +85,7 @@ const CardLogin = () => {
   return (
     <div className="container-card-login mx-auto">
       <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="colored" />
-  
+
       <h1 className="text-white font-bold text-2xl md:text-4xl lg:text-4xl">
         Welcome to Law Portal
       </h1>
@@ -93,34 +94,32 @@ const CardLogin = () => {
         alt=""
         className="mt-4 w-full md:w-[25rem] lg:w-[25rem]"
       />
-  
+
       <input
         type="text"
         placeholder="Usuario"
-        className={`w-full md:w-1/2 lg:w-1/2 h-12 pl-4 rounded-full mt-8 focus:outline-none boxshadow ${
-          emailError ? "border border-red-500" : ""
-        }`}
+        className={`w-full md:w-1/2 lg:w-1/2 h-12 pl-4 rounded-full mt-8 focus:outline-none boxshadow ${emailError ? "border border-red-500" : ""
+          }`}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
       {emailError && (
         <div className="text-red-500 text-sm mt-2">{emailError}</div>
       )}
-  
+
       <div className="relative w-full md:w-1/2 lg:w-1/2 text-center mt-8">
         <input
           type={passwordVisible ? "text" : "password"}
           placeholder="Password"
-          className={`h-12 w-full pl-4 rounded-full focus:outline-none boxshadow ${
-            passwordError ? "border border-red-500" : ""
-          }`}
+          className={`h-12 w-full pl-4 rounded-full focus:outline-none boxshadow ${passwordError ? "border border-red-500" : ""
+            }`}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         {passwordError && (
           <div className="text-red-500 text-sm mt-2">{passwordError}</div>
         )}
-  
+
         <span
           className="container-icon absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer"
           onClick={togglePasswordVisibility}
@@ -138,7 +137,7 @@ const CardLogin = () => {
           )}
         </span>
       </div>
-  
+
       <div className="w-1/2 mt-8 flex flex-col sm:flex-row items-center justify-between ">
         <div className="flex items-center space-x-2">
           <input
@@ -159,7 +158,7 @@ const CardLogin = () => {
       </button>
     </div>
   );
-  
+
 };
 
 export default CardLogin;

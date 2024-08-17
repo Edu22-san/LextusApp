@@ -4,7 +4,7 @@ import { getSession } from "./AuthContext.js";
 // const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 //const urlBase = baseUrl;
-const urlBase = "http://localhost/lextusservices/api";
+const urlBase = "https://demo.web-informatica.info/lextusservices/api";
 
 
 const user = getSession();
