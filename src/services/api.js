@@ -24,10 +24,10 @@ const get = (url = "", params = {}, headers = {}) => {
   }
   return axios.get(readUrl(url), {
     params: { ...params },
-    headers: {
-      ...headers,
-      "Content-Type": "application/json",
-    },
+    // headers: {
+    //   ...headers,
+    //   "Content-Type": "application/json",
+    // },
   });
 };
 
