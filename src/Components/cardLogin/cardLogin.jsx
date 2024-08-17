@@ -46,8 +46,16 @@ const CardLogin = () => {
     if (hasError) {
       return;
     }
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("password", password);
 
-    axios.post("https://demo.web-informatica.info/lextusservices/api/auth/login", { email, password })
+    axios.post("https://demo.web-informatica.info/lextusservices/api/auth/login", formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then((response) => {
         setSession(response.data);
 

@@ -26,6 +26,7 @@ const get = (url = "", params = {}, headers = {}) => {
     params: { ...params },
     headers: {
       ...headers,
+      "Content-Type": "application/json",
     },
   });
 };
@@ -47,7 +48,7 @@ const post = (url = "", body = {}, headers = {}) => {
   // Perform the POST request using axios
   return axios.post(readUrl(url), formData, {
     headers: {
-      Accept: "application/json",
+      // Accept: "application/json",
       "Content-Type": "multipart/form-data", // Use multipart/form-data
       // ...headers,
     },
