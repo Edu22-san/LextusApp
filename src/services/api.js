@@ -1,10 +1,10 @@
 import axios from "axios";
 import { getSession } from "./AuthContext.js";
 
-const baseUrl = import.meta.env.VITE_API_BASE_URL;
+// const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 //const urlBase = baseUrl;
-const urlBase = "https://demo.web-informatica.info/lextusservices/api";
+const urlBase = "http://localhost/lextusservices/api";
 
 
 const user = getSession();
@@ -16,10 +16,7 @@ const user = getSession();
  * en caso de ser asi, retorna la url. en caso contrario, se asume que es un fragmento
  * de path por lo que se concatena con la constante urlBase
  **/
-const readUrl = (url = "") =>
-  url.startsWith("http://") || url.startsWith("https://")
-    ? url
-    : `${urlBase}${url}`;
+const readUrl = (url = "") => url.startsWith("http://") || url.startsWith("https://") ? url : `${urlBase}${url}`;
 
 const get = (url = "", params = {}, headers = {}) => {
   if (getSession()) {
@@ -34,29 +31,29 @@ const get = (url = "", params = {}, headers = {}) => {
 };
 
 const post = (url = "", body = {}, headers = {}) => {
-    // Create a new FormData object
-    const formData = new FormData();
-  
-    // Append all properties from the body object to the formData
-    Object.keys(body).forEach(key => {
-      formData.append(key, body[key]);
-    });
-  
-    // Set the Authorization header if a session exists
-    if (getSession()) {
-      headers.Authorization = "Bearer " + getSession().token;
-    }
-  
-    // Perform the POST request using axios
-    return axios.post(readUrl(url), formData, {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "multipart/form-data", // Use multipart/form-data
-        ...headers,
-      },
-    });
-  };
-  
+  // Create a new FormData object
+  const formData = new FormData();
+
+  // Append all properties from the body object to the formData
+  Object.keys(body).forEach(key => {
+    formData.append(key, body[key]);
+  });
+
+  // Set the Authorization header if a session exists
+  if (getSession()) {
+    headers.Authorization = "Bearer " + getSession().token;
+  }
+
+  // Perform the POST request using axios
+  return axios.post(readUrl(url), formData, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "multipart/form-data", // Use multipart/form-data
+      // ...headers,
+    },
+  });
+};
+
 
 const postUpload = (url = "", body = {}, headers = {}) => {
   if (getSession()) {
