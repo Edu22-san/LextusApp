@@ -11,8 +11,8 @@ const DashboardCustomer = () => {
     <>
       <div className="min-w-full flex flex-col items-center justify-center mt-[4rem]">
         <div className="md:w-[40%] lg:w-[40%] w-[90%] flex flex-col items-center justify-center">
-          <h1 className="text-white text-5xl lg:text-8xl md:text-8xl font-bold text-center">
-            Lorem ipsum
+          <h1 className="text-white text-5xl lg:text-7xl md:text-7xl font-bold text-center">
+           Welcome to<br/> Lextus Portal
           </h1>
           <p className="text-center text-white text-xl md:text-2xl lg:text-2xl font-light pt-2">
             This is the client's dashboard

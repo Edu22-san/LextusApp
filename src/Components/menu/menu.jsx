@@ -66,7 +66,7 @@ const Menu = () => {
     <>
       <div className="container-menu">
         <div className="container-menu-items">
-          <ul className="menu-items">
+          {/*<ul className="menu-items">
             <li className="menu-item">
               <div className="menu-item">
                 <p className="txt-menu">About Us</p>
@@ -105,7 +105,7 @@ const Menu = () => {
                 <p className="txt-menu">Contact Us</p>
               </Link>
             </li>
-          </ul>
+          </ul>*/}
         </div>
         <div className="container-logo">
           <Link to="/user/dashboard">
@@ -165,7 +165,7 @@ const Menu = () => {
           </div>
         </div>
       </nav>
-      <nav className="bg-gray-50 dark:bg-gray-700 container-menu2-sub">
+      {/*<nav className="bg-gray-50 dark:bg-gray-700 container-menu2-sub">
         <div className="max-w-screen-xl px-4 py-3 mx-auto">
           <div className="flex items-center justify-center">
             <ul className="w-full flex items-center justify-around rtl:space-x-reverse text-sm">
@@ -223,7 +223,7 @@ const Menu = () => {
             </ul>
           </div>
         </div>
-      </nav>
+      </nav>*/}
     </>
   );
 };
