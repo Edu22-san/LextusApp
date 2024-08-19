@@ -60,20 +60,20 @@ const CardColumTwo = () => {
 
   return (
     <>
-      <div className="p-5 color-txt-rv text-base font-medium leading-5 bg-white flex flex-col items-center justify-evenly boxshadow-rv2 w-full h-auto lg:h-h-[70vh] md:h-[70vh]">
+      <div className="p-5 color-txt-rv text-base font-medium leading-5 bg-white flex flex-col items-center justify-start boxshadow-rv2 w-full h-auto lg:h-h-[50vh] md:h-[50vh]">
         <div className="w-full">
           <div className="w-full flex flex-row items-center justify-between pb-1 border-b-2 border-solid border-gray-300">
             <div className="flex flex-row items-center">
-              <i className="fa-solid fa-check text-gray-300 mr-1"></i>
+              <i className="fa-regular fa-folder-open text-gray-300 mr-1"></i>
               <p className="text-blue-500 text-lg md:text-xl lg:text-xl  font-bold ">
-                Visa-U Checklist
+                Visa-u Checklist1
               </p>
             </div>
-            <Button onClick={handleOpenChecklist} style={styledButton}>
+            {/*<Button onClick={handleOpenChecklistSibling} style={styledButton}>
               Details
             </Button>
             <Modal
-              open={openChecklist}
+              open={openChecklistSibling}
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
             >
@@ -85,10 +85,10 @@ const CardColumTwo = () => {
                   className="border-b-2 border-solid border-gray-300 flex flex-row items-center justify-between"
                 >
                   <p className="text-blue-500 text-lg md:text-xl lg:text-xl font-bold ">
-                    Visa-U Checklist
+                    Visa-u Checklist Sibling
                   </p>
                   <i
-                    onClick={handleCloseChecklist}
+                    onClick={handleCloseChecklistSibling}
                     className="fa-solid fa-circle-xmark cursor-pointer text-2xl text-bg-rojo"
                   ></i>
                 </Typography>
@@ -111,24 +111,32 @@ const CardColumTwo = () => {
                   </div>
                 </Typography>
               </Box>
-            </Modal>
+            </Modal>*/}
           </div>
-          <div className="w-full flex flex-col items-center py-3">
+          <div className="w-full flex flex-col items-center py-3 px-3">
             <ul className="list-decimal">
-              <li className="text-blue-txt text-lg md:text-xl lg:text-xl">
-                Document/days/accepted
+              <li className="text-blue-txt text-lg md:text-[16px] lg:text-[16px]">
+                Certificado de nacimiento/days/accepted
               </li>
-              <li className="text-blue-txt text-lg md:text-xl lg:text-xl">
-                Document/days/accepted
+              <li className="text-blue-txt text-lg md:text-[16px] lg:text-[16px]">
+                Pasaporte/days/accepted
               </li>
-              <li className="text-blue-txt text-lg md:text-xl lg:text-xl">
-                Document/days/upload
+              <li className="text-blue-txt text-lg md:text-[16px] lg:text-[16px]">
+                Certificado de matrimonio/days/upload
+              </li>
+              <li className="text-blue-txt text-lg md:text-[16px] lg:text-[16px]">
+                Certificado de nacimiento de hijos/days/upload
+              </li>
+              <li className="text-blue-txt text-lg md:text-[16px] lg:text-[16px]">
+                Acta de divorcio/days/upload
+              </li>
+              <li className="text-blue-txt text-lg md:text-[16px] lg:text-[16px]">
+                4 fotografías tamaño pasaporte/days/upload
               </li>
             </ul>
           </div>
         </div>
-
-        <div className="w-full">
+        {/*<div className="w-full">
           <div className="w-full flex flex-row items-center justify-between pb-1 border-b-2 border-solid border-gray-300">
             <div className="flex flex-row items-center">
               <i className="fa-regular fa-folder-open text-gray-300 mr-1"></i>
@@ -193,7 +201,7 @@ const CardColumTwo = () => {
               </li>
             </ul>
           </div>
-        </div>
+        </div>*/}
       </div>
     </>
   );

@@ -5,25 +5,25 @@ const TabsCustomers = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [showDefaultContent, setShowDefaultContent] = useState(false);
 
-  const tabs = ["Etapa 1", "Etapa 2"];
+  const tabs = ["Visa U", "Visa U Sibling"];
   const handleTabClick = (index) => {
     setActiveTab(index);
   };
   const documentStates = {
-    Evidence: "pending",
+    Evidence: "delivered",
     "Application filled": "delivered",
     "Notices of 1997": "delivered",
-    "Biometrics Appoinment notice": undefined,
-    "Approved or denied": undefined,
-    "Waitlist EAD application posible": undefined,
-    "U-Visa granted": undefined,
+    "Checklist1": "pending",
+    "Approved or denied": "pending",
+    "Waitlist EAD application posible": "pending",
+    "U-Visa granted": "pending",
   };
 
   const documentStates2 = {
     Evidence: "pending",
     "Application filled": "delivered",
     "Notices of 1997": "delivered",
-    "Biometrics Appoinment notice": "delivered",
+    "Checklist1": "delivered",
     "Approved or denied": "delivered",
     "Waitlist EAD application posible": "delivered",
     "U-Visa granted": "delivered",
@@ -33,7 +33,7 @@ const TabsCustomers = () => {
     "Evidence",
     "Application filled",
     "Notices of 1997",
-    "Biometrics Appoinment notice",
+    "Checklist1",
     "Approved or denied",
     "Waitlist EAD application posible",
     "U-Visa granted",

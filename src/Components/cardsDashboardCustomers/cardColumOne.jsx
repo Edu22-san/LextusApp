@@ -59,24 +59,23 @@ const CardsDColumOne = () => {
     fontFamily: "Manrope, sans-serif",
   };
   const documentsData = [
-    { label: "Visa U", id: 1 },
-    { label: "Visa U", id: 2 },
-    { label: "Visa U", id: 3 },
-    { label: "Visa U", id: 1 },
-    { label: "Visa U", id: 2 },
-    { label: "Visa U", id: 3 },
+    { label: "Certificado de matrimonio", id: 1 },
+    { label: "Certificado de nacimiento de hijos", id: 2 },
+    { label: "Acta de divorcio", id: 3 },
+    { label: "4 fotografías tamaño pasaporte", id: 1 },
+
   ];
 
   return (
     <>
-      <div className="w-full flex flex-col justify-between h-auto md:h-[70vh] lg:h-[70vh]">
+      <div className="w-full flex flex-col justify-between h-auto md:h-[50vh] lg:h-[50vh]">
         {/* Pending Documents Card */}
-        <div className="p-5 color-txt-rv text-base font-medium leading-5 bg-white flex flex-col justify-start items-center boxshadow-rv2 w-full h-auto lg:h-[33vh] md:h-[33vh]">
+        <div className="p-5 color-txt-rv text-base font-medium leading-5 bg-white flex flex-col justify-start items-center boxshadow-rv2 w-full h-auto lg:h-full md:h-full">
           <div className="w-full flex flex-row items-center justify-between pb-1 border-b-2 border-solid border-gray-300">
             <div className="flex flex-row items-center">
               <i className="fa-regular fa-folder-open text-gray-300 mr-1"></i>
-              <p className="text-blue-500 text-lg md:text-xl lg:text-xl  font-bold ">
-                Pending Documents
+              <p className="text-blue-500 text-lg md:text-xl lg:text-xl  ">
+                Pending Documents: <span className="font-bold">Checklist 1</span>
               </p>
             </div>
 
@@ -152,86 +151,6 @@ const CardsDColumOne = () => {
           </div>
         </div>
 
-        <div className="p-5 color-txt-rv text-base font-medium leading-5 bg-white flex flex-col justify-start items-center boxshadow-rv2 w-full h-auto lg:h-[33vh] md:h-[33vh] mt-[2rem] md:mt-[0] lg:mt-[0]">
-          <div className="w-full flex flex-row items-center justify-between pb-1 border-b-2 border-solid border-gray-300">
-            <div className="flex flex-row items-center">
-              <i className="fa-solid fa-file-signature text-gray-300 mr-1"></i>
-              <p className="text-blue-500 text-lg md:text-xl lg:text-xl  font-bold ">
-                Contract information
-              </p>
-            </div>
-            <Button
-              onClick={handleOpenContractInformation}
-              style={styledButton}
-            >
-              Details
-            </Button>
-            <Modal
-              open={openContractInformation}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={styleModal}>
-                <Typography
-                  id="modal-modal-title"
-                  variant="h6"
-                  component="h2"
-                  className="border-b-2 border-solid border-gray-300 flex flex-row items-center justify-between"
-                >
-                  <p className="text-blue-500 text-lg md:text-xl lg:text-xl font-bold ">
-                    Contract information
-                  </p>
-                  <i
-                    onClick={handleCloseContractInformation}
-                    className="fa-solid fa-circle-xmark cursor-pointer text-2xl text-bg-rojo"
-                  ></i>
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                  <div
-                    style={{
-                      maxHeight: "60vh",
-                      overflowY: "auto",
-                      marginBottom: "12px",
-                    }}
-                  >
-                    <ul>
-                      <li className="mb-[12px] ml-[17px] list-disc">
-                        <div className="flex flex-row justify-between items-center">
-                          <label className="text-[15px] md:text-[18px] lg:text-[18px]">
-                            Contract Amount
-                          </label>
-                          <p>$5000</p>
-                        </div>
-                      </li>
-                      <li className="mb-[12px] ml-[17px] list-disc">
-                        <div className="flex flex-row justify-between items-center">
-                          <label className="text-[15px] md:text-[18px] lg:text-[18px]">
-                            Actual due
-                          </label>
-                          <p>$5000</p>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </Typography>
-              </Box>
-            </Modal>
-          </div>
-          <div className="w-full flex flex-col items-center justify-center py-3 h-full">
-            <p className="text-gray-500 text-lg md:text-xl lg:text-xl">
-              Contract Amount
-            </p>
-            <h2 className="text-5xl md:text-5xl lg:text-4xl text-purple-primary font-bold">
-              $5,000,00
-            </h2>
-            <p className="text-gray-500 text-lg md:text-xl lg:text-xl">
-              Actual due
-            </p>
-            <h2 className="text-5xl md:text-5xl lg:text-4xl text-purple-primary font-bold">
-              $1,235,00
-            </h2>
-          </div>
-        </div>
       </div>
     </>
   );
