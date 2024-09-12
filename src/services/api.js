@@ -1,7 +1,9 @@
 import axios from "axios";
 import { getSession } from "./AuthContext.js";
+const miurltemportal ="https://demo.web-informatica.info/lextusservices/api/"
 
- const urlBase = import.meta.env.VITE_API_BASE_URL;
+ //const urlBase = import.meta.env.VITE_API_BASE_URL;
+ const urlBase = process.env.VITE_API_BASE_URL;
 
 
 const user = getSession();

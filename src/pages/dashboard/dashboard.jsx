@@ -1,19 +1,66 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./assets/dashboard.css";
 import TabsContenido from "../tabsContenido/tabsContenido";
 import CardActualUsers from "../../Components/cardsDashboardAdmin/cardActualUsers";
 import CardDaysDocuments from "../../Components/cardsDashboardAdmin/cardDaysDocuments";
 import CardBillingInformation from "../../Components/cardsDashboardAdmin/cardBillingInformation";
-
+import Api from "../../services/api";
 const Dashboard = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("viewUsers");
+  const [countUsersData, setCountUsersData] = useState([]);
+  const [usersByMattersData, setUsersByMattersData] = useState([]);
+  const [countDocumentsData, setCountDocumentsData] = useState([]);
+
+  const countDocuments = () => {
+    Api.get("count-documents-users")
+      .then((response) => {
+        if (response.data) {
+          console.log("Data total documents:", response.data);
+          setCountDocumentsData(response.data);
+        }
+      })
+      .catch((error) => {
+        console.error("Error al obtener los datos:", error);
+      });
+  };
+
+  const usersByMatters = () => {
+    Api.get("count-customers-by-matter")
+      .then((response) => {
+        if (response.data) {
+          console.log("Datos usuarios por matters:", response.data);
+          setUsersByMattersData(response.data);
+        }
+      })
+      .catch((error) => {
+        console.error("Error al obtener los datos:", error);
+      });
+  };
+
+  const countUsers_get = () => {
+    Api.get("count-customers-users")
+      .then((response) => {
+        if (response.data) {
+          console.log("Datos:", response.data);
+          setCountUsersData(response.data);
+        }
+      })
+      .catch((error) => {
+        console.error("Error al obtener los datos:", error);
+      });
+  };
+
+  useEffect(() => {
+    countUsers_get();
+    countDocuments();
+
+  }, []);
 
   const handleTabClick = (key) => {
     setActiveTab(key);
     localStorage.setItem("activeTab", key); // Almacena la pestaña activa en localStorage
-    console.log("Clicked tab with key:", key);
     navigate(`/user/tabscontenido/${key}`);
   };
 
@@ -50,12 +97,16 @@ const Dashboard = () => {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 items-center justify-center rounded-xl p-1 w-[90%] lg:w-[85%] md:w-[85%] mt-[3rem] gap-4">
-          <CardActualUsers/>
+        <div className="max-w-[1600px] w-[85%] grid-card-dashboard-customer mt-[3rem]">
+          <CardActualUsers
+            countUsersData={countUsersData}
+            usersByMattersData={usersByMattersData}
+            usersByMatters={usersByMatters}
+          />
 
-          <CardDaysDocuments/>
+          <CardDaysDocuments />
 
-          <CardBillingInformation/>
+          <CardBillingInformation />
         </div>
       </div>
     </>

@@ -9,10 +9,13 @@ import { Toast } from "primereact/toast";
 import { FileUpload } from "primereact/fileupload";
 import "./cardsDashboardAdmin.css";
 
-const CardActualUsers = () => {
+const CardActualUsers = ({countUsersData,usersByMattersData,usersByMatters,}) => {
   const [openActualUsers, setOpenActualUsers] = useState(false);
   const handleOpenActualUsers = () => setOpenActualUsers(true);
   const handleCloseActualUsers = () => setOpenActualUsers(false);
+
+  console.log("userBymatters", usersByMattersData);
+  //console.log("si vino", countUsersData);
 
   const toast = useRef(null);
   const theme = useTheme();
@@ -52,84 +55,56 @@ const CardActualUsers = () => {
         <div className="w-full flex flex-row items-center justify-between pb-1 border-b-2 border-solid border-gray-300">
           <div className="flex flex-row items-center">
             <i className="fa-solid fa-users text-gray-300 mr-1"></i>
-            <p className="text-blue-500 text-lg md:text-xl lg:text-xl  font-bold ">
+            <div className="text-blue-500 text-lg md:text-xl lg:text-xl  font-bold ">
               Actual users
-            </p>
+            </div>
           </div>
-          <Button onClick={handleOpenActualUsers} style={styledButton}>
+          <Button onClick={() => {
+              handleOpenActualUsers();
+              usersByMatters();
+            }}
+            style={styledButton}>
             Details
           </Button>
-          <Modal
-            open={openActualUsers}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
+          <Modal open={openActualUsers} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
             <Box sx={styleModal}>
-              <Typography
-                id="modal-modal-title"
-                variant="h6"
-                component="h2"
-                className="border-b-2 border-solid border-gray-300 flex flex-row items-center justify-between"
-              >
-                <p className="text-blue-500 text-lg md:text-xl lg:text-xl font-bold ">
-                  Actual Users
-                </p>
-                <i
-                  onClick={handleCloseActualUsers}
-                  className="fa-solid fa-circle-xmark cursor-pointer text-2xl text-bg-rojo"
-                ></i>
+              <Typography id="modal-modal-title" variant="h6" component="h2" className="border-b-2 border-solid border-gray-300 flex flex-row items-center justify-between">
+                <div className="text-blue-500 text-lg md:text-xl lg:text-xl font-bold ">
+                  Actual Users By Matter
+                </div>
+                <i onClick={handleCloseActualUsers}className="fa-solid fa-circle-xmark cursor-pointer text-2xl text-bg-rojo"></i>
               </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                <div
-                  style={{
-                    maxHeight: "60vh",
-                    overflowY: "auto",
-                    marginBottom: "12px",
-                  }}
-                >
+              <Box id="modal-modal-description" sx={{ mt: 2 }}>
+                <div style={{
+                     maxHeight: "60vh",
+                     overflowY: "auto",
+                     marginBottom: "12px",
+                  }}>
                   <ul>
-                    <li className="mb-[12px] ml-[17px] list-disc text-[15px] md:text-[18px] lg:text-[18px]">
-                      <div className="flex flex-row justify-between items-center">
-                        Matter Visa U
-                        <p className="text-blue-txt text-[25px] font-bold">
-                          200
-                          <span className="text-gray-500  text-[12px] font-[200]">
-                            users
+                    {usersByMattersData.data && usersByMattersData.data.length > 0 ? (
+                      usersByMattersData.data.map((matter, index) => (
+                        <li key={index} className="mb-[12px] ml-[17px] list-disc text-[15px] md:text-[18px] lg:text-[18px] flex flex-row justify-between items-center">
+                          <span>{matter.matter_name}</span>
+                          <span className="text-blue-txt text-[25px] font-bold">
+                            {matter.total_customers}{" "}
+                            <span className="text-gray-500 text-[12px] font-[200]">
+                              users
+                            </span>
                           </span>
-                        </p>
-                      </div>
-                    </li>
-                    <li className="mb-[12px] ml-[17px] list-disc text-[15px] md:text-[18px] lg:text-[18px]">
-                      <div className="flex flex-row justify-between items-center">
-                        Matter Inmigrant Visa
-                        <p className="text-blue-txt text-[25px] font-bold">
-                          200
-                          <span className="text-gray-500  text-[12px] font-[200]">
-                            users
-                          </span>
-                        </p>
-                      </div>
-                    </li>
-                    <li className="mb-[12px] ml-[17px] list-disc text-[15px] md:text-[18px] lg:text-[18px]">
-                      <div className="flex flex-row justify-between items-center">
-                        Matter Parole
-                        <p className="text-blue-txt text-[25px] font-bold">
-                          200
-                          <span className="text-gray-500  text-[12px] font-[200]">
-                            users
-                          </span>
-                        </p>
-                      </div>
-                    </li>
+                        </li>
+                      ))
+                    ) : (
+                      <li>No data available</li>
+                    )}
                   </ul>
                 </div>
-              </Typography>
+              </Box>
             </Box>
           </Modal>
         </div>
         <div className="w-full flex flex-col items-center py-4">
           <h2 className="text-5xl md:text-6xl lg:text-8xl text-purple-primary font-bold">
-            565
+            {countUsersData.users}
           </h2>
           <p className="text-gray-500 text-lg md:text-xl lg:text-xl">Users</p>
         </div>
