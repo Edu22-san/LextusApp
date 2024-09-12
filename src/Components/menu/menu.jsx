@@ -1,17 +1,29 @@
 import React, { useState, useEffect, useRef  } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate }  from "react-router-dom";
 import Logo from "./Logo-lextus.png";
 import User from "./user.png";
 import "./menuStyle.css";
-
+import { getSession, logout } from "../../services/AuthContext"; 
 const Menu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAboutUsDropdownOpen, setIsAboutUsDropdownOpen] = useState(false);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
   const menuRef = useRef(null);
+  const [userName, setUserName] = useState("");
+  const [userRole, setUserRole] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
+
+    const userSession = getSession(); // Obteniendo la sesion 
+   // console.log(userSession);
+    if (userSession) {
+      setUserName(userSession.name_user); // Asigndo el estado al usuario
+      setUserRole(userSession.id_rol);
+    }
+    
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         // Cerrar todos los dropdowns al hacer clic fuera de ellos
@@ -61,54 +73,20 @@ const Menu = () => {
       setIsServicesDropdownOpen(false);
     }
   };
+
+  const handleLogout = () => {
+    logout(); 
+    navigate("/"); 
+  };
   
   return (
     <>
       <div className="container-menu">
         <div className="container-menu-items">
-          {/*<ul className="menu-items">
-            <li className="menu-item">
-              <div className="menu-item">
-                <p className="txt-menu">About Us</p>
-                <i className="fa-solid fa-chevron-down text-white ml-1"></i>
-              </div>
-              <ul className="submenu-2">
-                <li className="submenu-item">
-                  <Link to="">History</Link>
-                </li>
-                <li className="submenu-item">
-                  <Link to="">History2</Link>
-                </li>
-              </ul>
-            </li>
-            <li className="menu-item">
-              <div className="menu-item">
-                <p className="txt-menu">Services</p>
-                <i className="fa-solid fa-chevron-down text-white ml-1"></i>
-              </div>
-              <ul className="submenu">
-                <li className="submenu-item">
-                  <Link to="">Service 1</Link>
-                </li>
-                <li className="submenu-item">
-                  <Link to="">Service 2</Link>
-                </li>
-              </ul>
-            </li>
-            <li className="menu-item">
-              <Link to="">
-                <p className="txt-menu">Blog</p>
-              </Link>
-            </li>
-            <li className="menu-item">
-              <Link to="">
-                <p className="txt-menu">Contact Us</p>
-              </Link>
-            </li>
-          </ul>*/}
+
         </div>
         <div className="container-logo">
-          <Link to="/user/dashboard">
+          <Link to={userRole === "1" ? "/user/dashboard" : "/user/dashboard-customer"}>
             <img src={Logo} alt="" className="logo-menu" />
           </Link>
         </div>
@@ -118,7 +96,7 @@ const Menu = () => {
             <option value="option1">EN</option>
             <option value="option2">ES</option>
           </select>
-          <p className="txt-menu rv">Welcome User</p>
+          <p className="txt-menu rv">Welcome {userName}</p>
           <li className="menu-item user">
             <div className="menu-item">
               <img src={User} alt="" className="logo-user" />
@@ -131,7 +109,9 @@ const Menu = () => {
                 </Link>
               </li>
               <li className="submenu-item">
-                <Link to="/">Logout</Link>
+              <button onClick={handleLogout} className="text-end">
+                  Logout
+                </button>
               </li>
             </ul>
           </li>
@@ -140,7 +120,7 @@ const Menu = () => {
 
       <nav className="bg-white container-menu2">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
-        <Link to="/user/dashboard" className="flex items-center space-x-3 rtl:space-x-reverse">
+        <Link to={userRole === "1" ? "/user/dashboard" : "/user/dashboard-customer"} className="flex items-center space-x-3 rtl:space-x-reverse">
         <img src={Logo} className="h-8" alt="Flowbite Logo" />
         </Link>
           
@@ -156,74 +136,17 @@ const Menu = () => {
                    <a href="#" className="text-gray-900 dark:text-white font-semibold hover:underline block">
                      Perfil
                    </a>
-                   <Link to="/" className="text-gray-900 dark:text-white font-semibold hover:underline block">
-                     Logout
-                     </Link>
+                
+                     <button onClick={handleLogout} className="text-gray-900 dark:text-white font-semibold hover:underline block">
+                  Logout
+                </button>
                  </div>
                )}
             </li>
           </div>
         </div>
       </nav>
-      {/*<nav className="bg-gray-50 dark:bg-gray-700 container-menu2-sub">
-        <div className="max-w-screen-xl px-4 py-3 mx-auto">
-          <div className="flex items-center justify-center">
-            <ul className="w-full flex items-center justify-around rtl:space-x-reverse text-sm">
-              <li className="relative">
-                <a href="#"
-                  className={`text-gray-800 font-bold text-decoration-none  ${isAboutUsDropdownOpen && 'text-blue-500'}`}
-                  aria-current="page"
-                  onClick={handleAboutUsDropdownToggle}
-                >
-                  About us
-                  <i className="fa-solid fa-chevron-down text-gray-800 ml-1"></i>
-                </a>
-                
-                {isAboutUsDropdownOpen && (
-                  <div className="absolute top-full left-0 bg-white  shadow-lg mt-1 p-2 rounded-[10px]" style={{ width: '9rem' }}>
-                    <a href="#" className="text-blue-txt font-semibold mb-[5px] hover:underline block">
-                      Direccion
-                    </a>
-                    <a href="#" className="text-blue-txt font-semibold hover:underline block">
-                      Contactos
-                    </a>
-                  </div>
-                )}
-              </li>
-              <li className="relative">
-                <a
-                  href="#"
-                  className={`text-gray-800 font-bold text-decoration-none ${isServicesDropdownOpen && 'text-blue-500'}`}
-                  onClick={handleServicesDropdownToggle}
-                >
-                  Services
-                  <i className="fa-solid fa-chevron-down text-gray-800 ml-1"></i>
-                </a>
-                {isServicesDropdownOpen && (
-                  <div className="absolute top-full left-0 bg-white  shadow-lg mt-1 p-2 rounded-[10px]" style={{ width: '9rem' }}>
-                    <a href="#" className="text-blue-txt font-semibold mb-[5px] hover:underline block">
-                      Servicio 1
-                    </a>
-                    <a href="#" className="text-blue-txt font-semibold hover:underline block">
-                      Servicio 2
-                    </a>
-                  </div>
-                )}
-              </li>
-              <li>
-                <a href="#" className="text-gray-800 font-bold hover:underline">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-800 font-bold hover:underline">
-                  Contact Us
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>*/}
+  
     </>
   );
 };

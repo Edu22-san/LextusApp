@@ -50,7 +50,7 @@ const CardLogin = () => {
     formData.append("email", email);
     formData.append("password", password);
 
-    axios.post("https://demo.web-informatica.info/lextusservices/api/auth/login", formData,
+    axios.post("http://localhost:80/lextusservices/api/auth/login", formData,
       {
         headers: {
           "Content-Type": "multipart/form-data",

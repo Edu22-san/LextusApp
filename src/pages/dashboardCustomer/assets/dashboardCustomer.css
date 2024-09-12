@@ -1,18 +1,76 @@
-
 .rv-box-shadow-tabs {
-    border-radius: 12px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-
-
+    border-radius: 50px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     text-align: center;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+}
+
+.rv-box-shadow-tabs2 {
+    border-radius: 35px;
+    text-align: center;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+.container-steps-dashboard-customer {
+    width: 100%;
+
+}
+.grid-card-dashboard-customer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 19px;
+    grid-row-gap: 0px;
+    width: 78%;
+    max-width: 1600px;
+}
+.card-dashboard-customer1 { grid-area: 1 / 1 / 2 / 2; }
+.card-dashboard-customer2 { grid-area: 1 / 2 / 2 / 3; }
+.card-dashboard-customer3 { grid-area: 1 / 3 / 2 / 4; }
+
+.btn-message {
+    position: absolute;
+    bottom: 1rem;
+    right: 5rem;
+    background: white;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    box-shadow: rgb(0 0 0) 0px 3px 11px 4px;
+    cursor: pointer;
+    transition: transform 0.3s ease; 
+}
+
+.btn-message:active {
+    transform: scale(0.9); 
+}
+
+.chat-container {
+    position: absolute;
+    bottom: 55px;
+    right: 107px;
+    width: 270px;
+    height: 352px;
+    background: white;
+    border-radius: 21px;
+    box-shadow: 0px 3px 11px 4px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translateY(20px); 
+    transition: opacity 0.3s ease, transform 0.3s ease; 
+    pointer-events: none; 
+}
+
+.chat-container.visible {
+    opacity: 1;
+    transform: translateY(0); 
+    pointer-events: auto; 
 }
 
 
-@media only screen and (max-width: 768px) {
+@media (min-width: 768px) and (max-width: 1023px) {
     .slick-arrow.slick-prev {
         left: -35px;
     }
@@ -35,11 +93,63 @@
         display: flex !important;
         align-items: center !important;
         justify-content: center;
-        border: 1px solid white;
+        border: none;
         transition: background 0.3s, color 0.3s;
     }
     .rv-box-shadow-tabs {
         height: 6vh;
 
     }
+
+    .grid-card-dashboard-customer {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(3, 1fr);
+        grid-column-gap: 0px;
+        grid-row-gap: 31px;
+        width: 85%;
+    }
+    .card-dashboard-customer1 { grid-area: 1 / 1 / 2 / 2; }
+.card-dashboard-customer2 { grid-area: 2 / 1 / 3 / 2; }
+.card-dashboard-customer3 { grid-area: 3 / 1 / 4 / 2; }
+
+
+.btn-message {
+    position: fixed;
+    bottom: 1rem;
+    right: 3rem;
+
+}
+
+.chat-container {
+    position: fixed;
+    bottom: 55px;
+    right: 74px;
+}
+
   }
+
+  @media (max-width: 767px) {
+    .btn-message {
+        position: fixed;
+        bottom: 1rem;
+        right: 3rem;
+    
+    }
+    .grid-card-dashboard-customer {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(3, 1fr);
+        grid-column-gap: 0px;
+        grid-row-gap: 31px;
+        width: 85%;
+    }
+    .card-dashboard-customer1 { grid-area: 1 / 1 / 2 / 2; }
+    .card-dashboard-customer2 { grid-area: 2 / 1 / 3 / 2; }
+    .card-dashboard-customer3 { grid-area: 3 / 1 / 4 / 2; }
+    .chat-container {
+        position: fixed;
+        bottom: 55px;
+        right: 74px;
+    }
+}

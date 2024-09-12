@@ -1,14 +1,11 @@
 import axios from "axios";
 import { getSession } from "./AuthContext.js";
 
-// const baseUrl = import.meta.env.VITE_API_BASE_URL;
-
-//const urlBase = baseUrl;
-const urlBase = "https://demo.web-informatica.info/lextusservices/api";
+ const urlBase = import.meta.env.VITE_API_BASE_URL;
 
 
 const user = getSession();
-//const urlBase = "http://localhost:8080/api"
+console.log("User Session:", user);
 
 /**
  * @param {string}  url url a la cual consultar
@@ -24,10 +21,10 @@ const get = (url = "", params = {}, headers = {}) => {
   }
   return axios.get(readUrl(url), {
     params: { ...params },
-    // headers: {
-    //   ...headers,
-    //   "Content-Type": "application/json",
-    // },
+     headers: {
+      ...headers,
+       "Content-Type": "application/json",
+     },
   });
 };
 
@@ -50,7 +47,7 @@ const post = (url = "", body = {}, headers = {}) => {
     headers: {
       // Accept: "application/json",
       "Content-Type": "multipart/form-data", // Use multipart/form-data
-      // ...headers,
+       ...headers,
     },
   });
 };

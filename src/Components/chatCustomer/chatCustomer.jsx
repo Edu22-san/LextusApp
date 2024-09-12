@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-
+import "./chatCustomer.css";
 const ChatCustomer = () => {
   const [inputMessage, setInputMessage] = useState("");
   const [messages, setMessages] = useState([]);
@@ -37,10 +37,10 @@ const ChatCustomer = () => {
 
   return (
     <>
-      <div className="color-txt-rv flex flex-col justify-between h-[50vh]  boxshadow-rv2 bg-white">
-        <div className="w-full flex flex-row items-center justify-start pb-1 border-b-2 border-solid border-gray-300 h-[3.5rem] pl-[5px]">
-            <i className="fa-solid fa-comments text-gray-300 mr-[12px]"></i>
-            <p className="text-blue-500 text-lg md:text-xl lg:text-xl  font-medium ">
+      <div className="color-txt-rv flex flex-col justify-between  card-chat-customer bg-white card-dashboard-customer3">
+        <div className="w-full flex flex-row items-center justify-start border-b-2 border-solid border-gray-300 p-[7px]">
+            <i className="fa-solid fa-comments text-gray-300 mr-[8px]"></i>
+            <p className="text-blue-500 text-lg md:text-[13px] lg:text-[13px]  font-bold ">
             Need help? leave your message
             </p>
         </div>
@@ -67,19 +67,19 @@ const ChatCustomer = () => {
           ))}
           <div ref={messagesEndRef}></div>
         </div>
-        <div className="flex items-center p-4 bg-gray-300 rounded-bl-[12px] rounded-br-[12px]">
+        <div className="flex items-center py-[8px] bg-gray px-[5px] rounded-bl-[12px] rounded-br-[0px]">
           <input
             type="text"
             value={inputMessage}
             onChange={handleInputChange}
             placeholder="Type your message..."
-            className="flex-grow border rounded-md p-2 mr-2 outline-none"
+            className="flex-grow border-[2px] border-solid border-[#0a186b] rounded-md text-[13px] p-[3px]"
           />
           <button
             onClick={handleSendMessage}
-            className="bg-blue-500 text-white p-2 rounded-md"
+            className="text-white rounded-md"
           >
-            Send
+            <i className="fa-solid fa-paper-plane-top text-[#061056] text-[15px] ml-[5px]"></i>
           </button>
         </div>
       </div>

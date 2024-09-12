@@ -12,6 +12,9 @@ export default {
         "blue-txt":"#264ff9",
         "selected": "#ff45c9",    
         "blue-color-opacity": "#d9dbf7",
+        "white-rv":"#ffffff7a",
+        "green-rv":"#41B06E",
+        "red-rv":"#E72929",
       },
       fontSize: {
         xs: "9px",

@@ -21,4 +21,9 @@ export const getSession = () => {
   }
 };
 
+export const logout = () => {
+  localStorage.removeItem('SAG_USER');
+
+};
+
 export const AuthContext = createContext(getSession);
