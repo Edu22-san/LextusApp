@@ -2,10 +2,15 @@ import axios from "axios";
 import { getSession } from "./AuthContext.js";
 
 
- //const urlBase = import.meta.env.VITE_API_BASE_URL;
+ const urlBase = import.meta.env.VITE_API_BASE_URL;
  //const urlBase = process.env.VITE_API_BASE_URL;
 
- const urlBase = "https://demo.web-informatica.info/lextusservices/api/";
+ //const urlBase = "https://demo.web-informatica.info/lextusservices/api/";
+
+// const urlBase = import.meta.env.MODE === "production"
+//    ? import.meta.env.VITE_API_BASE_URL_PROD
+//    : import.meta.env.VITE_API_BASE_URL;
+
 
 
 const user = getSession();
