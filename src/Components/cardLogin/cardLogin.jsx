@@ -49,8 +49,9 @@ const CardLogin = () => {
     const formData = new FormData();
     formData.append("email", email);
     formData.append("password", password);
-
-    axios.post("http://localhost:80/lextusservices/api/auth/login", formData,
+    const urlBase = import.meta.env.VITE_API_BASE_URL;
+ 
+    axios.post(urlBase + "/auth/login", formData,
       {
         headers: {
           "Content-Type": "multipart/form-data",
