@@ -5,7 +5,6 @@ import { InputText } from "primereact/inputtext";
 import { Link } from "react-router-dom";
 import "./usersTable.css";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import { useMediaQuery, useTheme } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
@@ -13,15 +12,13 @@ import { Toast } from "primereact/toast";
 import ChatCustomer from "../../Components/chatCustomer/chatCustomer";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import { Menu, Transition } from "@headlessui/react";
 import Api from "../../services/api";
 const Userstable = () => {
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [filteredData, setFilteredData] = useState([]);
-
+  const [allUsersData, setAllUsersData] = useState(null);
   const [openChecklist, setOpenChecklist] = useState(false);
+
   const handleOpenChecklist = () => setOpenChecklist(true);
   const handleCloseChecklist = () => setOpenChecklist(false);
   const toast = useRef(null);
@@ -29,78 +26,89 @@ const Userstable = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 3; // Número de filas por página
+  const rowsPerPage = 5; // Número de filas por página
   const [searchResults, setSearchResults] = useState([]);
 
+  //paginador
   const handleChangePage = (event, newPage) => {
     setCurrentPage(newPage);
   };
 
-  const toggleDropdown = () => {
-    setDropdownOpen(!isDropdownOpen);
-  };
-  const [datitos, setData] = useState(null);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await Api.get("/customers"); 
-        setData(response.datitos); 
-        console.log(datitos); 
-      } catch (error) {
-        console.error("Error fetching data:", error); 
-      }
-    };
 
-    fetchData();
+  // Función para transformar los datos
+  const transformData = (usersData) => {
+    return usersData.flatMap((user) => {
+      const matters = user.matters || [];
+      const stepsPerMatter = user.steps_per_matter || [];
+  
+      return matters.map((matter) => {
+        const countMap = stepsPerMatter.reduce((acc, stepMatter) => {
+          if (stepMatter.matter_name === matter.matter_name) {
+            acc[stepMatter.matter_name] = matter.submitted_or_accepted_count;
+          }
+          return acc;
+        }, {});
+  
+        const steps = stepsPerMatter
+          .filter((stepMatter) => stepMatter.matter_name === matter.matter_name)
+          .map((stepMatter) => {
+            const stepNames = stepMatter.steps
+              .map((step) => step.step_name || "N/A")
+              .join(", ");
+            return `${stepMatter.matter_name}: ${stepNames}`;
+          })
+          .join(", ");
+  
+        return {
+          id_customer: user.id_customer || "N/A",
+          customer: user.customer || "N/A",
+          matter_name: matter.matter_name || "N/A",
+          steps: steps || "No steps available",
+          submitted_or_accepted_count: `${matter.matter_name}: ${countMap[matter.matter_name] || 0}`,
+        };
+      });
+    });
+  };
+  
+
+
+  // Función para obtener todos los usuarios
+  const getAllUsers = () => {
+    Api.get("getall-customers")
+      .then((response) => {
+        //console.log("Raw response data:", response.data);
+        if (response.data) {
+          const transformedData = transformData(response.data);
+         // console.log("Data customers after transformation:", transformedData);
+          setAllUsersData(transformedData);
+        }
+      })
+      .catch((error) => {
+        console.error("Error al obtener los datos:", error);
+      });
+  };
+  
+
+  useEffect(() => {
+    getAllUsers();
   }, []);
 
-  const data = [
-    {
-      name: "Name 1",
-      matter: "Visa U",
-      lastUpdate: "01/01/23",
-      dacProvided: "10%",
-      checklist: "View CheckList",
-    },
-    {
-      name: "Name 2",
-      matter: "Visa U",
-      lastUpdate: "01/01/23",
-      dacProvided: "10%",
-      checklist: "View CheckList",
-    },
-    {
-      name: "Name 3",
-      matter: "Visa U",
-      lastUpdate: "01/01/23",
-      dacProvided: "10%",
-      checklist: "View CheckList",
-    },
-    {
-      name: "Name 4",
-      matter: "Visa U",
-      lastUpdate: "01/01/23",
-      dacProvided: "10%",
-      checklist: "View CheckList",
-    },
-  ];
-
+  // Función para realizar la búsqueda
   const onSearch = (e) => {
     const value = e.target.value.toLowerCase();
     setSearchText(value);
 
-    const filteredItems = data.filter((item) => {
+    // Filtrar sobre la data obtenida desde getAllUsers
+    const filteredItems = allUsersData.filter((item) => {
       return (
-        item.name.toLowerCase().includes(value) ||
-        item.matter.toLowerCase().includes(value) ||
-        item.lastUpdate.toLowerCase().includes(value) ||
-        item.dacProvided.toLowerCase().includes(value) ||
-        item.checklist.toLowerCase().includes(value)
+        item.customer.toLowerCase().includes(value) ||
+        item.matter_name.toLowerCase().includes(value) ||
+        item.steps.toLowerCase().includes(value) ||
+        item.submitted_or_accepted_count.toString().includes(value)
       );
     });
 
-    setFilteredData(filteredItems.length > 0 ? filteredItems : data);
-    setSearchResults(filteredItems);
+    setFilteredData(filteredItems); // Actualiza los datos filtrados
   };
 
   const styleModalAdmin = {
@@ -115,12 +123,6 @@ const Userstable = () => {
     boxShadow: 24,
     borderRadius: "12px",
   };
-  console.log("filteredData length:", filteredData.length);
-  console.log("data length:", data.length);
-  console.log(
-    "Total pages:",
-    Math.ceil((searchText ? filteredData.length : data.length) / rowsPerPage)
-  );
 
   return (
     <>
@@ -128,7 +130,7 @@ const Userstable = () => {
         <div className="colum1">
           <h1 className="text-5xl font-semibold text-white">Customer</h1>
           <p className="text-white text-sm font-thin">
-            565 registered customers
+            444 registered customers
           </p>
         </div>
         <Link
@@ -155,71 +157,23 @@ const Userstable = () => {
               ></i>
             </span>
           </div>
-          <Menu as="div" className="relative inline-block text-left">
-            <div>
-              <Menu.Button className="mt-[2rem] md:mt-0 lg:mt-0 inline-flex w-[10rem] justify-center rounded-2xl bg-white px-4 py-3 text-sm font-medium text-blue-txt hover:bg-white/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
-                Last Year
-                <ChevronDownIcon
-                  className="-mr-1 ml-2 h-5 w-5 text-blue-bg"
-                  aria-hidden="true"
-                />
-              </Menu.Button>
-            </div>
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-100"
-              enterFrom="transform opacity-0 scale-95"
-              enterTo="transform opacity-100 scale-100"
-              leave="transition ease-in duration-75"
-              leaveFrom="transform opacity-100 scale-100"
-              leaveTo="transform opacity-0 scale-95"
-            >
-              <Menu.Items className="absolute aaaa right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
-                <div className="px-1 py-1 ">
-                  <Menu.Item>
-                    {({ active }) => (
-                      <button
-                        className={`${
-                          active ? "bg-blue-bg text-white" : "text-gray-900"
-                        } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                      >
-                        2023
-                      </button>
-                    )}
-                  </Menu.Item>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <button
-                        className={`${
-                          active ? "bg-blue-bg text-white" : "text-gray-900"
-                        } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                      >
-                        2022
-                      </button>
-                    )}
-                  </Menu.Item>
-                </div>
-              </Menu.Items>
-            </Transition>
-          </Menu>
         </div>
       </div>
 
       <div className="relative overflow-x-auto">
         <Stack spacing={2}>
           <DataTable
-            value={searchText ? filteredData : data}
+            value={searchText ? filteredData : allUsersData}
             className="w-full text-sm text-left rtl:text-right text-white rv-table"
             rowClassName="row-spacing"
             paginator
             first={(currentPage - 1) * rowsPerPage}
             rows={rowsPerPage}
-            totalRecords={searchText ? filteredData.length : data.length}
             onPage={(e) => setCurrentPage(e.page + 1)}
           >
             <Column
-              field="name"
-              header="Name"
+              field="id_customer"
+              header="Id"
               className="b-rv"
               style={{
                 borderTopLeftRadius: "22px",
@@ -227,20 +181,24 @@ const Userstable = () => {
                 marginBottom: "10px",
               }}
             />
-            <Column field="matter" header="Matter" className="row-spacing" />
             <Column
-              field="lastUpdate"
-              header="Last Update"
+              field="customer"
+              header="Name Customer"
               className="row-spacing"
             />
             <Column
-              field="dacProvided"
-              header="% Dac Provided"
+              field="matter_name"
+              header="Matters"
               className="row-spacing"
             />
             <Column
-              field="checklist"
-              header="CheckList"
+              field="steps"
+              header="Checklist Per Matter"
+              className="row-spacing"
+            />
+            <Column
+              field="submitted_or_accepted_count"
+              header="Documents Sent"
               className="row-spacing"
             />
             <Column
@@ -249,16 +207,16 @@ const Userstable = () => {
               body={(rowData) => (
                 <div className="container-options">
                   <div className="dropdown mr-[5px]">
-                    <i className="fa-solid fa-chevron-down icon-verde cursor-pointer"></i>
+                  <Link to={`/user/tabscontenido/viewUsers/detail-customer/${rowData.id_customer}`}>
+                      <i className="fa-regular fa-eye icon-verde cursor-pointer"></i>
+                    </Link>
                   </div>
                   <div className="dropdown mr-[5px]">
                     <i
                       className="fa-regular fa-comments icon-azul cursor-pointer"
                       onClick={handleOpenChecklist}
                     ></i>
-                    <span className="noticacion-red"></span>
                   </div>
-                  <i className="fa-solid fa-magnifying-glass icon-buscar cursor-pointer"></i>
                 </div>
               )}
               className="b-rv2 row-spacing"
@@ -271,7 +229,8 @@ const Userstable = () => {
           </DataTable>
           <Pagination
             count={Math.ceil(
-              (searchText ? filteredData.length : data.length) / rowsPerPage
+              (searchText ? filteredData.length : allUsersData?.length || 0) /
+                rowsPerPage // Ajusta el número total de páginas basado en los datos correctos
             )}
             color="secondary"
             page={currentPage}

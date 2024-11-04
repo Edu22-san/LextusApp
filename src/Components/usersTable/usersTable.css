@@ -73,14 +73,7 @@ thead.p-datatable-thead {
     border-collapse: initial;
 }
 
-span.noticacion-red {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    position: absolute;
-    background: red;
-    left: 57%;
-}
+
 
 .icon-azul {
     color: #264ff9;
@@ -141,13 +134,5 @@ ul.MuiPagination-ul.css-wjh20t-MuiPagination-ul {
         flex-direction: row;
         justify-content: space-around;
     }
-    span.noticacion-red {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        position: absolute;
-        background: red;
-        left: 95%;
-        top: -3%;
-    }
+  
   }

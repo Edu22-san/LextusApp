@@ -15,6 +15,7 @@ export default {
         "white-rv":"#ffffff7a",
         "green-rv":"#41B06E",
         "red-rv":"#E72929",
+        "gray-rv":"#656464",
       },
       fontSize: {
         xs: "9px",

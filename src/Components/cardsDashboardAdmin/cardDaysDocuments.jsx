@@ -9,7 +9,7 @@ import { Toast } from "primereact/toast";
 import { FileUpload } from "primereact/fileupload";
 import "./cardsDashboardAdmin.css";
 
-const CardDaysDocuments = () => {
+const CardDaysDocuments = ({countDocumentsData, countDocumentsByMattersData, countDocumentsByMatter}) => {
   const [openDaysDocuments, setOpenDaysDocuments] = useState(false);
   const handleOpenDaysDocuments = () => setOpenDaysDocuments(true);
   const handleCloseDaysDocuments = () => setOpenDaysDocuments(false);
@@ -17,6 +17,9 @@ const CardDaysDocuments = () => {
   const toast = useRef(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  //console.log('ver countdocuments:', countDocumentsData);
+  console.log('asddd', countDocumentsByMattersData);
 
   const styleModal = {
     position: "absolute",
@@ -56,11 +59,13 @@ const CardDaysDocuments = () => {
               60 days documents
             </p>
           </div>
-          <Button onClick={handleOpenDaysDocuments} style={styledButton}>
+          <Button onClick={() => {
+              handleOpenDaysDocuments();
+              countDocumentsByMatter();
+            }} style={styledButton}>
             Details
           </Button>
-          <Modal
-            open={openDaysDocuments}
+          <Modal open={openDaysDocuments}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
@@ -71,15 +76,15 @@ const CardDaysDocuments = () => {
                 component="h2"
                 className="border-b-2 border-solid border-gray-300 flex flex-row items-center justify-between"
               >
-                <p className="text-blue-500 text-lg md:text-xl lg:text-xl font-bold ">
+                <div className="text-blue-500 text-lg md:text-xl lg:text-xl font-bold ">
                 60 days documents
-                </p>
+                </div>
                 <i
                   onClick={handleCloseDaysDocuments}
                   className="fa-solid fa-circle-xmark cursor-pointer text-2xl text-bg-rojo"
                 ></i>
               </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              <Box id="modal-modal-description" sx={{ mt: 2 }}>
                 <div
                   style={{
                     maxHeight: "60vh",
@@ -88,48 +93,31 @@ const CardDaysDocuments = () => {
                   }}
                 >
                   <ul>
-                    <li className="mb-[12px] ml-[17px] list-disc text-[15px] md:text-[18px] lg:text-[18px]">
-                      <div className="flex flex-row justify-between items-center">
-                        Matter Visa U
-                        <p className="text-blue-txt text-[25px] font-bold">
-                          200
-                          <span className="text-gray-500  text-[12px] font-[200]">
+                  {countDocumentsByMattersData.data && countDocumentsByMattersData.data.length > 0 ? (
+                    countDocumentsByMattersData.data.map((document, index) => (
+                    <li key={index} className="mb-[12px] ml-[17px] list-disc text-[15px] md:text-[18px] lg:text-[18px] flex flex-row justify-between items-center">
+                        <span>{document.matter_name}</span>
+                        <span className="text-blue-txt text-[25px] font-bold">
+                        {document.total_documents}
+                          <span className=" ml-[5px] text-gray-500  text-[12px] font-[200]">
                             documents
                           </span>
-                        </p>
-                      </div>
+                        </span>
                     </li>
-                    <li className="mb-[12px] ml-[17px] list-disc text-[15px] md:text-[18px] lg:text-[18px]">
-                      <div className="flex flex-row justify-between items-center">
-                        Matter Inmigrant Visa
-                        <p className="text-blue-txt text-[25px] font-bold">
-                          200
-                          <span className="text-gray-500  text-[12px] font-[200]">
-                          documents
-                          </span>
-                        </p>
-                      </div>
-                    </li>
-                    <li className="mb-[12px] ml-[17px] list-disc text-[15px] md:text-[18px] lg:text-[18px]">
-                      <div className="flex flex-row justify-between items-center">
-                        Matter Parole
-                        <p className="text-blue-txt text-[25px] font-bold">
-                          200
-                          <span className="text-gray-500  text-[12px] font-[200]">
-                          documents
-                          </span>
-                        </p>
-                      </div>
-                    </li>
+                    ))
+                  ):(
+                    <li>No data available</li>
+                  )}
+                   
                   </ul>
                 </div>
-              </Typography>
+              </Box>
             </Box>
           </Modal>
         </div>
         <div className="w-full flex flex-col items-center py-4">
           <h2 className="text-5xl md:text-6xl lg:text-8xl text-purple-primary font-bold">
-            2.5k
+            {countDocumentsData.data?.total}
           </h2>
           <p className="text-gray-500 text-lg md:text-xl lg:text-xl">
             Documents

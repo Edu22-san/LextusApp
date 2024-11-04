@@ -1,0 +1,13 @@
+.container-card-verify-email {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    height: auto;
+    width: 51%;
+    max-width: 1266px;
+    background: #fbfbfb2b;
+    padding: 58px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}

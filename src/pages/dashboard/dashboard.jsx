@@ -12,12 +12,27 @@ const Dashboard = () => {
   const [countUsersData, setCountUsersData] = useState([]);
   const [usersByMattersData, setUsersByMattersData] = useState([]);
   const [countDocumentsData, setCountDocumentsData] = useState([]);
+  const [countDocumentsByMattersData, setCountDocumentsByMattersData] =
+    useState([]);
+
+  const countDocumentsByMatter = () => {
+    Api.get("count-documents-by-matter")
+      .then((response) => {
+        if (response.data) {
+          console.log("Data total documents:", response.data);
+          setCountDocumentsByMattersData(response.data);
+        }
+      })
+      .catch((error) => {
+        console.error("Error al obtener los datos:", error);
+      });
+  };
 
   const countDocuments = () => {
     Api.get("count-documents-users")
       .then((response) => {
         if (response.data) {
-          console.log("Data total documents:", response.data);
+          //console.log("Data total documents:", response.data);
           setCountDocumentsData(response.data);
         }
       })
@@ -55,7 +70,6 @@ const Dashboard = () => {
   useEffect(() => {
     countUsers_get();
     countDocuments();
-
   }, []);
 
   const handleTabClick = (key) => {
@@ -104,7 +118,11 @@ const Dashboard = () => {
             usersByMatters={usersByMatters}
           />
 
-          <CardDaysDocuments />
+          <CardDaysDocuments
+            countDocumentsData={countDocumentsData}
+            countDocumentsByMattersData={countDocumentsByMattersData}
+            countDocumentsByMatter={countDocumentsByMatter}
+          />
 
           <CardBillingInformation />
         </div>
