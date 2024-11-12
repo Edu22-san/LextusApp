@@ -61,7 +61,7 @@ const Login = () => {
 
         toast.success("Login successful!");
 
-        // Redirect based on role
+
         const role = response.data.id_rol;
         if (role === "1") {
           navigate("user/dashboard");

@@ -107,43 +107,40 @@ const FormNewCustomer = () => {
         </div>
         <div className="colum2-inputs">
           <div className="fila-1">
+            <TextField
+              id="outlined-basic"
+              label="Search customer"
+              variant="outlined"
+              className="w-full h-[40px]"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "40px", // Ajusta el border-radius
 
-              <TextField
-                id="outlined-basic"
-                label="Search customer"
-                variant="outlined"
-                className="w-full h-[40px]"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: "40px", // Ajusta el border-radius
-                  
-                    "& fieldset": {
-                      borderColor: "#264ff9", // Cambia el color del borde
-                    },
-                    "&:hover fieldset": {
-                      borderColor: "darkblue", // Cambia el color del borde al hacer hover
-                    },
-                    "&.Mui-focused fieldset": {
-                      borderColor: "darkblue", // Cambia el color del borde al estar enfocado
-                    },
+                  "& fieldset": {
+                    borderColor: "#264ff9", // Cambia el color del borde
                   },
-                  "& .MuiInputLabel-root": {
-                    color: "#264ff9", // Cambia el color del label (placeholder)
+                  "&:hover fieldset": {
+                    borderColor: "darkblue", // Cambia el color del borde al hacer hover
                   },
-                  "& .MuiInputLabel-root.Mui-focused": {
-                    color: "blue", // Cambia el color del label al estar enfocado
+                  "&.Mui-focused fieldset": {
+                    borderColor: "darkblue", // Cambia el color del borde al estar enfocado
                   },
-                }}
-                InputProps={{
-                  style: {
-                    color: "#264ff9", // Cambia el color del texto dentro del input
-                  },
-                }}
-              />
-            
-
+                },
+                "& .MuiInputLabel-root": {
+                  color: "#264ff9", // Cambia el color del label (placeholder)
+                },
+                "& .MuiInputLabel-root.Mui-focused": {
+                  color: "blue", // Cambia el color del label al estar enfocado
+                },
+              }}
+              InputProps={{
+                style: {
+                  color: "#264ff9", // Cambia el color del texto dentro del input
+                },
+              }}
+            />
           </div>
           {message && <p className="text-red-500">{message}</p>}
           <div className="fila-2">
@@ -160,10 +157,7 @@ const FormNewCustomer = () => {
       {/* RESULTADO DE BÚSQUEDA */}
       {search.length > 0 ? (
         search.map((customer) => (
-          <div
-            key={customer.id_customer}
-            className="container-fila2 mb-6 p-4 "
-          >
+          <div key={customer.id_customer} className="container-fila2 mb-6 p-4 ">
             <div className="column1-datos-usuarios">
               <h1 className="text-blue-color-opacity text-2xl">Preview</h1>
               <div className="border-image">
