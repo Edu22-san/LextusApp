@@ -1,526 +1,352 @@
-import React, { useState, useRef, useEffect  } from "react";
+import React, { useState, useEffect } from "react";
 import { Tab } from "@headlessui/react";
 import "./assets/formNewCustomer.css";
-import { Dropdown } from "primereact/dropdown"; // por si acaso
 import IconChecklist from "../../assets/img/icon-checklist.png";
-import { Checkbox } from "primereact/checkbox";
-import { FileUpload } from "primereact/fileupload";
 import { RadioGroup } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import Api from "../../services/api";
+import TextField from "@mui/material/TextField";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const checklistPlan = [
-  { name: "Visa U" },
-  { name: "Visa U sons" },
-];
-
-const checklistPaymentPlan = [
-  { name: "Payment Plan 1" },
-  { name: "Payment Plan 2" },
-
-];
-
 const FormNewCustomer = () => {
-  const [firstName, setFirstName] = useState("");
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [selected, setSelected] = useState(checklistPlan[-1]);
-  const [selectedPaymentPlan, setSelectedPaymentPlan] = useState(
-    checklistPaymentPlan[-1]
-  );
+  const [selectedMatters, setSelectedMatters] = useState({});
+  const [query, setQuery] = useState("");
+  const [search, setSearch] = useState([]);
+  const [message, setMessage] = useState("");
+  const [updatedSteps, setUpdatedSteps] = useState({});
 
-  const tabs = ["Asign Checklist", "Payment plan", "Send Password"];
+  const tabs = ["Checklist", "Payment plan", "Create User"];
 
-  const onUpload = (documentId) => {
-    toast.current.show({
-      severity: "info",
-      summary: "Success",
-      detail: `File Uploaded for documentId: ${documentId}`,
-    });
+  // Función para obtener los datos
+  const searchCustomer = async (query) => {
+    try {
+      const response = await Api.get(`search-customer?search=${query}`);
+      setSearch(response.data.data || []);
+      console.log(response);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
-  const handleViewButtonClick = (documentId) => {
 
-    console.log(`View button clicked for documentId: ${documentId}`);
+  const handleSend = async (customerId) => {
+    try {
+      const response = await Api.post(`create-user-by-customer`, {
+        id_customer: customerId,
+      });
+      console.log("User created:", response);
+
+      toast.success("User created successfully!");
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 5000);
+    } catch (error) {
+      console.error("Error creating user:", error);
+
+      toast.error("Failed to create user.");
+    }
   };
-  const documentsListData = [
-    { label: "Document name | pending | 01/01/2024", id: 1 },
 
+  const handleDateChange = (idUserStep, newDate) => {
+    setUpdatedSteps((prev) => ({
+      ...prev,
+      [idUserStep]: newDate,
+    }));
+  };
 
-  ];
+  const handleSave = async () => {
+    const dataToSend = Object.entries(updatedSteps).map(
+      ([id_user_step, estimated_date]) => ({
+        id_user_step: parseInt(id_user_step),
+        estimated_date,
+      })
+    );
 
-  const documentsChecklistData = [
-    { label: "Document name ", id: 1 },
+    try {
+      const response = await Api.postJson("update-date-step", dataToSend);
+      toast.success("Dates updated successfully!");
+    } catch (error) {
+      console.error("Error updating dates:", error);
+      toast.error("Failed to update dates.");
+    }
+  };
 
-
-  ];
-
-  const [datitos, setDatitos] = useState([]); 
-  const [selectedCustomer, setSelectedCustomer] = useState(null);
-  const [message, setMessage] = useState(""); 
-
-// Función para obtener los datos
-const fetchData = async () => {
-  try {
-    const response = await Api.get("/customers");
-    console.log('API Response:', response);
-    setDatitos(response.data.data || []);  // Almacena los datos obtenidos
-    console.log(response);
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
-};
-
-// Llama a fetchData cuando el componente se monta
-useEffect(() => {
-  fetchData();
-}, []);
-
-const handleSearch = () => {
-  if (!Array.isArray(datitos)) {
-    console.error("datitos is not an array:", datitos);
-    return;
-  }
-
-  const customer = datitos.find(c => c.full_name.toLowerCase() === firstName.toLowerCase());
-  if (customer) {
-    setSelectedCustomer(customer);
-    setMessage(""); // Limpiar mensaje si se encuentra el cliente
-  } else {
-    setSelectedCustomer(null);
-    setMessage("No se encontró el usuario"); // Establecer mensaje si no se encuentra el cliente
-  }
-};
-
-
+  //obtener los la informacionde matter seleccionado
+  const handleMatterSelect = (customerId, matterName) => {
+    setSelectedMatters((prev) => ({
+      ...prev,
+      [customerId]: matterName,
+    }));
+  };
 
   return (
-    <>
-      <div className="min-w-full p-[2rem] md:p-[4rem] lg:p-[4rem]">
-        <div className="grid grid-cols-1 md:grid-cols-2 items-center justify-center rounded-xl p-1 w-full  gap-8 md:gap-10 mb-[2rem]">
-          <div>
-            <h1 className="text-white text-3xl md:text-5xl lg:text-5xl font-semibold">
-              Add new customer
-            </h1>
-            <p className="text-white ">Register your customer</p>
-          </div>
-          
+    <div className="min-w-full p-[2rem] md:p-[4rem] lg:p-[4rem]">
+      <ToastContainer />
+      <div className="grid grid-cols-1 md:grid-cols-2 items-center justify-center rounded-xl p-1 w-full gap-8 md:gap-10 mb-[2rem]">
+        <div>
+          <h1 className="text-white text-3xl md:text-5xl lg:text-5xl font-semibold">
+            Add new customer
+          </h1>
+          <p className="text-white">Register your customer</p>
         </div>
-        <div className="card-completess">
-          <div className="column1-image">
-            <label htmlFor="imageInput" className="flex flex-col justify-center items-center border-4 border-blue-500 w-44 h-44 rounded-full">
-              <i className="fa-solid fa-user icon-user-rv"></i>
-            </label>
-          </div>
-          <div className="colum2-inputs">
-            <div className="fila-1">
-              <div className="relative w-full md:w-full lg:w-full mb-[12px] md:mb-[0] lg:mb-[0]">
-                <input
-                  type="text"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  className="h-12 md:h-14 lg:h-14 w-full lg:w-full md:w-full pl-4 rounded-full focus:outline-none border-2 border-blue-txt text-blue-txt"
-                />
-                <span className="container-input-texto absolute right-4 top-1/2 transform -translate-y-1/2 lg:left-[28px] md:left-[28px]">
-                  <p className="bg-white inline-block pl-[5px] pr-[5px] text-blue-txt">
-                    Name customer
-                  </p>
-                </span>
-              </div>
-              
-            </div>
-             {message && <p className="text-red-500">{message}</p>} {/* Mostrar mensaje si hay */}
-            <div className="fila-2">
-            <button className="btn-rv-search-customer" onClick={handleSearch}>
-                Search
-              </button>
-            </div>
-          </div>
+      </div>
+      <div className="card-completess">
+        <div className="column1-image">
+          <label
+            htmlFor="imageInput"
+            className="flex flex-col justify-center items-center border-4 border-blue-500 w-44 h-44 rounded-full"
+          >
+            <i className="fa-solid fa-user icon-user-rv"></i>
+          </label>
         </div>
+        <div className="colum2-inputs">
+          <div className="fila-1">
 
-        <div className="container-fila2">
-          <div className="column1-datos-usuarios">
-            <h1 className="text-blue-color-opacity text-2xl">Preview</h1>
-            <div className="border-image">
-              {selectedImage ? (
-                <img
-                  src={URL.createObjectURL(selectedImage)}
-                  alt="Selected Preview"
-                  className="w-full h-full object-cover rounded-full"
-                />
-              ) : (
-                <i className="fa-solid fa-user icon-user-rv"></i>
-              )}
-            </div>
+              <TextField
+                id="outlined-basic"
+                label="Search customer"
+                variant="outlined"
+                className="w-full h-[40px]"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "40px", // Ajusta el border-radius
+                  
+                    "& fieldset": {
+                      borderColor: "#264ff9", // Cambia el color del borde
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "darkblue", // Cambia el color del borde al hacer hover
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "darkblue", // Cambia el color del borde al estar enfocado
+                    },
+                  },
+                  "& .MuiInputLabel-root": {
+                    color: "#264ff9", // Cambia el color del label (placeholder)
+                  },
+                  "& .MuiInputLabel-root.Mui-focused": {
+                    color: "blue", // Cambia el color del label al estar enfocado
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    color: "#264ff9", // Cambia el color del texto dentro del input
+                  },
+                }}
+              />
             
-            <h3 className="text-blue-txt text-[18px]  md:text-xl lg:text-xl">
-           {selectedCustomer ? selectedCustomer.full_name : 'Full Name'}
-            </h3>
-            <p className="text-blue-txt text-[18px]  md:text-xl lg:text-xl">
-            {selectedCustomer ? selectedCustomer.email : 'Email'}
-            </p>
-            <p className="text-blue-txt text-[18px]  md:text-xl lg:text-xl">
-              Visa U
-            </p>
-          </div>
-          <div className="w-full md:w-full lg:w-[70%] flex flex-col items-center">
-            <Tab.Group>
-              <Tab.List className="rounded-xl p-1 w-full h-auto md:h-auto lg:h-auto  grid grid-cols-3 gap-2 md:gap-4 lg:gap-4 mb-[1rem]">
-                {tabs.map((tab, index) => (
-                  <Tab
-                    className={({ selected }) =>
-                      classNames(
-                        "w-full  py-2.5 text-[15px]  md:text-xl lg:text-xl font-medium leading-5 border-2 border-solid border-white rounded-[12px] h-auto md:h-[7vh] lg:h-[7vh]",
-                        "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
-                        selected
-                          ? "bg-white text-blue-700 shadow"
-                          : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
-                      )
-                    }
-                  >
-                    {tab}
-                  </Tab>
-                ))}
-              </Tab.List>
 
-              <Tab.Panels className="w-full mt-[2rem] md:mt-[0] lg:mt-[0]  h-[70vh] md:h-[60vh] lg:h-[60vh]">
-                <Tab.Panel
-                  className={classNames(
-                    "rounded-xl bg-white p-3",
-                    "ring-white/60 ring-offset-2 ring-offset-blue-400 h-full"
-                  )}
-                >
-                  <div className="w-full flex flex-row items-center justify-between border-b-2 border-solid border-gray-400 mb-4 h-[15%]">
-                    <div className="flex flex-row items-center justify-start ">
-                      <img src={IconChecklist} className="mr-1 w-[30px]" />
-                      <p className="text-xl font-bold text-blue-txt">
-                        New Relative
-                      </p>
-                    </div>
-                    <button className="bg-gray-300 text-black rounded-md px-5 py-1 text-base md:text-[15px] font-normal font-manrope">
-                      Save
-                    </button>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-0 md:gap-4 lg:gap-4 h-[80%]">
-                    <div className="p-4 col-span-1 h-[20vh] md:h-[43vh] lg:h-[43vh] row-span-1 border-[2px] border-solid border-gray-300 rounded-[8px] p-[7px] overflow-y-auto">
-                      <p className="text-blue-txt text-[18px] mb-[5px]">
-                        Select Matter:
-                      </p>
-                      <RadioGroup
-                        value={selected}
-                        onChange={setSelected}
-                        className=""
-                      >
-                        <div className="space-y-2">
-                          {checklistPlan.map((plan) => (
-                            <RadioGroup.Option
-                              key={plan.name}
-                              value={plan}
-                              className={({ active, checked }) =>
-                                `${
-                                  active
-                                    ? "ring-2 ring-white/60 ring-offset-2 ring-offset-sky-300"
-                                    : ""
-                                }
-                                  ${
-                                    checked
-                                      ? "bg-sky-900/75 text-white"
-                                      : "bg-white w-full"
-                                  }
-                                    relative flex cursor-pointer rounded-lg px-5 py-2 rv-boxshadow3 focus:outline-none`
-                              }
-                            >
-                              {({ active, checked }) => (
-                                <>
-                                  <div className="flex w-full items-center justify-between">
-                                    <div className="flex items-center">
-                                      <div className="text-sm">
-                                        <RadioGroup.Label
-                                          as="p"
-                                          className={`font-medium  ${
-                                            checked
-                                              ? "text-white"
-                                              : "text-gray-900"
-                                          }`}
-                                        >
-                                          {plan.name}
-                                        </RadioGroup.Label>
-                                      </div>
-                                    </div>
-                                    {checked && (
-                                      <div className="shrink-0 text-white">
-                                        <CheckIcon className="h-6 w-6" />
-                                      </div>
-                                    )}
-                                  </div>
-                                </>
-                              )}
-                            </RadioGroup.Option>
-                          ))}
-                        </div>
-                      </RadioGroup>
-                    </div>
-                    <div className=" p-4 col-span-2 row-span-1 h-[30vh] md:h-[43vh] lg:h-[43vh] p-[5px] border-[2px] border-solid border-gray-300 rounded-[8px] overflow-y-auto">
-                      <p className="text-blue-txt text-[18px] mb-[5px]">
-                        Or Ad hoc Checklist:
-                      </p>
-                      <ul className="list-decimal w-full pr-[5px]">
-                        {documentsChecklistData.map((document) => (
-                          <li key={document.id} className="mb-[12px] ml-[17px]">
-                            <div className="flex flex-row justify-between items-center">
-                              <label className="text-[15px]  md:text-[17px] lg:text-[17px]">
-                                {document.label}
-                              </label>
-                              <input
-                                type="date"
-                                className="inputselectcustoms"
-                              />
-                            </div>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </Tab.Panel>
-                <Tab.Panel
-                  className={classNames(
-                    "rounded-xl bg-white",
-                    "ring-white/60 ring-offset-2 ring-offset-blue-400 h-full focus:outline-none focus:ring-2"
-                  )}
-                >
-                  <div className="p-4 col-span-1 h-[70vh] md:h-[60vh] lg:h-[60vh] row-span-1 border-[2px] border-solid border-gray-300 rounded-[14px] p-3">
-                    <div className="w-full flex flex-row items-center justify-between border-b-2 border-solid border-gray-400 mb-4 h-[15%]">
-                      <div className="flex flex-row items-center justify-start ">
-                        <img src={IconChecklist} className="mr-1 w-[30px]" />
-                        <p className="text-xl font-bold text-blue-txt">
-                          Select Payment Plan:
-                        </p>
-                      </div>
-                      <button className="bg-gray-300 text-black rounded-md px-5 py-1 text-base md:text-[15px] font-normal font-manrope">
-                        Save
-                      </button>
-                    </div>
-                    <div className="h-[80%] overflow-y-auto pr-[12px]">
-                      <RadioGroup
-                        value={selectedPaymentPlan}
-                        onChange={setSelectedPaymentPlan}
-                        className=""
-                      >
-                        <div className="space-y-2">
-                          {checklistPaymentPlan.map((plan) => (
-                            <RadioGroup.Option
-                              key={plan.name}
-                              value={plan}
-                              className={({ active, checked }) =>
-                                `${
-                                  active
-                                    ? "ring-2 ring-white/60 ring-offset-2 ring-offset-sky-300"
-                                    : ""
-                                }
-                                  ${
-                                    checked
-                                      ? "bg-sky-900/75 text-white"
-                                      : "bg-white border-[2px] border-solid border-gray-300 w-full"
-                                  }
-                                    relative flex cursor-pointer rounded-lg px-5 py-3 shadow-md focus:outline-none`
-                              }
-                            >
-                              {({ active, checked }) => (
-                                <>
-                                  <div className="flex w-full items-center justify-between">
-                                    <div className="flex items-center">
-                                      <div className="text-sm">
-                                        <RadioGroup.Label
-                                          as="p"
-                                          className={`font-medium  ${
-                                            checked
-                                              ? "text-white"
-                                              : "text-gray-900"
-                                          }`}
-                                        >
-                                          {plan.name}
-                                        </RadioGroup.Label>
-                                      </div>
-                                    </div>
-                                    {checked && (
-                                      <div className="shrink-0 text-white">
-                                        <CheckIcon className="h-6 w-6" />
-                                      </div>
-                                    )}
-                                  </div>
-                                </>
-                              )}
-                            </RadioGroup.Option>
-                          ))}
-                        </div>
-                      </RadioGroup>
-                    </div>
-                  </div>
-                </Tab.Panel>
-                <Tab.Panel
-                  className={classNames(
-                    "rounded-xl bg-white p-3 flex flex-col items-center justify-center",
-                    "ring-white/60 ring-offset-2 ring-offset-blue-400 h-full focus:outline-none focus:ring-2"
-                  )}
-                >
-                  <p className="text-[18px]  md:text-xl lg:text-xl text-blue-txt font-bold text-center">
-                    You will send restore password email to customer@gmail.com
-                  </p>
-                  <button className="buttom-rv-customers">
-                    SEND<i className="fa-solid fa-angle-right text-white pl-[8px]"></i>
-                  </button>
-                </Tab.Panel>
-              </Tab.Panels>
-            </Tab.Group>
           </div>
-        </div>
-
-        <div className="container-fila2">
-          <div className="column2-document">
-            <div className="w-full flex flex-row items-center justify-between border-b-2 border-solid border-gray-400 mb-[1px]">
-              <div className="flex flex-row items-center justify-start ">
-                <img src={IconChecklist} alt="" className="mr-1 w-[30px]" />
-                <p className="text-xl font-bold text-blue-txt">
-                  View CheckList
-                </p>
-              </div>
-            </div>
-            <div className="w-full h-full flex flex-col items-start rounded-12 pt-[12px] pb-[12px]">
-              <div className="flex flex-row items-center justify-start ">
-                <i className="fa-regular fa-folder-open pr-[5px] text-gray-400 text-3xl"></i>
-                <p className="text-xl font-bold text-gray-400">Document List</p>
-              </div>
-              <div className="w-full grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <div className="bg-bg-celeste p-[12px] rounded-2xl h-[40vh] shadow-lg ">
-                  <p className="text-xl font-bold text-white text-center border-b-2 border-solid border-white mb-[1rem]">
-                    Checklist: Visa U
-                    <span className="text-[13px]  md:text-[15px] lg:text-[15px]">
-                      (Principal)
-                    </span>
-                  </p>
-                  <ul className="list-decimal w-full pr-[5px] h-[30vh] overflow-y-auto">
-                    {documentsListData.map((document) => (
-                      <li
-                        key={document.id}
-                        className="mb-[12px] ml-[17px] text-white"
-                      >
-                        <div className="flex flex-row justify-between items-center">
-                          <label className="text-white text-[15px]  md:text-[17px] lg:text-[17px]">
-                            {document.label}
-                          </label>
-                          {document.label.includes("Complete") ? (
-                            <button
-                              onClick={() => handleViewButtonClick(document.id)}
-                              className="bg-blue-bg rounded-lg p-[6px] text-[14px] text-white max-w-[60%]"
-                            >
-                              View
-                            </button>
-                          ) : (
-                            <FileUpload
-                              chooseLabel="Upload"
-                              mode="basic"
-                              name={`demo_${document.id}`}
-                              url="/api/upload"
-                              accept=".pdf,.doc,.docx,.txt"
-                              maxFileSize={1000000}
-                              onUpload={() => onUpload(document.id)}
-                              className="bg-blue-bg rounded-lg p-[6px] text-[14px] text-white max-w-[60%]"
-                            />
-                          )}
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="bg-bg-celeste p-[12px] rounded-2xl h-[40vh] shadow-lg ">
-                  <p className="text-xl font-bold text-white text-center border-b-2 border-solid border-white mb-[1rem]">
-                    Checklist: Visa U
-                    <span className="text-[13px]  md:text-[15px] lg:text-[15px]">
-                      (Principal)
-                    </span>
-                  </p>
-                  <ul className="list-decimal w-full pr-[5px] h-[30vh] overflow-y-auto">
-                    {documentsListData.map((document) => (
-                      <li
-                        key={document.id}
-                        className="mb-[12px] ml-[17px] text-white"
-                      >
-                        <div className="flex flex-row justify-between items-center">
-                          <label className="text-white text-[15px]  md:text-[17px] lg:text-[17px]">
-                            {document.label}
-                          </label>
-                          {document.label.includes("Complete") ? (
-                            <button
-                              onClick={() => handleViewButtonClick(document.id)}
-                              className="bg-blue-bg rounded-lg p-[6px] text-[14px] text-white max-w-[60%]"
-                            >
-                              View
-                            </button>
-                          ) : (
-                            <FileUpload
-                              chooseLabel="Upload"
-                              mode="basic"
-                              name={`demo_${document.id}`}
-                              url="/api/upload"
-                              accept=".pdf,.doc,.docx,.txt"
-                              maxFileSize={1000000}
-                              onUpload={() => onUpload(document.id)}
-                              className="bg-blue-bg rounded-lg p-[6px] text-[14px] text-white max-w-[60%]"
-                            />
-                          )}
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="bg-bg-celeste p-[12px] rounded-2xl h-[40vh] shadow-lg ">
-                  <p className="text-xl font-bold text-white text-center border-b-2 border-solid border-white mb-[1rem]">
-                    Checklist: Visa U
-                    <span className="text-[13px]  md:text-[15px] lg:text-[15px]">
-                      (Principal)
-                    </span>
-                  </p>
-                  <ul className="list-decimal w-full pr-[5px] h-[30vh] overflow-y-auto">
-                    {documentsListData.map((document) => (
-                      <li
-                        key={document.id}
-                        className="mb-[12px] ml-[17px] text-white"
-                      >
-                        <div className="flex flex-row justify-between items-center">
-                          <label className="text-white text-[15px]  md:text-[17px] lg:text-[17px]">
-                            {document.label}
-                          </label>
-                          {document.label.includes("Complete") ? (
-                            <button
-                              onClick={() => handleViewButtonClick(document.id)}
-                              className="bg-blue-bg rounded-lg p-[6px] text-[14px] text-white max-w-[60%]"
-                            >
-                              View
-                            </button>
-                          ) : (
-                            <FileUpload
-                              chooseLabel="Upload"
-                              mode="basic"
-                              name={`demo_${document.id}`}
-                              url="/api/upload"
-                              accept=".pdf,.doc,.docx,.txt"
-                              maxFileSize={1000000}
-                              onUpload={() => onUpload(document.id)}
-                              className="bg-blue-bg rounded-lg p-[6px] text-[14px] text-white max-w-[60%]"
-                            />
-                          )}
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
+          {message && <p className="text-red-500">{message}</p>}
+          <div className="fila-2">
+            <button
+              className="btn-rv-search-customer"
+              onClick={() => searchCustomer(query)}
+            >
+              Search
+            </button>
           </div>
         </div>
       </div>
-    </>
+
+      {/* RESULTADO DE BÚSQUEDA */}
+      {search.length > 0 ? (
+        search.map((customer) => (
+          <div
+            key={customer.id_customer}
+            className="container-fila2 mb-6 p-4 "
+          >
+            <div className="column1-datos-usuarios">
+              <h1 className="text-blue-color-opacity text-2xl">Preview</h1>
+              <div className="border-image">
+                <i className="fa-solid fa-user icon-user-rv"></i>
+              </div>
+              <h3 className="text-blue-txt text-[16px] md:text-[18px] lg:text-[18px]">
+                {customer.first_name} {customer.last_name}
+              </h3>
+              <p className="text-blue-txt text-[16px] md:text-[18px] lg:text-[18px]">
+                {customer.email}
+              </p>
+              <div className="text-blue-txt">
+                <ul className="list-disc list-inside text-blue-txt text-[16px] md:text-[18px] lg:text-[18px]">
+                  {customer.matters.map((matter, index) => (
+                    <li key={index}>{matter.matter_name}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="w-full md:w-full lg:w-[70%] flex flex-col items-center">
+              <Tab.Group>
+                <Tab.List className="rounded-xl p-1 w-full grid grid-cols-3 gap-2 mb-[4px]">
+                  {tabs.map((tab, index) => (
+                    <Tab
+                      key={index}
+                      className={({ selected }) =>
+                        classNames(
+                          "w-full py-2.5 text-[15px] md:text-[18px] lg:text-[18px] font-medium leading-5 border-2 border-solid border-white rounded-[12px]",
+                          "focus:outline-none",
+                          selected
+                            ? "bg-white text-blue-700 shadow"
+                            : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
+                        )
+                      }
+                    >
+                      {tab}
+                    </Tab>
+                  ))}
+                </Tab.List>
+
+                <Tab.Panels className="w-full  h-[310px]">
+                  <Tab.Panel
+                    className={classNames("rounded-xl bg-white p-3 h-full")}
+                  >
+                    <div className="w-full flex flex-row items-center justify-between border-b-2 mb-4 h-[10%]">
+                      <div className="flex flex-row items-center">
+                        <img src={IconChecklist} className="mr-1 w-[20px]" />
+                        <p className="text-[16px] md:text-[18px] lg:text-[18px] font-bold text-blue-txt">
+                          Matter
+                        </p>
+                      </div>
+                      <button
+                        className="bg-gray-300 text-black rounded-md px-[12px] py-[1px] text-base font-normal text-[16px]"
+                        onClick={handleSave}
+                      >
+                        Save
+                      </button>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-[85%]">
+                      <div className="p-[10px] col-span-1 border-[2px] border-solid border-gray-300 rounded-[8px] overflow-y-auto">
+                        <p className="text-blue-txt text-[18px] mb-[5px]">
+                          Select Matter:
+                        </p>
+                        <RadioGroup
+                          value={selectedMatters[customer.id_customer] || null}
+                          onChange={(matterName) =>
+                            handleMatterSelect(customer.id_customer, matterName)
+                          }
+                        >
+                          <div className="space-y-2">
+                            {customer.matters.map((matter, index) => (
+                              <RadioGroup.Option
+                                key={index}
+                                value={matter.matter_name}
+                                className={({ active, checked }) =>
+                                  `${active ? "ring-2 ring-white/60" : ""} ${
+                                    checked
+                                      ? "bg-sky-900/75 text-white"
+                                      : "bg-white w-full rounded-lg border border-blue-500"
+                                  } relative flex cursor-pointer rounded-lg px-5 py-2`
+                                }
+                              >
+                                {({ checked }) => (
+                                  <div className="flex w-full items-center justify-between">
+                                    <RadioGroup.Label
+                                      as="p"
+                                      className={`font-medium ${
+                                        checked ? "text-white" : "text-gray-900"
+                                      }`}
+                                    >
+                                      {matter.matter_name}
+                                    </RadioGroup.Label>
+                                    {checked && (
+                                      <CheckIcon className="h-6 w-6 text-white" />
+                                    )}
+                                  </div>
+                                )}
+                              </RadioGroup.Option>
+                            ))}
+                          </div>
+                        </RadioGroup>
+                      </div>
+                      <div className="p-[10px] col-span-2 border-[2px] border-solid border-gray-300 rounded-[8px] overflow-y-auto">
+                        <p className="text-blue-txt text-[18px] mb-[5px]">
+                          Steps:
+                        </p>
+                        <ul className="list-decimal w-full overflow-y-auto h-[85%]">
+                          {customer.matters
+                            .filter(
+                              (matter) =>
+                                matter.matter_name ===
+                                selectedMatters[customer.id_customer]
+                            )
+                            .flatMap((matter) => matter.steps)
+                            .map((step, index) => (
+                              <li key={index} className="mb-[12px] ml-[17px]">
+                                <div className="flex flex-row justify-start items-center">
+                                  <label className="text-[15px] ">
+                                    {step.step_name} /
+                                  </label>
+                                  <input
+                                    type="date"
+                                    className="inputselectcustoms"
+                                    value={
+                                      updatedSteps[step.id_user_step] ||
+                                      step.estimated_date ||
+                                      ""
+                                    }
+                                    onChange={(e) =>
+                                      handleDateChange(
+                                        step.id_user_step,
+                                        e.target.value
+                                      )
+                                    }
+                                  />
+                                </div>
+                              </li>
+                            ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </Tab.Panel>
+
+                  {/* Other Tabs */}
+                  <Tab.Panel
+                    className={classNames("rounded-xl bg-white h-full")}
+                  >
+                    {/* Payment Plan Content */}
+                  </Tab.Panel>
+                  <Tab.Panel
+                    className={classNames(
+                      "rounded-xl bg-white p-3 flex flex-col items-center justify-center",
+                      "ring-white/60 ring-offset-2 ring-offset-blue-400 h-full focus:outline-none focus:ring-2"
+                    )}
+                  >
+                    <p className="text-[18px] md:text-xl lg:text-xl text-blue-txt font-bold text-center">
+                      {customer.id_user
+                        ? "The customer already has a user created"
+                        : `You will send an email with the credentials to ${customer.email}`}
+                    </p>
+                    <button
+                      className="buttom-rv-customers"
+                      onClick={() => handleSend(customer.id_customer)}
+                      disabled={!!customer.id_user} // Desactiva el botón si ya tiene usuario
+                    >
+                      {customer.id_user ? "Disabled" : "SEND"}
+                      <i className="fa-solid fa-angle-right text-white pl-[8px]"></i>
+                    </button>
+                  </Tab.Panel>
+                </Tab.Panels>
+              </Tab.Group>
+            </div>
+          </div>
+        ))
+      ) : (
+        <div className="card-no-result">
+          <p className="text-blue-txt text-[18px] md:text-xl lg:text-xl">
+            No hay resultados
+          </p>
+        </div>
+      )}
+    </div>
   );
 };
 

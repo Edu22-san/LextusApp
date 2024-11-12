@@ -79,6 +79,8 @@ li.p-dropdown-item:hover {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    background: #627591;
+    border-radius: 15px;
 }
 .column1-datos-usuarios {
     background: white;
@@ -120,35 +122,53 @@ span.container-input-file {
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
-input.inputselectcustoms {
+/*input.inputselectcustoms {
     color: #497792;
     border: 2px solid #497792;
     border-radius: 10px;
-    height: 5vh;
     width: auto;
+    font-size: 13px;
+    padding: 3px 0px;
+}*/
+input.inputselectcustoms {
+    color: #3c22cd;
+    /* border: 2px solid #497792; */
+    border-radius: 10px;
+    width: auto;
+    font-size: 15px;
+    /* padding: 3px 0px; */
+    margin-left: 4px;
+}
+.card-no-result {
+    background: white;
+    width: 100%;
+    margin-top: 1rem;
+    text-align: center;
+    padding: 36px;
+    border-radius: 12px;
 }
 
-
-.btn-rv-search-customer{
-    display: inline-block;
-outline: none;
-cursor: pointer;
-font-size: 14px;
-line-height: 1;
-border-radius: 500px;
-transition-property: background-color,border-color,color,box-shadow,filter;
-transition-duration: .3s;
-border: 1px solid transparent;
-letter-spacing: 2px;
-min-width: 160px;
-text-transform: uppercase;
-white-space: normal;
-font-weight: 700;
-text-align: center;
-padding: 17px 48px;
-color: #fff;
-background-color: #264ff9;
-height: 48px;
+.btn-rv-search-customer {
+    /* display: inline-block; */
+    outline: none;
+    cursor: pointer;
+    font-size: 14px;
+    /* line-height: 1; */
+    border-radius: 500px;
+    transition-property: background-color, border-color, color, box-shadow, filter;
+    transition-duration: .3s;
+    border: 1px solid transparent;
+    letter-spacing: 2px;
+    min-width: 160px;
+    text-transform: uppercase;
+    white-space: normal;
+    font-weight: 700;
+    text-align: center;
+    padding: 0px 48px;
+    color: #fff;
+    background-color: #264ff9;
+    height: 40px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 .btn-rv-search-customer:hover{
     transform: scale(1.04);

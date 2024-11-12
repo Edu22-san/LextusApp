@@ -60,6 +60,18 @@ const post = (url = "", body = {}, headers = {}) => {
     },
   });
 };
+const postJson = (url = "", body = {}, headers = {}) => {
+  if (getSession()) {
+    headers.Authorization = "Bearer " + getSession().token;
+  }
+
+  return axios.post(readUrl(url), JSON.stringify(body), {
+    headers: {
+      "Content-Type": "application/json",
+      ...headers,
+    },
+  });
+};
 
 
 const postUpload = (url = "", body = {}, headers = {}) => {
@@ -107,6 +119,7 @@ const del = (url = "", headers = {}) =>
 const Api = {
   get,
   post,
+  postJson,
   put,
   postUpload,
   delete: del,

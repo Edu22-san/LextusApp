@@ -51,7 +51,7 @@ const Login = () => {
     const urlBase = import.meta.env.VITE_API_BASE_URL;
 
     axios
-      .post(urlBase + "/auth/login", formData, {
+      .post(urlBase + "auth/login", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -77,23 +77,25 @@ const Login = () => {
           const backendMessage = error.response.data.message;
           const statusCode = error.response.status;
 
-           if (statusCode === 403 && backendMessage === "You have to change the generic password.") {
-        const redirectUrl = error.response.data.redirect;
-        toast.error(backendMessage);
-       setTimeout(() => {
-         navigate(redirectUrl); 
-       }, 5000);
-      } else if (backendMessage) {
-        toast.error(backendMessage);
-        setLoginError(backendMessage);
-      }
-    
+          if (
+            statusCode === 403 &&
+            backendMessage === "You have to change the generic password."
+          ) {
+            const redirectUrl = error.response.data.redirect;
+            toast.error(backendMessage);
+            setTimeout(() => {
+              navigate(redirectUrl);
+            }, 3000);
+          } else if (backendMessage) {
+            toast.error(backendMessage);
+            setLoginError(backendMessage);
+          }
         } else {
           // Manejar error general si no hay respuesta del backend
           setLoginError("An error occurred during login. Please try again.");
           toast.error("An error occurred during login. Please try again.");
         }
-    
+
         console.error("Login error: ", error);
       });
   };

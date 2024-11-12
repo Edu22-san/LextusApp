@@ -105,7 +105,7 @@ const DashboardCustomer = () => {
                       className="flex flex-row items-center justify-between mb-[10px]"
                     >
                       <p className="w-full pl-[7px] pr-[7px] font-semibold text-[14px]">
-                        {step.step_name} / 06-06-24 {/*{step.estimated_date}*/}
+                        {step.step_name} / {step.estimated_date}
                       </p>
                       <p
                         className={`w-[15px] h-[15px] font-medium leading-5 mx-[4px] rounded-full ${
