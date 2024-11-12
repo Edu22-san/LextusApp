@@ -68,7 +68,7 @@ const Login = () => {
         } else if (role === "2") {
           navigate("user/dashboard-customer");
         } else {
-          // Handle other roles or default action
+   
           navigate("user/dashboard");
         }
       })
