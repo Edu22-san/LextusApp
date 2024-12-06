@@ -14,4 +14,11 @@
 
   }
 
+  .class-rv{
+    background: #d2cfcf;
+    padding: 4px;
+    margin-right: 8px;
+    border-radius: 9px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  }
   

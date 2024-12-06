@@ -6,6 +6,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import Api from "../../services/api";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import DocumentComponent from "../../Components/DocumentComponent/documentComponent";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -391,32 +392,32 @@ const DetailCustomer = () => {
                     <i className="fa-solid fa-x"></i>
                   </button>
                 </div>
-               {/* <p>{selectedItem.id_item}</p> */}
-
-                <textarea
-                  value={selectedItem.notes || ""}
-                  onChange={(e) =>
-                    setSelectedItem({ ...selectedItem, notes: e.target.value })
-                  }
-                  placeholder="Add Note"
-                  className="w-full h-auto border rounded text-blue-bg placeholder-blue-bg pl-[12px]"
-                />
-                <button
-                  onClick={handleSaveNote}
-                  className="bg-blue-500 text-white rounded p-2 mt-4"
-                >
-                  Save note
-                </button>
-
-                {selectedItem.document_path ? (
-                  <iframe
-                    src={selectedItem.document_path}
-                    className="w-full h-[70%] mt-4 border rounded"
-                    title="Document Preview"
-                  />
-                ) : (
-                  <p className="text-red-500">Document path not available.</p>
-                )}
+                <div className="grid-container-modal-doc">
+                  <div className=" h-[200px] lg:h-[425px] md:h-[360px] griddoc1">
+                    <DocumentComponent
+                      documentUrl={selectedItem.document_path || ""}
+                    />
+                  </div>
+                  <div className="griddoc2">
+                    <textarea
+                      value={selectedItem.notes || ""}
+                      onChange={(e) =>
+                        setSelectedItem({
+                          ...selectedItem,
+                          notes: e.target.value,
+                        })
+                      }
+                      placeholder="Add Note"
+                      className="w-full border rounded text-blue-bg placeholder-blue-bg pl-[12px] bg-[#f5f5f5] min-h-[100px] max-h-[100%] p-[12px]"
+                    />
+                    <button
+                      onClick={handleSaveNote}
+                      className="bg-blue-500 text-white rounded p-2 mt-4"
+                    >
+                      Save note
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           )}

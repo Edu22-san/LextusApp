@@ -4,9 +4,21 @@ import { useMediaQuery, useTheme } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import "./cardsDashboardCustomers.css";
 import Api from "../../services/api";
-import { Typography, Button, IconButton, Box } from "@mui/material";
+import {
+  Typography,
+  Button,
+  IconButton,
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import SaveAltIcon from '@mui/icons-material/SaveAlt';
+import SaveAltIcon from "@mui/icons-material/SaveAlt";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -22,24 +34,23 @@ const CardDocumentsPending = ({ checklist = [] }) => {
     formDatas.append("id_item", id_item);
     formDatas.append("document", file);
 
-    let datos={
+    let datos = {
       id_user_step: id_user_step,
       id_item: id_item,
-      file:file,
-    }
+      file: file,
+    };
 
-   // console.log('ver datos a capturar:', datos);
+    // console.log('ver datos a capturar:', datos);
 
     try {
       const response = await Api.postUpload("save-document", formDatas);
-   
 
       if (response) {
         console.log("File uploaded successfully!");
 
         toast.success("File uploaded successfully!", {
           position: "top-right",
-          autoClose: 3000, 
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -50,8 +61,7 @@ const CardDocumentsPending = ({ checklist = [] }) => {
         setTimeout(() => {
           window.location.reload();
         }, 3000);
-      }
-       else {
+      } else {
         console.log("Upload failed");
 
         toast.error("Upload failed", {
@@ -103,7 +113,7 @@ const CardDocumentsPending = ({ checklist = [] }) => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: isMobile ? "90%" : "50%",
+    width: isMobile ? "90%" : "80%",
     maxHeight: "85vh",
     bgcolor: "background.paper",
     border: "none",
@@ -191,50 +201,119 @@ const CardDocumentsPending = ({ checklist = [] }) => {
                               <CloseIcon />
                             </IconButton>
                           </Typography>
-                          <div id="modal-modal-description" sx={{ mt: 2 }}>
-                            <div
-                              style={{
-                                maxHeight: "60vh",
-                                overflowY: "auto",
-                                marginBottom: "1rem",
-                                marginTop: "1rem",
-                              }}
-                            >
-                              <ul className="list-decimal">
+                          <div
+                            style={{
+                              marginTop: "1rem",
+                              marginBottom: "1rem",
+                              maxHeight: "60vh",
+                              overflowY: "auto",
+                            }}
+                          >
+                            {isMobile ? (
+                              <ul className=" pl-0">
                                 {filteredItems.length > 0 ? (
-                                  filteredItems.map((item, itemIndex) => (
-                                    <li
-                                      key={itemIndex}
-                                      className="mb-[12px] ml-[17px]"
-                                    >
-                                      <div className="flex flex-row justify-between items-center">
-                                        <label className="text-[15px] ">
-                                          {item.item_name} /{" "}
-                                          {item.expiration_date} / {item.status}
-                                        </label>
+                                  filteredItems.map((item) => (
+                                    <li key={item.id_item} className="mb-3">
+                                      <div className="flex flex-col class-rv">
+                                        <span className="text-[14px] text-blue-txt">
+                                          <strong>Document:</strong>{" "}
+                                          {item.item_name}
+                                        </span>
+                                        <span className="text-[14px] text-blue-txt">
+                                          <strong>Expiration:</strong>{" "}
+                                          {item.expiration_date}
+                                        </span>
+                                        <span className="text-[14px] text-blue-txt">
+                                          <strong>Status:</strong> {item.status}
+                                        </span>
+                                        <span className="text-[14px] text-blue-txt">
+                                          <strong>Notes:</strong> {item.notes}
+                                        </span>
+                                        <Button
+                                          variant="outlined"
+                                          startIcon={<SaveAltIcon />}
+                                          onClick={() =>
+                                            handleFileInputClick(item.id_item)
+                                          }
+                                          style={{ marginTop: "0.5rem" }}
+                                        >
+                                          Upload
+                                        </Button>
                                         <input
                                           id={`file-input-${item.id_item}`}
                                           type="file"
                                           onChange={(e) =>
                                             handleFileChange(e, item)
                                           }
-                                          style={{ display: "none" }} 
+                                          style={{ display: "none" }}
                                         />
-                                        <Button
-                                          onClick={() =>handleFileInputClick(item.id_item)}
-                                          style={styledButton}>
-                                         <SaveAltIcon/>
-                                        </Button>
                                       </div>
                                     </li>
                                   ))
                                 ) : (
-                                  <li className="mb-[12px] ml-[17px] text-gray-500">
+                                  <li className="text-gray-500">
                                     No items to upload.
                                   </li>
                                 )}
                               </ul>
-                            </div>
+                            ) : (
+                              <TableContainer component={Paper}>
+                                <Table>
+                                  <TableHead>
+                                    <TableRow>
+                                      <TableCell>Document Name</TableCell>
+                                      <TableCell>Expiration Date</TableCell>
+                                      <TableCell>Status</TableCell>
+                                      <TableCell>Notes</TableCell>
+                                      <TableCell>Action</TableCell>
+                                    </TableRow>
+                                  </TableHead>
+                                  <TableBody>
+                                    {filteredItems.length > 0 ? (
+                                      filteredItems.map((item) => (
+                                        <TableRow key={item.id_item}>
+                                          <TableCell>
+                                            {item.item_name}
+                                          </TableCell>
+                                          <TableCell>
+                                            {item.expiration_date}
+                                          </TableCell>
+                                          <TableCell>{item.status}</TableCell>
+                                          <TableCell>{item.notes}</TableCell>
+                                          <TableCell>
+                                            <Button
+                                              onClick={() =>
+                                                handleFileInputClick(
+                                                  item.id_item
+                                                )
+                                              }
+                                              variant="contained"
+                                              startIcon={<SaveAltIcon />}
+                                            >
+                                              Upload
+                                            </Button>
+                                            <input
+                                              id={`file-input-${item.id_item}`}
+                                              type="file"
+                                              onChange={(e) =>
+                                                handleFileChange(e, item)
+                                              }
+                                              style={{ display: "none" }}
+                                            />
+                                          </TableCell>
+                                        </TableRow>
+                                      ))
+                                    ) : (
+                                      <TableRow>
+                                        <TableCell colSpan={5} align="center">
+                                          No items to upload.
+                                        </TableCell>
+                                      </TableRow>
+                                    )}
+                                  </TableBody>
+                                </Table>
+                              </TableContainer>
+                            )}
                           </div>
                         </Box>
                       </Modal>

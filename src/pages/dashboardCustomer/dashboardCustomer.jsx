@@ -55,7 +55,7 @@ const DashboardCustomer = () => {
     <>
       <div className="min-w-full max-w-[1600px] w-[85%] flex flex-col items-center justify-center mt-[4rem] relative">
         <div className="md:w-[40%] lg:w-[40%] w-[90%] flex flex-col items-center justify-center">
-          <h1 className="text-white text-5xl lg:text-7xl md:text-7xl font-bold text-center">
+          <h1 className="text-white text-5xl lg:text-7xl md:text-5xl font-bold text-center">
             Welcome to <br /> Lextus Portal
           </h1>
           <p className="text-center text-white text-xl md:text-2xl lg:text-2xl font-light pt-2">
@@ -85,7 +85,7 @@ const DashboardCustomer = () => {
             <div className="w-full flex flex-row items-center justify-between pb-1 border-b-2 border-solid border-gray-300">
               <div className="flex flex-row items-center">
                 <i className="fa-regular fa-folder-open text-[#061056] mr-1"></i>
-                <p className="text-blue-500 text-lg font-bold md:text-[17px] lg:text-[17px]">
+                <p className="text-blue-500 text-lg font-bold text-[14px] md:text-[17px] lg:text-[17px]">
                   Steps
                 </p>
               </div>
@@ -104,7 +104,7 @@ const DashboardCustomer = () => {
                       key={stepIndex}
                       className="flex flex-row items-center justify-between mb-[10px]"
                     >
-                      <p className="w-full pl-[7px] pr-[7px] font-semibold text-[14px]">
+                      <p className="w-full pl-[7px] pr-[7px] text-[14px] text-blue-txt">
                         {step.step_name} / {step.estimated_date}
                       </p>
                       <p
