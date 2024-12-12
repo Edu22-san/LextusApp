@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 import DocViewer, { DocViewerRenderers } from "react-doc-viewer";
+import PDFViewer from "./pdfViewer";
 
 const DocumentComponent = ({ documentUrl }) => {
   // Determinar si el documento es un PDF
@@ -26,7 +27,9 @@ const DocumentComponent = ({ documentUrl }) => {
           borderRadius: "8px",
         }}
       >
-        <p style={{ color: "#999" }}>No se proporcionó una URL para el documento.</p>
+        <p style={{ color: "#999" }}>
+          No se proporcionó una URL para el documento.
+        </p>
       </div>
     );
   }
@@ -34,7 +37,7 @@ const DocumentComponent = ({ documentUrl }) => {
   return (
     <div className="h-full">
       {/* Botón de descarga */}
-      <div
+      {/* <div
         style={{
           display: "flex",
           justifyContent: "flex-end",
@@ -58,19 +61,11 @@ const DocumentComponent = ({ documentUrl }) => {
         >
           Descargar
         </a>
-      </div>
+      </div> */}
 
       {/* Mostrar documento */}
       {isPDF ? (
-        <iframe
-          src={documentUrl}
-          title="PDF Document"
-          style={{
-            width: "100%",
-            height: "100%",
-            border: "none",
-          }}
-        />
+        <PDFViewer pdfUrl={documentUrl} />
       ) : (
         <DocViewer
           documents={docs}

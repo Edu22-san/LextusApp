@@ -393,7 +393,7 @@ const DetailCustomer = () => {
                   </button>
                 </div>
                 <div className="grid-container-modal-doc">
-                  <div className=" h-[200px] lg:h-[425px] md:h-[360px] griddoc1">
+                  <div className="overflow-y-auto lg:h-[850px] h-[600px] griddoc1">
                     <DocumentComponent
                       documentUrl={selectedItem.document_path || ""}
                     />
