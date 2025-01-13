@@ -184,9 +184,9 @@ const Login = () => {
               />
               <label className="text-white">Remember me</label>
             </div>
-            <a className="text-white hover:underline text-center">
+            <Link to="/reset-password" className="text-white hover:underline text-center">
               Forgot your password?
-            </a>
+            </Link>
           </div>
           <button
             className="w-40 h-12 mt-8 rounded-full text-blue-500 font-bold text-lg bg-white boxshadow"

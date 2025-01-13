@@ -381,24 +381,24 @@ const DetailCustomer = () => {
           {isModalOpen && selectedItem && (
             <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
               <div className="bg-white p-6 rounded-lg shadow-lg max-w-[1299px] w-[90%] h-[80%]">
-                <div className="flex flex-row justify-between items-center">
-                  <h2 className="text-xl font-semibold text-blue-bg">
-                    {selectedItem.item_name}
-                  </h2>
-                  <button
-                    className="text-red-500 hover:underline"
-                    onClick={closeModal}
-                  >
-                    <i className="fa-solid fa-x"></i>
-                  </button>
-                </div>
                 <div className="grid-container-modal-doc">
-                  <div className="overflow-y-auto lg:h-[850px] h-[600px] griddoc1">
+                  <div className="overflow-y-auto h-[55%] lg:h-[100%] md:h-[100%] griddoc1">
                     <DocumentComponent
                       documentUrl={selectedItem.document_path || ""}
                     />
                   </div>
                   <div className="griddoc2">
+                    <div className="flex flex-row justify-between items-center">
+                      <h2 className="text-xl font-semibold text-blue-bg">
+                        {selectedItem.item_name}
+                      </h2>
+                      <button
+                        className="text-red-500 hover:underline"
+                        onClick={closeModal}
+                      >
+                        <i className="fa-solid fa-x"></i>
+                      </button>
+                    </div>
                     <textarea
                       value={selectedItem.notes || ""}
                       onChange={(e) =>
